@@ -45,6 +45,9 @@ use App\Http\Controllers\admin\CoverTemplateController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\VideoPurchaseController;
+use App\Http\Controllers\VideoDownloadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -157,6 +160,10 @@ Route::middleware(['auth', 'role:Viewer'])->group(function () {
     Route::post('/jobpost/reject-bid/{id}', [JobPostController::class, 'rejectBid'])->name('jobpost.reject-bid');
     Route::post('/jobpost/complete-job/{id}', [JobPostController::class, 'completeJob'])->name('jobpost.complete-job');
     
+    // Video platform routes for viewers
+    Route::get('/my-orders', [OrderController::class, 'myOrders'])->name('viewer.orders.index');
+    Route::get('/my-video-purchases', [VideoPurchaseController::class, 'myPurchases'])->name('viewer.video-purchases.index');
+    Route::get('/my-downloads', [VideoDownloadController::class, 'myDownloads'])->name('viewer.downloads.index');
 });
 
 Route::get('listing', [WebController::class, 'Listing'])->name('listing');
@@ -334,11 +341,8 @@ Route::group(['middleware' => ['auth', 'role:Creator'], 'prefix' => 'creator'], 
     // Creator dashboard and analytics
     Route::get('/dashboard', [AdminController::class, 'creatorDashboard'])->name('creator.dashboard');
     Route::get('/my-videos', [VideoController::class, 'myVideos'])->name('creator.videos.index');
-    Route::get('/pricing-rules', [AdminController::class, 'creatorPricingRules'])->name('creator.pricing-rules');
-    Route::put('/pricing-rules', [AdminController::class, 'updateCreatorPricingRules'])->name('creator.pricing-rules.update');
     Route::get('/analytics', [AdminController::class, 'creatorAnalytics'])->name('creator.analytics');
     Route::get('/earnings', [AdminController::class, 'creatorEarnings'])->name('creator.earnings');
-    Route::get('/check-pricing-unlock', [AdminController::class, 'checkCreatorPricingUnlock'])->name('creator.check-pricing-unlock');
     
     // Creator wallet and payouts
     Route::get('/wallet', [WalletController::class, 'dashboard'])->name('creator.wallet.dashboard');

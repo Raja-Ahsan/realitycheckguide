@@ -1,4 +1,4 @@
-@extends('layouts.electrician.app')
+@extends('layouts.creator.app')
 @section('title', $page_title)
 @section('content')
 <section class="content-header">

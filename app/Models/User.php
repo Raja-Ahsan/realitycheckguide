@@ -112,6 +112,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Alias for purchasedVideos relationship
+     */
+    public function videoPurchases()
+    {
+        return $this->purchasedVideos();
+    }
+
+    /**
+     * Alias for downloadedVideos relationship
+     */
+    public function videoDownloads()
+    {
+        return $this->downloadedVideos();
+    }
+
+    /**
      * Pricing rules for this creator
      */
     public function pricingRules()

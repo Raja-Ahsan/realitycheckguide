@@ -84,61 +84,9 @@
                 </div>
             </div>
 
-            <!-- Pricing Rules Status -->
+            <!-- Quick Actions -->
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-cog"></i> Pricing Rules Status
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            @if($pricingRules)
-                                <div class="">
-                                    <div class="col-6">
-                                        <strong>Min Price:</strong><br>
-                                        <span class="text-success">${{ $pricingRules->min_price_floor }}</span>
-                                    </div>
-                                    <div class="col-6">
-                                        <strong>Max Price:</strong><br>
-                                        <span class="text-danger">${{ $pricingRules->max_price_cap }}</span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="">
-                                    <div class="col-6">
-                                        <strong>Videos Sold:</strong><br>
-                                        <span class="text-info">{{ auth()->user()->getTotalVideosSoldAttribute() }}</span>
-                                    </div>
-                                    <div class="col-6">
-                                        <strong>Threshold:</strong><br>
-                                        <span class="text-warning">{{ $pricingRules->videos_sold_threshold }}</span>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="text-center">
-                                    @if($pricingRules->custom_pricing_enabled)
-                                        <span class="badge badge-success">Custom Pricing Unlocked!</span>
-                                    @else
-                                        <span class="badge badge-warning">
-                                            Need {{ $pricingRules->videos_sold_threshold - auth()->user()->getTotalVideosSoldAttribute() }} more sales
-                                        </span>
-                                    @endif
-                                </div>
-                            @else
-                                <p class="text-muted">No pricing rules found. Contact admin.</p>
-                            @endif
-                        </div>
-                        <div class="card-footer">
-                            <a href="{{ route('creator.pricing-rules') }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-edit"></i> Manage Pricing Rules
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
@@ -146,37 +94,33 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            <div class="">
-                                <div class="col-6">
+                            <div class="row">
+                                <div class="col-md-2">
                                     <a href="{{ route('creator.videos.create') }}" class="btn btn-success btn-block mb-2">
                                         <i class="fas fa-upload"></i> Upload Video
                                     </a>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-2">
                                     <a href="{{ route('creator.videos.index') }}" class="btn btn-info btn-block mb-2">
                                         <i class="fas fa-list"></i> My Videos
                                     </a>
                                 </div>
-                            </div>
-                            <div class="">
-                                <div class="col-6">
+                                <div class="col-md-2">
                                     <a href="{{ route('creator.analytics') }}" class="btn btn-warning btn-block mb-2">
                                         <i class="fas fa-chart-bar"></i> Analytics
                                     </a>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-2">
                                     <a href="{{ route('creator.earnings') }}" class="btn btn-danger btn-block mb-2">
                                         <i class="fas fa-dollar-sign"></i> Earnings
                                     </a>
                                 </div>
-                            </div>
-                            <div class="">
-                                <div class="col-6">
+                                <div class="col-md-2">
                                     <a href="{{ route('creator.wallet.dashboard') }}" class="btn btn-dark btn-block mb-2">
                                         <i class="fas fa-wallet"></i> Wallet
                                     </a>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-2">
                                     <a href="{{ route('creator.wallet.payouts') }}" class="btn btn-secondary btn-block mb-2">
                                         <i class="fas fa-money-bill-wave"></i> Payouts
                                     </a>

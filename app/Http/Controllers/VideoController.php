@@ -18,7 +18,9 @@ class VideoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'role:Creator']);
+        // Only require Creator role for methods that modify videos
+        $this->middleware('auth');
+        $this->middleware('role:Creator')->only(['create', 'store', 'edit', 'update', 'destroy', 'myVideos']);
     }
 
     /**
@@ -148,7 +150,7 @@ class VideoController extends Controller
         // Check if this is an intro video
         if ($request->boolean('is_intro')) {
             // Only allow one intro video per creator
-            if ($user->hasIntroVideo()) {
+            if ($user->videos()->where('is_intro', true)->exists()) {
                 return redirect()->back()
                     ->withErrors(['is_intro' => 'You already have an intro video. Only one intro video is allowed per creator.'])
                     ->withInput();
@@ -297,7 +299,7 @@ class VideoController extends Controller
             }
             
             // Check if user already has an intro video (if this is not the current intro video)
-            if (!$video->is_intro && $user->hasIntroVideo()) {
+            if (!$video->is_intro && $user->videos()->where('is_intro', true)->exists()) {
                 return redirect()->back()
                     ->withErrors(['is_intro' => 'You already have an intro video. Only one intro video is allowed per creator.'])
                     ->withInput();

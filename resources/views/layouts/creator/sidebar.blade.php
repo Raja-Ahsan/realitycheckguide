@@ -17,15 +17,15 @@
             </li>
 
             <!-- Video Platform Management -->
-            <li class="treeview {{ (request()->is('creator/videos*') || request()->is('creator/analytics*') || request()->is('creator/earnings*') || request()->is('creator/wallet*') || request()->is('creator/pricing*')) ? 'active' : '' }}" style="height: auto;">
-                <a href="#" class="{{ (request()->is('creator/videos*') || request()->is('creator/analytics*') || request()->is('creator/earnings*') || request()->is('creator/wallet*') || request()->is('creator/pricing*')) ? 'active' : '' }}">
+            <li class="treeview {{ (request()->is('creator/videos*') || request()->is('creator/analytics*') || request()->is('creator/earnings*') || request()->is('creator/wallet*')) ? 'active' : '' }}" style="height: auto;">
+                <a href="#" class="{{ (request()->is('creator/videos*') || request()->is('creator/analytics*') || request()->is('creator/earnings*') || request()->is('creator/wallet*')) ? 'active' : '' }}">
                     <i class="fa fa-video-camera"></i>
                     <span>Video Platform</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" style="display: {{ (request()->is('creator/videos*') || request()->is('creator/analytics*') || request()->is('creator/earnings*') || request()->is('creator/wallet*') || request()->is('creator/pricing*')) ? 'block' : 'none' }};">
+                <ul class="treeview-menu" style="display: {{ (request()->is('creator/videos*') || request()->is('creator/analytics*') || request()->is('creator/earnings*') || request()->is('creator/wallet*')) ? 'block' : 'none' }};">
                     <li class="treeview mt-2">
                         <a href="{{ route('creator.videos.create') }}" class="{{ request()->is('creator/videos/create') ? 'active' : '' }}">
                             <i class="fa fa-upload"></i> <span>Upload Video</span>
@@ -54,11 +54,6 @@
                     <li class="treeview mt-2">
                         <a href="{{ route('creator.wallet.payouts') }}" class="{{ request()->is('creator/wallet/payouts*') ? 'active' : '' }}">
                             <i class="fa fa-money-bill-wave"></i> <span>Payouts</span>
-                        </a>
-                    </li>
-                    <li class="treeview mt-2">
-                        <a href="{{ route('creator.pricing-rules') }}" class="{{ request()->is('creator/pricing-rules*') ? 'active' : '' }}">
-                            <i class="fa fa-cog"></i> <span>Pricing Rules</span>
                         </a>
                     </li>
                 </ul>

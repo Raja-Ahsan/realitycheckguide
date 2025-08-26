@@ -378,14 +378,6 @@ class AdminController extends Controller
           ->limit(10)
           ->get();
         
-        // Get pricing rules from admin settings
-        $pricingRules = (object) [
-            'min_price_floor' => \App\Models\AdminSetting::getMinVideoPrice(),
-            'max_price_cap' => \App\Models\AdminSetting::getMaxVideoPrice(),
-            'videos_sold_threshold' => \App\Models\AdminSetting::getVideosSoldThreshold(),
-            'custom_pricing_enabled' => true // For now, assume it's enabled
-        ];
-        
         // Get wallet information
         $wallet = $user->wallet;
         $pendingBalance = $wallet ? $wallet->pending_balance : 0;
@@ -400,52 +392,13 @@ class AdminController extends Controller
             'totalEarnings',
             'totalPurchases',
             'recentPurchases',
-            'pricingRules',
             'wallet',
             'pendingBalance',
             'availableBalance'
         ));
     }
 
-    public function creatorPricingRules()
-    {
-        if (!Auth::check() || !Auth::user()->hasRole('Creator')) {
-            return redirect()->route('login');
-        }
 
-        $user = Auth::user();
-        
-        // Get pricing rules from admin settings
-        $pricingRules = (object) [
-            'min_price_floor' => \App\Models\AdminSetting::getMinVideoPrice(),
-            'max_price_cap' => \App\Models\AdminSetting::getMaxVideoPrice(),
-            'videos_sold_threshold' => \App\Models\AdminSetting::getVideosSoldThreshold(),
-            'custom_pricing_enabled' => true // For now, assume it's enabled
-        ];
-        
-        $page_title = 'Pricing Rules';
-        return view('creator.pricing-rules', compact('page_title', 'user', 'pricingRules'));
-    }
-
-    public function updateCreatorPricingRules(Request $request)
-    {
-        if (!Auth::check() || !Auth::user()->hasRole('Creator')) {
-            return redirect()->route('login');
-        }
-
-        $request->validate([
-            'default_price' => 'required|numeric|min:0',
-            'price_per_minute' => 'required|numeric|min:0',
-        ]);
-
-        $user = Auth::user();
-        $user->update([
-            'default_video_price' => $request->default_price,
-            'price_per_minute' => $request->price_per_minute,
-        ]);
-
-        return redirect()->back()->with('message', 'Pricing rules updated successfully!');
-    }
 
     public function creatorEarnings()
     {
@@ -479,18 +432,5 @@ class AdminController extends Controller
         return view('creator.earnings', compact('page_title', 'totalEarnings', 'recentTransactions', 'monthlyEarnings'));
     }
 
-    public function checkCreatorPricingUnlock()
-    {
-        if (!Auth::check() || !Auth::user()->hasRole('Creator')) {
-            return redirect()->route('login');
-        }
 
-        $user = Auth::user();
-        $hasIntroVideo = $user->videos()->where('is_intro', true)->exists();
-        
-        return response()->json([
-            'unlocked' => $hasIntroVideo,
-            'message' => $hasIntroVideo ? 'Pricing unlocked!' : 'Upload an intro video to unlock pricing features.'
-        ]);
-    }
 }

@@ -14,6 +14,10 @@ use App\Models\ContactUs;
 use App\Models\Contact;
 use App\Models\ClientContact;
 use App\Models\news_letter;
+use App\Models\Order;
+use App\Models\VideoPurchase;
+use App\Models\VideoDownload;
+use App\Models\Video;
 use Google\Service\CivicInfo\Resource\Elections;
 use Illuminate\Support\Facades\Session;
 class HomeController extends Controller
@@ -56,13 +60,42 @@ class HomeController extends Controller
             // Viewer dashboard
             $page_title = 'Dashboard';
             $user = Auth::user();
+            
+            // Job post data
             $totalJobPosts = $user->jobPosts()->count();
             $activeJobPosts = $user->jobPosts()->where('status', 1)->count();
             $totalBids = $user->receivedBids()->count();
             $pendingBids = $user->receivedBids()->where('status', 'pending')->count();
             $recentJobPosts = $user->jobPosts()->latest()->take(5)->get();
             $recentBids = $user->receivedBids()->with(['jobPost', 'creator'])->latest()->take(5)->get();
-            return view('website.viewer-dashboard.dashboard', compact('page_title', 'totalJobPosts', 'activeJobPosts', 'totalBids', 'pendingBids', 'recentJobPosts', 'recentBids'));
+            
+            // Video platform data
+            $totalOrders = $user->orders()->count();
+            $completedOrders = $user->orders()->where('status', 'completed')->count();
+            $totalVideoPurchases = $user->videoPurchases()->count();
+            $totalDownloads = $user->videoDownloads()->count();
+            
+            // Recent orders and video purchases
+            $recentOrders = $user->orders()->with(['video', 'creator'])->latest()->take(5)->get();
+            $recentVideoPurchases = $user->videoPurchases()->with(['video.creator'])->latest()->take(5)->get();
+            $recentDownloads = $user->videoDownloads()->with(['video.creator'])->latest()->take(5)->get();
+            
+            return view('website.viewer-dashboard.dashboard', compact(
+                'page_title', 
+                'totalJobPosts', 
+                'activeJobPosts', 
+                'totalBids', 
+                'pendingBids', 
+                'recentJobPosts', 
+                'recentBids',
+                'totalOrders',
+                'completedOrders',
+                'totalVideoPurchases',
+                'totalDownloads',
+                'recentOrders',
+                'recentVideoPurchases',
+                'recentDownloads'
+            ));
         } else {
             return redirect()->route('index');
         }

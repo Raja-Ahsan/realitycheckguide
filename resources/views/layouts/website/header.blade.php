@@ -12,7 +12,7 @@
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
               <li class="scroll-to-section"><a href="{{ route('index') }}" class="active">Home</a></li>
-              <li><a href="#">About</a></li>
+              <li><a href="{{ route('about-us') }}">About</a></li>
               <li class="scroll-to-section"><a href="#">instructions for easy upload</a></li>
               <!-- <li class="has-sub">
                               <a href="javascript:void(0)">intake</a>
@@ -22,7 +22,7 @@
                               </ul>
                           </li> -->
               <li class="scroll-to-section"><a href="#courses">intake</a></li>
-              <li class="scroll-to-section"><a href="#contact">Contact</a></li>
+              <li class="scroll-to-section"><a href="{{ route('contact-us') }}">Contact</a></li>
               <li class="scroll-to-section"><a href="{{ route('creators.index') }}">Creators</a></li>
               <li class="scroll-to-section"><a href="{{ route('login') }}">Login</a></li>
               <li class="scroll-to-section signup"><a href="{{ route('sign-up') }}">Signup</a></li>

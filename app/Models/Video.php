@@ -207,4 +207,88 @@ class Video extends Model
         }
         return '$' . number_format($this->price, 2);
     }
+
+    /**
+     * Get all questions for this video
+     */
+    public function questions()
+    {
+        return $this->hasMany(VideoQuestion::class)->active()->ordered();
+    }
+
+    /**
+     * Get all question responses for this video
+     */
+    public function questionResponses()
+    {
+        return $this->hasMany(VideoQuestionResponse::class);
+    }
+
+    /**
+     * Get responses by a specific user for this video
+     */
+    public function userQuestionResponses($userId)
+    {
+        return $this->questionResponses()->where('user_id', $userId);
+    }
+
+    /**
+     * Check if video has Q&A questions
+     */
+    public function hasQuestions()
+    {
+        return $this->questions()->count() > 0;
+    }
+
+    /**
+     * Get total number of questions
+     */
+    public function getTotalQuestionsAttribute()
+    {
+        return $this->questions()->count();
+    }
+
+    /**
+     * Calculate user's learning progress for this video
+     */
+    public function calculateUserProgress($userId)
+    {
+        $totalQuestions = $this->getTotalQuestionsAttribute();
+        
+        if ($totalQuestions === 0) {
+            return [
+                'total_questions' => 0,
+                'answered_questions' => 0,
+                'correct_answers' => 0,
+                'progress_percentage' => 0,
+                'learning_score' => 0,
+            ];
+        }
+
+        $userResponses = $this->userQuestionResponses($userId)->get();
+        $answeredQuestions = $userResponses->count();
+        $correctAnswers = $userResponses->where('is_correct', true)->count();
+        
+        $progressPercentage = $answeredQuestions > 0 ? ($answeredQuestions / $totalQuestions) * 100 : 0;
+        $learningScore = $answeredQuestions > 0 ? ($correctAnswers / $answeredQuestions) * 100 : 0;
+
+        return [
+            'total_questions' => $totalQuestions,
+            'answered_questions' => $answeredQuestions,
+            'correct_answers' => $correctAnswers,
+            'progress_percentage' => round($progressPercentage, 2),
+            'learning_score' => round($learningScore, 2),
+        ];
+    }
+
+    /**
+     * Check if user has completed all questions for this video
+     */
+    public function hasUserCompletedQuestions($userId)
+    {
+        $totalQuestions = $this->getTotalQuestionsAttribute();
+        $answeredQuestions = $this->userQuestionResponses($userId)->count();
+        
+        return $totalQuestions > 0 && $answeredQuestions >= $totalQuestions;
+    }
 }

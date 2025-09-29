@@ -12,6 +12,9 @@ use App\Models\VideoPurchase;
 use App\Models\VideoDownload;
 use App\Models\CreatorPricingRule;
 use App\Models\Category;
+use App\Models\VideoQuestion;
+use App\Models\VideoQuestionOption;
+use App\Models\VideoQuestionResponse;
 use Illuminate\Support\Str;
 
 class VideoController extends Controller
@@ -127,6 +130,13 @@ class VideoController extends Controller
     {
         // User must have Creator role (enforced by middleware)
 
+        // Debug: Log all request data
+        Log::info('Video store request data', [
+            'all_data' => $request->all(),
+            'questions_data' => $request->questions,
+            'questions_type' => gettype($request->questions ?? null)
+        ]);
+
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -137,9 +147,19 @@ class VideoController extends Controller
             'price' => 'required|numeric|min:0|max:999.99',
             'is_intro' => 'boolean',
             'downloads_enabled' => 'boolean',
+            // Q&A validation rules - Temporarily disabled for debugging
+            // 'questions' => 'nullable|array|max:10',
+            // 'questions.*.question' => 'required_with:questions|string|max:1000',
+            // 'questions.*.options' => 'required_with:questions|array|size:4',
+            // 'questions.*.options.*' => 'required_with:questions.*.options|string|max:500',
+            // 'questions.*.correct_option' => 'required_with:questions|integer|min:1|max:4',
         ]);
 
         if ($validator->fails()) {
+            Log::error('Validation failed', [
+                'errors' => $validator->errors()->toArray(),
+                'request_data' => $request->all()
+            ]);
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
@@ -196,6 +216,34 @@ class VideoController extends Controller
             'status' => 'active',
         ]);
 
+        // Create Q&A questions if provided - TESTING MODE
+        Log::info('Q&A Debug Info', [
+            'has_questions' => $request->has('questions'),
+            'questions_value' => $request->input('questions'),
+            'questions_type' => gettype($request->input('questions')),
+            'all_request_keys' => array_keys($request->all()),
+            'request_contains_questions' => strpos(json_encode($request->all()), 'questions') !== false
+        ]);
+        
+        // Try to create Q&A questions with any data that looks like questions
+        if ($request->has('questions')) {
+            Log::info('Attempting to create Q&A questions', [
+                'video_id' => $video->id,
+                'questions_data' => $request->questions
+            ]);
+            try {
+                $this->createVideoQuestions($video, $request->questions);
+                Log::info('Q&A questions created successfully');
+            } catch (\Exception $e) {
+                Log::error('Failed to create Q&A questions', [
+                    'error' => $e->getMessage(),
+                    'questions_data' => $request->questions
+                ]);
+            }
+        } else {
+            Log::info('No questions field found in request');
+        }
+
         return redirect()->route('videos.show', $video)
             ->with('success', 'Video uploaded successfully!');
     }
@@ -225,6 +273,9 @@ class VideoController extends Controller
             ->limit(6)
             ->get();
 
+        // Load questions with options for Q&A functionality
+        $video->load(['questions.options']);
+
         return view('videos.show', compact('video', 'canAccess', 'canDownload', 'hasPurchased', 'relatedVideos'));
     }
 
@@ -242,6 +293,9 @@ class VideoController extends Controller
         $user = Auth::user();
         $pricingRules = $user->pricingRules;
 
+        // Load questions with options for editing
+        $video->load(['questions.options']);
+
         return view('creator.videos.edit', compact('video', 'categories', 'pricingRules'));
     }
 
@@ -256,7 +310,7 @@ class VideoController extends Controller
         }
 
         // Debug: Log the request data
-        \Log::info('Video update request', [
+        Log::info('Video update request', [
             'video_id' => $video->id,
             'request_data' => $request->all(),
             'user_id' => Auth::user()->id
@@ -272,10 +326,16 @@ class VideoController extends Controller
             'price' => 'required|numeric|min:0|max:999.99',
             'downloads_enabled' => 'boolean',
             'is_intro' => 'boolean',
+            // Q&A validation rules - Temporarily disabled for debugging
+            // 'questions' => 'nullable|array|max:10',
+            // 'questions.*.question' => 'required_with:questions|string|max:1000',
+            // 'questions.*.options' => 'required_with:questions|array|size:4',
+            // 'questions.*.options.*' => 'required_with:questions.*.options|string|max:500',
+            // 'questions.*.correct_option' => 'required_with:questions|integer|min:1|max:4',
         ]);
 
         if ($validator->fails()) {
-            \Log::error('Video update validation failed', $validator->errors()->toArray());
+            Log::error('Video update validation failed', $validator->errors()->toArray());
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
@@ -289,7 +349,7 @@ class VideoController extends Controller
         if ($isIntro) {
             // Intro videos must be free
             if ($request->price > 0) {
-                \Log::error('Intro video cannot have price', [
+                Log::error('Intro video cannot have price', [
                     'price' => $request->price,
                     'user_id' => $user->id
                 ]);
@@ -307,7 +367,7 @@ class VideoController extends Controller
         } else {
             // For non-intro videos, validate pricing based on creator's rules
             if (!$this->validatePricing($user, $request->price)) {
-                \Log::error('Video update pricing validation failed', [
+                Log::error('Video update pricing validation failed', [
                     'price' => $request->price,
                     'user_id' => $user->id
                 ]);
@@ -358,17 +418,47 @@ class VideoController extends Controller
                 'tags' => $request->tags ? explode(',', $request->tags) : [],
             ];
 
-            \Log::info('Updating video with data', $updateData);
+            Log::info('Updating video with data', $updateData);
             
             $video->update($updateData);
 
-            \Log::info('Video updated successfully', ['video_id' => $video->id]);
+            // Update Q&A questions if provided - TESTING MODE
+            Log::info('Q&A Update Debug Info', [
+                'has_questions' => $request->has('questions'),
+                'questions_value' => $request->input('questions'),
+                'questions_type' => gettype($request->input('questions')),
+                'all_request_keys' => array_keys($request->all()),
+                'request_contains_questions' => strpos(json_encode($request->all()), 'questions') !== false
+            ]);
+            
+            // Try to update Q&A questions with any data that looks like questions
+            if ($request->has('questions')) {
+                Log::info('Attempting to update Q&A questions', [
+                    'video_id' => $video->id,
+                    'questions_data' => $request->questions
+                ]);
+                try {
+                    $this->updateVideoQuestions($video, $request->questions);
+                    Log::info('Q&A questions updated successfully');
+                } catch (\Exception $e) {
+                    Log::error('Failed to update Q&A questions', [
+                        'error' => $e->getMessage(),
+                        'questions_data' => $request->questions
+                    ]);
+                }
+            } else {
+                Log::info('No questions field found in update request');
+                // If no questions provided, remove all existing questions
+                $this->removeAllVideoQuestions($video);
+            }
+
+            Log::info('Video updated successfully', ['video_id' => $video->id]);
 
             return redirect()->route('creator.videos.index')
                 ->with('success', 'Video updated successfully!');
                 
         } catch (\Exception $e) {
-            \Log::error('Video update failed', [
+            Log::error('Video update failed', [
                 'error' => $e->getMessage(),
                 'video_id' => $video->id,
                 'trace' => $e->getTraceAsString()
@@ -502,5 +592,179 @@ class VideoController extends Controller
         // This is a placeholder. In production, you'd use FFmpeg or similar
         // to extract actual video duration
         return 60; // Default 1 minute
+    }
+
+    /**
+     * Create video questions and options
+     */
+    private function createVideoQuestions(Video $video, array $questions)
+    {
+        Log::info('createVideoQuestions called', [
+            'video_id' => $video->id,
+            'questions_count' => count($questions),
+            'questions_data' => $questions
+        ]);
+
+        foreach ($questions as $index => $questionData) {
+            Log::info('Processing question', [
+                'index' => $index,
+                'question_data' => $questionData
+            ]);
+
+            if (empty($questionData['question']) || !isset($questionData['options']) || !isset($questionData['correct_option'])) {
+                Log::warning('Skipping invalid question data', [
+                    'question_data' => $questionData
+                ]);
+                continue;
+            }
+
+            $question = VideoQuestion::create([
+                'video_id' => $video->id,
+                'question' => $questionData['question'],
+                'order' => $index + 1,
+                'is_active' => true,
+            ]);
+
+            Log::info('Created question', [
+                'question_id' => $question->id,
+                'question_text' => $question->question
+            ]);
+
+            // Create options for this question
+            foreach ($questionData['options'] as $optionIndex => $optionText) {
+                if (empty($optionText)) {
+                    Log::warning('Skipping empty option', [
+                        'option_index' => $optionIndex,
+                        'option_text' => $optionText
+                    ]);
+                    continue;
+                }
+
+                $option = VideoQuestionOption::create([
+                    'video_question_id' => $question->id,
+                    'option_text' => $optionText,
+                    'option_order' => $optionIndex + 1,
+                    'is_correct' => ($optionIndex + 1) == $questionData['correct_option'],
+                ]);
+
+                Log::info('Created option', [
+                    'option_id' => $option->id,
+                    'option_text' => $option->option_text,
+                    'is_correct' => $option->is_correct
+                ]);
+            }
+        }
+    }
+
+    /**
+     * Submit answer to a video question
+     */
+    public function submitAnswer(Request $request, Video $video, VideoQuestion $question)
+    {
+        $user = Auth::user();
+
+        // Check if user can access this video
+        if (!$video->canUserAccess($user->id)) {
+            return response()->json(['error' => 'You do not have access to this video.'], 403);
+        }
+
+        // Check if question belongs to this video
+        if ($question->video_id !== $video->id) {
+            return response()->json(['error' => 'Invalid question for this video.'], 400);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'option_id' => 'required|exists:video_question_options,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => 'Invalid option selected.'], 400);
+        }
+
+        $selectedOption = VideoQuestionOption::find($request->option_id);
+
+        // Check if option belongs to this question
+        if ($selectedOption->video_question_id !== $question->id) {
+            return response()->json(['error' => 'Invalid option for this question.'], 400);
+        }
+
+        // Check if user already answered this question
+        $existingResponse = VideoQuestionResponse::where('user_id', $user->id)
+            ->where('video_question_id', $question->id)
+            ->first();
+
+        if ($existingResponse) {
+            return response()->json(['error' => 'You have already answered this question.'], 400);
+        }
+
+        // Create response
+        VideoQuestionResponse::create([
+            'user_id' => $user->id,
+            'video_id' => $video->id,
+            'video_question_id' => $question->id,
+            'video_question_option_id' => $selectedOption->id,
+            'is_correct' => $selectedOption->is_correct,
+            'answered_at' => now(),
+        ]);
+
+        // Calculate updated progress
+        $progress = $video->calculateUserProgress($user->id);
+
+        return response()->json([
+            'success' => true,
+            'is_correct' => $selectedOption->is_correct,
+            'correct_option_id' => $question->correctOption()->first()->id,
+            'progress' => $progress,
+        ]);
+    }
+
+    /**
+     * Get user's learning progress for a video
+     */
+    public function getLearningProgress(Video $video)
+    {
+        $user = Auth::user();
+
+        // Check if user can access this video
+        if (!$video->canUserAccess($user->id)) {
+            return response()->json(['error' => 'You do not have access to this video.'], 403);
+        }
+
+        $progress = $video->calculateUserProgress($user->id);
+
+        return response()->json([
+            'progress' => $progress,
+            'has_questions' => $video->hasQuestions(),
+            'total_questions' => $video->getTotalQuestionsAttribute(),
+        ]);
+    }
+
+    /**
+     * Update video questions and options
+     */
+    private function updateVideoQuestions(Video $video, array $questions)
+    {
+        // Remove all existing questions and options
+        $this->removeAllVideoQuestions($video);
+
+        // Create new questions
+        $this->createVideoQuestions($video, $questions);
+    }
+
+    /**
+     * Remove all questions and options for a video
+     */
+    private function removeAllVideoQuestions(Video $video)
+    {
+        // Delete all question responses first
+        VideoQuestionResponse::where('video_id', $video->id)->delete();
+        
+        // Delete all question options
+        VideoQuestionOption::whereHas('question', function($query) use ($video) {
+            $query->where('video_id', $video->id);
+        })->delete();
+        
+        // Delete all questions
+        VideoQuestion::where('video_id', $video->id)->delete();
     }
 }

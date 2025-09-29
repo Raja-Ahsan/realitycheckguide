@@ -247,4 +247,79 @@ class User extends Authenticatable
     {
         return $this->hasMany(WalletTransaction::class, 'creator_id');
     }
+
+    /**
+     * Get all question responses by this user
+     */
+    public function questionResponses()
+    {
+        return $this->hasMany(VideoQuestionResponse::class);
+    }
+
+    /**
+     * Get question responses for a specific video
+     */
+    public function videoQuestionResponses($videoId)
+    {
+        return $this->questionResponses()->where('video_id', $videoId);
+    }
+
+    /**
+     * Calculate overall learning progress across all videos
+     */
+    public function calculateOverallLearningProgress()
+    {
+        $totalResponses = $this->questionResponses()->count();
+        $correctResponses = $this->questionResponses()->where('is_correct', true)->count();
+        
+        if ($totalResponses === 0) {
+            return [
+                'total_responses' => 0,
+                'correct_responses' => 0,
+                'overall_score' => 0,
+                'videos_completed' => 0,
+            ];
+        }
+
+        $overallScore = ($correctResponses / $totalResponses) * 100;
+        
+        // Count videos where user has answered all questions
+        $videosCompleted = Video::whereHas('questions')
+            ->whereHas('questionResponses', function($query) {
+                $query->where('user_id', $this->id);
+            })
+            ->get()
+            ->filter(function($video) {
+                return $video->hasUserCompletedQuestions($this->id);
+            })
+            ->count();
+
+        return [
+            'total_responses' => $totalResponses,
+            'correct_responses' => $correctResponses,
+            'overall_score' => round($overallScore, 2),
+            'videos_completed' => $videosCompleted,
+        ];
+    }
+
+    /**
+     * Get learning progress for all videos this user has answered questions for
+     */
+    public function getVideoLearningProgress()
+    {
+        $videoIds = $this->questionResponses()->distinct()->pluck('video_id');
+        
+        $progress = [];
+        foreach ($videoIds as $videoId) {
+            $video = Video::find($videoId);
+            if ($video) {
+                $progress[] = [
+                    'video' => $video,
+                    'progress' => $video->calculateUserProgress($this->id),
+                ];
+            }
+        }
+        
+        return $progress;
+    }
 }

@@ -13,10 +13,10 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="caption">
-              <h2>See the Job Before <span>You Choose</span> It.</span></h2>
+              <h2>See the Job <span>Before</span> You Choose It.</span></h2>
               <p>Explore honest, user-made videos about careers that matter.</p>
               <div class="main-button-red">
-                <div class="scroll-to-section"><a href="#"><i class="fa fa-play-circle-o"></i> Watch Real Stories </a>
+                <div class="scroll-to-section"><a href="{{ route('creators.index') }}"><i class="fa fa-play-circle-o"></i> Watch Real Stories </a>
                 </div>
                 <div class="scroll-to-section"><a href="#contact">Upload Your Own <img src="{{ asset('public/assets/website') }}/img/file-upload.svg"
                       alt="upload" class="upload-icon"></a></div>

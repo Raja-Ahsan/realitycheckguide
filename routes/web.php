@@ -321,6 +321,10 @@ Route::group(['middleware' => ['auth']], function () {
     // Video download (requires purchase or free intro)
     Route::get('/videos/{video}/download', [VideoController::class, 'download'])->name('videos.download');
     
+    // Q&A routes
+    Route::post('/videos/{video}/questions/{question}/answer', [VideoController::class, 'submitAnswer'])->name('videos.question.answer');
+    Route::get('/videos/{video}/learning-progress', [VideoController::class, 'getLearningProgress'])->name('videos.learning-progress');
+    
     // Payment routes
     Route::get('/videos/{video}/buy', [PaymentController::class, 'showPurchase'])->name('videos.buy');
     Route::post('/videos/{video}/process-payment', [PaymentController::class, 'processPurchase'])->name('videos.process-payment');

@@ -24,8 +24,17 @@
               <li class="scroll-to-section"><a href="#courses">intake</a></li>
               <li class="scroll-to-section"><a href="{{ route('contact-us') }}">Contact</a></li>
               <li class="scroll-to-section"><a href="{{ route('creators.index') }}">Creators</a></li>
+              
+              @if(Auth::check())
+                @if(Auth::user()->hasRole('Creator'))
+                  <li class="scroll-to-section"><a href="{{ route('creator.dashboard') }}">Dashboard</a></li>
+                @elseif(Auth::user()->hasRole('Viewer'))
+                  <li class="scroll-to-section"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                @endif
+              @else
               <li class="scroll-to-section"><a href="{{ route('login') }}">Login</a></li>
               <li class="scroll-to-section signup"><a href="{{ route('sign-up') }}">Signup</a></li>
+              @endif
             </ul>
             <a class='menu-trigger'>
               <span>Menu</span>

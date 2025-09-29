@@ -225,6 +225,99 @@
                                     </div>
                                 </div>
 
+                                <!-- Q&A Section -->
+                                <div class="card mt-4">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-question-circle"></i> Questions & Answers Management
+                                        </h3>
+                                        <div class="card-tools">
+                                            <button type="button" class="btn btn-sm btn-primary" id="add-question-btn">
+                                                <i class="fas fa-plus"></i> Add Question
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="alert alert-info">
+                                            <i class="fas fa-info-circle"></i>
+                                            <strong>Q&A Guidelines:</strong>
+                                            <ul class="mb-0 mt-2">
+                                                <li>Add up to 10 questions to assess viewer learning</li>
+                                                <li>Each question must have exactly 4 answer options</li>
+                                                <li>Select one correct answer for each question</li>
+                                                <li>Questions help track viewer progress and engagement</li>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div id="questions-container">
+                                            @if($video->questions && $video->questions->count() > 0)
+                                                @foreach($video->questions as $index => $question)
+                                                    <div class="question-item card mb-3" data-question-id="{{ $question->id }}" data-question-index="{{ $index + 1 }}">
+                                                        <div class="card-header d-flex justify-content-between align-items-center">
+                                                            <h6 class="mb-0">Question {{ $index + 1 }}</h6>
+                                                            <button type="button" class="btn btn-sm btn-danger remove-question-btn">
+                                                                <i class="fas fa-trash"></i> Remove
+                                                            </button>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <label>Question Text *</label>
+                                                                <textarea class="form-control question-text" name="questions[{{ $index + 1 }}][question]" 
+                                                                          rows="2" placeholder="Enter your question here..." required>{{ $question->question }}</textarea>
+                                                            </div>
+                                                            
+                                                            <div class="form-group">
+                                                                <label>Answer Options *</label>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        @foreach($question->options->take(2) as $optionIndex => $option)
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <div class="input-group-text">
+                                                                                            <input type="radio" name="questions[{{ $index + 1 }}][correct_option]" 
+                                                                                                   value="{{ $optionIndex + 1 }}" 
+                                                                                                   {{ $option->is_correct ? 'checked' : '' }} required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <input type="text" class="form-control" name="questions[{{ $index + 1 }}][options][{{ $optionIndex }}]" 
+                                                                                           placeholder="Option {{ $optionIndex + 1 }}" value="{{ $option->option_text }}" required>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        @foreach($question->options->skip(2) as $optionIndex => $option)
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <div class="input-group-text">
+                                                                                            <input type="radio" name="questions[{{ $index + 1 }}][correct_option]" 
+                                                                                                   value="{{ $optionIndex + 3 }}" 
+                                                                                                   {{ $option->is_correct ? 'checked' : '' }} required>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <input type="text" class="form-control" name="questions[{{ $index + 1 }}][options][{{ $optionIndex + 2 }}]" 
+                                                                                           placeholder="Option {{ $optionIndex + 3 }}" value="{{ $option->option_text }}" required>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                                <small class="form-text text-muted">Select the radio button next to the correct answer.</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                        
+                                        <div class="text-center mt-3" id="no-questions-message" style="{{ $video->questions && $video->questions->count() > 0 ? 'display: none;' : '' }}">
+                                            <p class="text-muted">No questions added yet. Click "Add Question" to get started.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-save"></i> Update Video
@@ -236,7 +329,6 @@
                             </form>
                         </div>
                     </div>
-                </div>
 
                 <div class="col-md-4">
                     <div class="card">
@@ -296,6 +388,9 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
+    let questionCount = {{ $video->questions ? $video->questions->count() : 0 }};
+    const maxQuestions = 10;
+
     // Update custom file input labels
     $('.custom-file-input').on('change', function() {
         var fileName = $(this).val().split('\\').pop();
@@ -327,10 +422,132 @@ $(document).ready(function() {
             $('.price-info').html('<small class="text-muted">Price range: ${{ \App\Models\AdminSetting::getMinVideoPrice() }} - ${{ \App\Models\AdminSetting::getMaxVideoPrice() }}</small>');
         }
     });
+
+    // Q&A functionality
+    $('#add-question-btn').on('click', function() {
+        if (questionCount >= maxQuestions) {
+            alert('Maximum ' + maxQuestions + ' questions allowed.');
+            return;
+        }
+        addQuestion();
+    });
+
+    function addQuestion() {
+        questionCount++;
+        const questionHtml = `
+            <div class="question-item card mb-3" data-question-index="${questionCount}">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0">Question ${questionCount}</h6>
+                    <button type="button" class="btn btn-sm btn-danger remove-question-btn">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Question Text *</label>
+                        <textarea class="form-control question-text" name="questions[${questionCount}][question]" 
+                                  rows="2" placeholder="Enter your question here..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Answer Options *</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="radio" name="questions[${questionCount}][correct_option]" value="1" required>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="questions[${questionCount}][options][0]" 
+                                               placeholder="Option 1" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="radio" name="questions[${questionCount}][correct_option]" value="2" required>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="questions[${questionCount}][options][1]" 
+                                               placeholder="Option 2" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="radio" name="questions[${questionCount}][correct_option]" value="3" required>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="questions[${questionCount}][options][2]" 
+                                               placeholder="Option 3" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <input type="radio" name="questions[${questionCount}][correct_option]" value="4" required>
+                                            </div>
+                                        </div>
+                                        <input type="text" class="form-control" name="questions[${questionCount}][options][3]" 
+                                               placeholder="Option 4" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">Select the radio button next to the correct answer.</small>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        $('#questions-container').append(questionHtml);
+        $('#no-questions-message').hide();
+        
+        // Update add button state
+        if (questionCount >= maxQuestions) {
+            $('#add-question-btn').prop('disabled', true).text('Max Questions Reached');
+        }
+    }
+
+    // Remove question functionality
+    $(document).on('click', '.remove-question-btn', function() {
+        $(this).closest('.question-item').remove();
+        questionCount--;
+        
+        // Renumber remaining questions
+        $('.question-item').each(function(index) {
+            const newIndex = index + 1;
+            $(this).attr('data-question-index', newIndex);
+            $(this).find('.card-header h6').text('Question ' + newIndex);
+            
+            // Update form field names
+            $(this).find('textarea[name*="[question]"]').attr('name', `questions[${newIndex}][question]`);
+            $(this).find('input[name*="[correct_option]"]').attr('name', `questions[${newIndex}][correct_option]`);
+            $(this).find('input[name*="[options]"]').each(function(optionIndex) {
+                $(this).attr('name', `questions[${newIndex}][options][${optionIndex}]`);
+            });
+        });
+        
+        // Show/hide no questions message
+        if (questionCount === 0) {
+            $('#no-questions-message').show();
+        }
+        
+        // Re-enable add button
+        $('#add-question-btn').prop('disabled', false).html('<i class="fas fa-plus"></i> Add Question');
+    });
     
-    // Debug form submission
+    // Form submission validation
     $('form').on('submit', function(e) {
-        console.log('Form submitted');
+        console.log('Edit form submission started');
+        console.log('Question count:', questionCount);
         console.log('Form data:', $(this).serialize());
         
         // Check if required fields are filled
@@ -355,6 +572,43 @@ $(document).ready(function() {
             e.preventDefault();
             return false;
         }
+
+        // Validate Q&A if questions exist - Temporarily disabled for debugging
+        // if (questionCount > 0) {
+        //     let isValid = true;
+        //     $('.question-item').each(function() {
+        //         const questionText = $(this).find('.question-text').val().trim();
+        //         const correctOption = $(this).find('input[name*="[correct_option]"]:checked').length;
+        //         const options = $(this).find('input[name*="[options]"]');
+        //         
+        //         if (!questionText) {
+        //             isValid = false;
+        //             $(this).find('.question-text').addClass('is-invalid');
+        //         } else {
+        //             $(this).find('.question-text').removeClass('is-invalid');
+        //         }
+        //         
+        //         if (!correctOption) {
+        //             isValid = false;
+        //             alert('Please select a correct answer for Question ' + $(this).attr('data-question-index'));
+        //         }
+        //         
+        //         options.each(function() {
+        //             if (!$(this).val().trim()) {
+        //                 isValid = false;
+        //                 $(this).addClass('is-invalid');
+        //             } else {
+        //                 $(this).removeClass('is-invalid');
+        //             }
+        //         });
+        //     });
+        //     
+        //     if (!isValid) {
+        //         e.preventDefault();
+        //         alert('Please complete all question fields and select correct answers.');
+        //         return false;
+        //     }
+        // }
         
         console.log('Form validation passed, submitting...');
     });

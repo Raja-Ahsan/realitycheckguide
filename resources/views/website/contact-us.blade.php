@@ -1,7 +1,7 @@
 @extends('layouts.website.master')
 @section('title', $page_title)
 @section('content')
-<style>
+    <style>
         .contact-info-card {
             background: #fff;
             border-radius: 10px;
@@ -143,32 +143,23 @@
     <!-- ======= Hero Section ======= -->
     <!-- banner  -->
     @if (!empty($banner->image))
-        <section class="inner-banner contact-banner"
-            style="background-image: url('{{ asset('public/admin/assets/images/banner') }}/{{ $banner->image }}');">
+        <section class="inner-banner creators-banner"
+            style="margin-top: 80px; height: 200px; background-size: cover; background-image: url('{{ asset('public/admin/assets/images/banner') }}/{{ $banner->image }}');">
         @else
-            <section class="inner-banner contact-banner"
-                style="background-image: url('{{ asset('public/admin/assets/images/images.png') }}');" style="width:100%">
+        <section class="inner-banner creators-banner" 
+            style="margin-top: 80px; height: 200px; background-size: cover; background-image: url('{{ asset('public/admin/assets/images/images.png') }}');">
     @endif
-    <div class="banner-wrapper position-relative z-1">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 col-xl-6" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500">
-                    <div class="card">
-                        <div class="shape-1"></div>
-                        @if (isset($banner))
-                            <h1 class="hd-70">{{ $banner->name }}</h1> 
-                        @endif
+        <div class="banner-wrapper position-relative z-1">
+            <div class="container">
+                <div class="row"> 
+                    <div class="col-lg-12 col-xl-12" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1500"> 
+                        <h1 class="hd-70 mt-5" >Contact Us</h1>
+                        <p class="hd-20 text-white">Contact Reality Check Guide</p>
                     </div>
                 </div>
             </div>
-            <a href="#sec-1" class="">
-                <div class="top-to-bottom">
-                    <i class="fa-solid fa-arrow-down"></i>
-                </div>
-            </a>
         </div>
-    </div>
-    </section>
+    </section> 
 
 
 
@@ -244,8 +235,14 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
+                @if(session('message'))
+                    <div class="alert alert-success">
+                        {{ session('message') }}
+                    </div>
+                @endif
                     <div class="contact-form">
-                        <form action="#" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('contactus.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-6">
                                     <input type="text" name="name" id="name" class="form-control"
@@ -256,8 +253,8 @@
                                         placeholder="Your Email" required>
                                 </div>
                                 <div class="col-lg-12">
-                                    <input type="text" name="subject" id="subject" class="form-control"
-                                        placeholder="Subject" required>
+                                    <input type="text" name="phone" id="phone" class="form-control"
+                                        placeholder="Phone number" required>
                                 </div>
                                 <div class="col-lg-12">
                                     <textarea name="message" id="message" class="form-control" rows="6"
@@ -268,6 +265,7 @@
                                 </div>
                             </div>
                         </form>
+                        
                     </div>
                 </div>
 

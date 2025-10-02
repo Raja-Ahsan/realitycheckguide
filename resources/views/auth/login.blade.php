@@ -1,5 +1,5 @@
 @extends('layouts.website.master')
-@section('title', $page_title)
+@section('title', "Login Page")
 <style>
     .log-forms {
     padding: 30px;

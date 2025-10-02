@@ -64,10 +64,10 @@
           <p>
             By watching or sharing a video, you're helping others make smarter, more informed career choices. One real
             story can save someone years of regret — or inspire a dream they didn’t know they had.</p>
-          <div class="main-button-yellow">
+          <!--<div class="main-button-yellow">
             <a href="#">Start Exploring Careers</a>
             <a href="#">Share Your Story</a>
-          </div>
+          </div>-->
           <div class="bottom-text">
             <p class="bottom-text-bold">Real People.</p>
             <p class="bottom-text-bold text-right d-color">Real Careers. </p>
@@ -247,8 +247,8 @@
           </div>
           <p>Not sure which career is right for you? Use our free tools and assessments to discover what matches your skills, passions, and goals. Whether you're just starting or ready to switch paths, these tools will guide your way.</p>
             <div class="discover-your-strengths-button">
-              <a href="#">Discover Careers</a>
-              <a href="#">Start Assessment</a>
+              <!--<a href="#">Discover Careers</a>-->
+              <a href="{{ route('login') }}">Start a Quiz</a>
             </div>
             
         </div>
@@ -351,7 +351,7 @@
                   <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Work Readiness Checklists</li>
                 </ul>
                 <div class="education-resources-item-button">
-                  <a href="#">Build Your Skills</a>
+                  <a href="#">Get Job Ready</a>
                 </div>
               </div>
             </div>

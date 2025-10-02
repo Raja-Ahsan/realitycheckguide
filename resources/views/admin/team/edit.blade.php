@@ -38,7 +38,7 @@
                                 <input type="file" class="form-control" accept="image*" name="image">
                             </div>
                             <div class="col-sm-4" >
-                                <img style="width: 80px " src="{{ asset('public/admin/assets/images/team') }}/{{ $team->image }}" alt="">
+                                <img style="width: 80px " src="{{ asset('admin/assets/images/team') }}/{{ $team->image }}" alt="">
                             </div>
                         </div>
 						<div class="form-group">

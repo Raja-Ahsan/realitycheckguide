@@ -58,7 +58,7 @@
             <div class="row row-gap-30 justify-content-center">
                 <div class="col-lg-4" data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="footer-logo radius-10 mb-10" style="max-width: 22rem;">
-                        <img src="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['footer_image'] }}"
+                        <img src="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['footer_image'] }}"
                             class="footer-logo" alt="footer-logo">
                     </div>
                     <div class="fs-18 text-white fw-500 footer-des">
@@ -121,7 +121,7 @@
             <div class="row row-gap-30 justify-content-center">
                 <div class="col-lg-4">
                     <div class="footer-logo radius-10 mb-10" style="max-width: 22rem;">
-                        <img src="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['footer_image'] }}"
+                        <img src="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['footer_image'] }}"
                             class="footer-logo" alt="footer-logo">
                     </div>
                     <div class="fs-18 text-white fw-500 footer-des">

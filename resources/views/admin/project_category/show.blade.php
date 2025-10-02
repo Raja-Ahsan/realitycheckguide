@@ -19,9 +19,9 @@
 						<th>Image</th>
 						<td>
 							@if($project_category->image)
-								<img src="{{ asset('public/admin/assets/images/project_category') }}/{{ $project_category->image }}" alt="Slider Image" height="400px" width="500px">
+								<img src="{{ asset('admin/assets/images/project_category') }}/{{ $project_category->image }}" alt="Slider Image" height="400px" width="500px">
 							@else 
-								<img src="{{ asset('public/admin/assets/images/project_category/no-photo1.jpg') }}" alt="Slider Image" height="400px" width="500px">
+								<img src="{{ asset('admin/assets/images/project_category/no-photo1.jpg') }}" alt="Slider Image" height="400px" width="500px">
 							@endif
 						</td>
 					</tr>

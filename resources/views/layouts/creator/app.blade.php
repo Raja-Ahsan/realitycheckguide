@@ -7,23 +7,23 @@
 	<title>@yield('title')</title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<meta name="csrf-token" id="token" content="{{ csrf_token() }}" />
-	<link rel="icon" href="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['header_favicon'] }}" type="image/png" sizes="16x16">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/bootstrap.min.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/font-awesome.min.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/ionicons.min.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/datepicker3.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/all.css')}}">
+	<link rel="icon" href="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['header_favicon'] }}" type="image/png" sizes="16x16">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/ionicons.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/datepicker3.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/all.css')}}">
 	<!-- Font Awesome 6 -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/select2.min.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/dataTables.bootstrap.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/jquery.fancybox.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/AdminLTE.min.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/_all-skins.min.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/summernote.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/magnific-popup.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/style.css')}}">
-	<link rel="stylesheet" href="{{asset('public/admin/assets/css/toastr.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/select2.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/dataTables.bootstrap.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/jquery.fancybox.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/AdminLTE.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/_all-skins.min.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/summernote.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('admin/assets/css/toastr.min.css')}}">
 	<!-- Slick CSS -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
@@ -238,31 +238,31 @@
 </body>
 
 <!-- Script -->
-<script src="{{asset('public/admin/assets/js/jquery-2.2.4.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/select2.full.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jscolor.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jquery.inputmask.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jquery.inputmask.date.extensions.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jquery.inputmask.extensions.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/moment.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/bootstrap-datepicker.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/icheck.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/fastclick.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jquery.sparkline.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jquery.slimscroll.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jquery.fancybox.pack.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/app.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/summernote.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jquery.magnific-popup.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/demo.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/tinymce/tinymce.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery-2.2.4.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/select2.full.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/jscolor.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.inputmask.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.inputmask.date.extensions.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.inputmask.extensions.js')}}"></script>
+<script src="{{asset('admin/assets/js/moment.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('admin/assets/js/icheck.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/fastclick.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.sparkline.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.slimscroll.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.fancybox.pack.js')}}"></script>
+<script src="{{asset('admin/assets/js/app.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/summernote.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.magnific-popup.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/demo.js')}}"></script>
+<script src="{{asset('admin/assets/js/tinymce/tinymce.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/jquery.validate.min.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{asset('public/admin/assets/js/toastr.min.js')}}"></script>
-<script src="{{asset('public/admin/assets/js/search.js')}}"></script>
+<script src="{{asset('admin/assets/js/toastr.min.js')}}"></script>
+<script src="{{asset('admin/assets/js/search.js')}}"></script>
 <!-- Slick JS -->
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>

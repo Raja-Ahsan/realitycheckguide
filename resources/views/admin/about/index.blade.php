@@ -57,9 +57,9 @@
 									<td>{{ $abouts->firstItem()+$key }}.</td>
 									<td>
 										@if($about->image)
-											<img src="{{ asset('public/admin/assets/images/about/'.$about->image) }}" alt="" style="width:60px;">
+											<img src="{{ asset('admin/assets/images/about/'.$about->image) }}" alt="" style="width:60px;">
 									@else
-									<img src="{{ asset('public/admin/assets/images/default.jpg') }}" style="width:60px;">
+									<img src="{{ asset('admin/assets/images/default.jpg') }}" style="width:60px;">
 									@endif
 									</td>
 									<td>{{($about->heading)}}</td>

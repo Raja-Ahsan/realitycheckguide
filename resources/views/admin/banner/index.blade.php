@@ -57,7 +57,7 @@
 										@if($banner->image)
 										<img src="{{ asset('admin/assets/images/banner') }}/{{ $banner->image }}" style="width:60px;" alt="">
 										@else
-										<img src="{{ asset('public/admin/assets/images/default.jpg') }}" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/default.jpg') }}" style="width:60px;">
 										@endif
 									</td>
 									<td>{{ $banner->name }}</td>

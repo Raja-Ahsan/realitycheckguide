@@ -266,7 +266,7 @@
             style="background-image: url('{{ asset('admin/assets/images/banner') }}/{{ $banner->image }}');">
         @else
             <section class="inner-banner project-hub"
-                style="background-image: url('{{ asset('public/admin/assets/images/images.png') }}');" style="width:100%">
+                style="background-image: url('{{ asset('admin/assets/images/images.png') }}');" style="width:100%">
     @endif
     <div class="banner-wrapper position-relative z-1">
         <div class="container">
@@ -340,9 +340,9 @@
                         <div class="job-card">
                             <div class="job-image-container">
                                 @if ($project->image)
-                                    <img src="{{ asset('public/admin/assets/images/projects/' . $project->image) }}" class="job-image" alt="{{ $project->name }}">
+                                    <img src="{{ asset('admin/assets/images/projects/' . $project->image) }}" class="job-image" alt="{{ $project->name }}">
                                 @else
-                                    <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" class="job-image" alt="Default Image">
+                                    <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" class="job-image" alt="Default Image">
                                 @endif
                             </div>
                             <div class="job-content">

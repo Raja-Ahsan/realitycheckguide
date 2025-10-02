@@ -55,9 +55,9 @@
 									<td>{{ $testimonials->firstItem()+$key }}.</td>
 									<td>
 										@if($testimonial->image)
-										<img src="{{ asset('public/admin/assets/images/testimonials/'.$testimonial->image) }}" alt="" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/testimonials/'.$testimonial->image) }}" alt="" style="width:60px;">
 										@else
-										<img src="{{ asset('public/admin/assets/images/testimonials/no-photo1.jpg') }}" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/testimonials/no-photo1.jpg') }}" style="width:60px;">
 										@endif
 									</td>
 									<td>{!! $testimonial->name !!}</td>

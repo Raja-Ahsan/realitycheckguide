@@ -6,7 +6,7 @@
             style="background-image: url('{{ asset('admin/assets/images/banner') }}/{{ $banner->image }}');">
         @else
             <section class="inner-banner benefits-banner"
-                style="background-image: url('{{ asset('public/admin/assets/images/images.png') }}');" style="width:100%">
+                style="background-image: url('{{ asset('admin/assets/images/images.png') }}');" style="width:100%">
     @endif
     <div class="banner-wrapper position-relative z-1">
         <div class="container">
@@ -72,7 +72,7 @@
                                                 <div class="text-center">
                                                     <div class="card-img-wrapper mb-20">
                                                         @if ($member->image)
-                                                            <img src="{{ asset('public/admin/assets/images/member_directory') }}/{{ $member->image }}"
+                                                            <img src="{{ asset('admin/assets/images/member_directory') }}/{{ $member->image }}"
                                                                 alt="{{ $member->title }}">
                                                         @else
                                                             <img src="{{ asset('assets/website') }}/images/default-member.png"
@@ -140,7 +140,7 @@
                                                     <div class="text-center">
                                                         <div class="card-img-wrapper mb-20">
                                                             @if ($member->image)
-                                                                <img src="{{ asset('public/admin/assets/images/member_directory') }}/{{ $member->image }}"
+                                                                <img src="{{ asset('admin/assets/images/member_directory') }}/{{ $member->image }}"
                                                                     alt="{{ $member->title }}">
                                                             @else
                                                                 <img src="{{ asset('assets/website') }}/images/default-member.png"

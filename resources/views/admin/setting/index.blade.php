@@ -47,9 +47,9 @@
                                                 <label for="" class="col-sm-2 control-label">Existing Photo</label>
                                                 <div class="col-sm-6" style="padding-top:6px;">
                                                     @if($view->photo_logo)
-                                                        <img src="{{ asset('public/admin/assets/img/'.$view->photo_logo) }}" class="existing-photo" style="height:80px;">
+                                                        <img src="{{ asset('admin/assets/img/'.$view->photo_logo) }}" class="existing-photo" style="height:80px;">
                                                     @else 
-                                                        <img src="{{ asset('public/admin/assets/img/no-photo.jpg') }}" class="existing-photo" style="height:80px;">
+                                                        <img src="{{ asset('admin/assets/img/no-photo.jpg') }}" class="existing-photo" style="height:80px;">
                                                     @endif
                                                 </div>
                                             </div>

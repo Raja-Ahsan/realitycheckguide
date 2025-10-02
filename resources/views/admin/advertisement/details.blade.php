@@ -23,9 +23,9 @@
                     <div class="listing-detail-box">
                         <div class="listing-slide-img">
                             @if($advertisement->image)
-                            <img src="{{ asset('public/admin/assets/images/advertisement/' . $advertisement->image) }}" class="advertisement-img" alt="">
+                            <img src="{{ asset('admin/assets/images/advertisement/' . $advertisement->image) }}" class="advertisement-img" alt="">
                             @else
-                            <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" class="advertisement-img">
+                            <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" class="advertisement-img">
                             @endif
                         </div>
                     </div>
@@ -57,9 +57,9 @@
                     <div class="box-head">
                         <div class="box-img">
                             @if($contractor_detail && $contractor_detail->image)
-                            <img src="{{ asset('public/admin/assets/images/UserImage/' . $contractor_detail->image) }}" class="img-fluid">
+                            <img src="{{ asset('admin/assets/images/UserImage/' . $contractor_detail->image) }}" class="img-fluid">
                             @else
-                            <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" class="img-fluid">
+                            <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" class="img-fluid">
                             @endif
                         </div>
                         <div class="agent-des">
@@ -121,9 +121,9 @@
                         <div class="rental-box">
                             <div class="pack-image-box">
                                 @if($related_advertisement->image)
-                                <img src="{{ asset('public/admin/assets/images/advertisement/' . $related_advertisement->image) }}" class="advertisement-image" alt="{{ $related_advertisement->name }}">
+                                <img src="{{ asset('admin/assets/images/advertisement/' . $related_advertisement->image) }}" class="advertisement-image" alt="{{ $related_advertisement->name }}">
                                 @else
-                                <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}">
+                                <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}">
                                 @endif
                                 <div class="rent-header">
                                     <!--   <div class="rent-featured"><span>Featured</span></div>

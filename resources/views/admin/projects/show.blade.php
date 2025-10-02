@@ -196,7 +196,7 @@
     <div class="container">
         <div class="project-card">
             <div class="project-header">
-                <img src="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" alt="Logo">
+                <img src="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" alt="Logo">
                 <h2>Project Details</h2>
             </div>
             <div class="project-info-row">
@@ -356,7 +356,7 @@
                         @foreach(json_decode($project->document_file) as $file)
                             @php
                                 $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
-                                $fileUrl = asset('public/admin/assets/images/documents/' . $file);
+                                $fileUrl = asset('admin/assets/images/documents/' . $file);
                             @endphp
                             <div class="file-item" id="remove-{{ $file }}">
                                {{--  <span class="remove-file" onclick="removeFile('{{ $file }}')" title="Remove">
@@ -368,23 +368,23 @@
                                     </a>
                                 @elseif($fileExtension == 'pdf')
                                     <a href="{{ $fileUrl }}" target="_blank">
-                                        <img src="{{ asset('public/admin/assets/icons/pdf-icon.png') }}" alt="PDF" class="file-icon">
+                                        <img src="{{ asset('admin/assets/icons/pdf-icon.png') }}" alt="PDF" class="file-icon">
                                     </a>
                                 @elseif(in_array($fileExtension, ['docx', 'doc']))
                                     <a href="{{ $fileUrl }}" target="_blank">
-                                        <img src="{{ asset('public/admin/assets/icons/word-icon.png') }}" alt="Word" class="file-icon">
+                                        <img src="{{ asset('admin/assets/icons/word-icon.png') }}" alt="Word" class="file-icon">
                                     </a>
                                 @elseif(in_array($fileExtension, ['xlsx', 'xls']))
                                     <a href="{{ $fileUrl }}" target="_blank">
-                                        <img src="{{ asset('public/admin/assets/icons/excel-icon.png') }}" alt="Excel" class="file-icon">
+                                        <img src="{{ asset('admin/assets/icons/excel-icon.png') }}" alt="Excel" class="file-icon">
                                     </a>
                                 @elseif($fileExtension == 'zip')
                                     <a href="{{ $fileUrl }}" target="_blank">
-                                        <img src="{{ asset('public/admin/assets/icons/zip-icon.png') }}" alt="Zip" class="file-icon">
+                                        <img src="{{ asset('admin/assets/icons/zip-icon.png') }}" alt="Zip" class="file-icon">
                                     </a>
                                 @else
                                     <a href="{{ $fileUrl }}" target="_blank">
-                                        <img src="{{ asset('public/admin/assets/icons/file-icon.png') }}" alt="File" class="file-icon">
+                                        <img src="{{ asset('admin/assets/icons/file-icon.png') }}" alt="File" class="file-icon">
                                     </a>
                                 @endif
                                 <div class="file-name">{{ $file }}</div>

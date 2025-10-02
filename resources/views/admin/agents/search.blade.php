@@ -3,9 +3,9 @@
     <td>{{ $agents->firstItem()+$key }}.</td>
     <td>
         @if($agent->image)
-            <img src="{{ asset('public/admin/assets/images/Agents/'.$agent->image) }}" alt="" style="width:60px;">
+            <img src="{{ asset('admin/assets/images/Agents/'.$agent->image) }}" alt="" style="width:60px;">
         @else
-            <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" style="width:60px;">
+            <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" style="width:60px;">
         @endif
     </td>
     <td>{{ $agent->name }}</td>

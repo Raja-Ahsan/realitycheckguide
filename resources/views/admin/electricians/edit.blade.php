@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <img style="width: 80px" id="banner_preview"
-                                        src="{{ !empty($model->image) ? asset('public/admin/assets/images/member_directory/' . $model->image) : asset('public/admin/assets/images/default.jpg') }}"
+                                        src="{{ !empty($model->image) ? asset('admin/assets/images/member_directory/' . $model->image) : asset('admin/assets/images/default.jpg') }}"
                                         alt="Image Preview">
                                 </div>
                             </div>

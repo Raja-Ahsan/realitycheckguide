@@ -1,6 +1,6 @@
 <header class="main-header">
     <a href="{{ route('dashboard') }}" class="logo">
-        <img id="header-logo" src="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" style="width: 200px;position:absolute;left: 1%;top: 20%;height: 140px;" alt="">
+        <img id="header-logo" src="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" style="width: 200px;position:absolute;left: 1%;top: 20%;height: 140px;" alt="">
         
     </a>
     <nav class="navbar navbar-static-top">
@@ -91,9 +91,9 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         @if((Auth::user()->image))
-                        <img src="{{ asset('public/admin/assets/img') }}/{{ Auth::user()->image }}" class="user-image" alt="user photo">
+                        <img src="{{ asset('admin/assets/img') }}/{{ Auth::user()->image }}" class="user-image" alt="user photo">
                         @else
-                        <img src="{{ asset('public/admin/assets/img/dummy-user.png') }}" class="user-image" alt="user photo">
+                        <img src="{{ asset('admin/assets/img/dummy-user.png') }}" class="user-image" alt="user photo">
                         @endif
                         <span class="hidden-xs"></span>
                     </a>

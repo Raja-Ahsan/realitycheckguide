@@ -8,7 +8,7 @@
             style="margin-top: 80px; height: 200px; background-size: cover; background-image: url('{{ asset('admin/assets/images/banner') }}/{{ $banner->image }}');">
         @else
         <section class="inner-banner creators-banner" 
-            style="margin-top: 80px; height: 200px; background-size: cover; background-image: url('{{ asset('public/admin/assets/images/images.png') }}');">
+            style="margin-top: 80px; height: 200px; background-size: cover; background-image: url('{{ asset('admin/assets/images/images.png') }}');">
     @endif
         <div class="banner-wrapper position-relative z-1">
             <div class="container">

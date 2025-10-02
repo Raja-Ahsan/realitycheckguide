@@ -82,7 +82,7 @@
 </head>
 
 <body>
-    <img class="back-image" src="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" alt="Logo">
+    <img class="back-image" src="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" alt="Logo">
     <h1>Game Details</h1>
     <hr>
     <div class="content">

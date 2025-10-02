@@ -72,7 +72,7 @@
 								<input type="file" class="form-control" accept="image*" name="image" id="image">
 							</div>
 							<div class="col-sm-4">
-								<img style="width: 80px" id="advertisement_preview" src="{{ asset('public/admin/assets/images/advertisement') }}/{{ $advertisements->image }}" alt="Image Not Found ">
+								<img style="width: 80px" id="advertisement_preview" src="{{ asset('admin/assets/images/advertisement') }}/{{ $advertisements->image }}" alt="Image Not Found ">
 							</div>
 						</div>
 						<div class="form-group">

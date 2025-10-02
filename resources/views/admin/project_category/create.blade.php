@@ -50,7 +50,7 @@
                                 <span style="color: red">{{ $errors->first('image') }}</span>
                             </div>
                             <div class="col-sm-4" >
-                                <img style="width: 80px" id="banner_preview"  src="{{ asset('public/admin/assets/images/default.jpg') }}"  alt="Image Not Found ">
+                                <img style="width: 80px" id="banner_preview"  src="{{ asset('admin/assets/images/default.jpg') }}"  alt="Image Not Found ">
                             </div>
                         </div> --}}
 						<div class="form-group">

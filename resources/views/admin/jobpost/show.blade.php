@@ -31,9 +31,9 @@
 						<th>Image</th>
 						<td>
 							@if($service->image)
-								<img src="{{ asset('public/admin/assets/images/services') }}/{{ $service->image }}" alt="vehicle Image" height="400px" width="500px">
+								<img src="{{ asset('admin/assets/images/services') }}/{{ $service->image }}" alt="vehicle Image" height="400px" width="500px">
 							@else 
-								<img src="{{ asset('public/admin/assets/images/services/no-photo1.jpg') }}" alt="vehicle Image" height="400px" width="500px">
+								<img src="{{ asset('admin/assets/images/services/no-photo1.jpg') }}" alt="vehicle Image" height="400px" width="500px">
 							@endif
 						</td>
 					</tr>
@@ -43,7 +43,7 @@
 					</tr>
 					<tr>
 						<th>Image</th>
-						<td><img src="{{ asset('public/admin/assets/images/vehicle/'.$model->image) }}" alt="" style="width:60px;"></td>
+						<td><img src="{{ asset('admin/assets/images/vehicle/'.$model->image) }}" alt="" style="width:60px;"></td>
 					</tr>
 					<tr>
 						<th>Short Description</th>

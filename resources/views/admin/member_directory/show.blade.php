@@ -196,7 +196,7 @@
     <div class="container">
         <div class="project-card">
             <div class="project-header">
-                <img src="{{ asset('public/admin/assets/images/member_directory/'.$member->image) }}" alt="Logo">
+                <img src="{{ asset('admin/assets/images/member_directory/'.$member->image) }}" alt="Logo">
                 
             </div>
             <div class="project-info-row">

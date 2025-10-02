@@ -126,7 +126,7 @@
 <body>
     <div class="project-card">
         <div class="project-header">
-            <img src="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" alt="Logo">
+            <img src="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" alt="Logo">
             <h2>Project Details</h2>
         </div>
         <div class="project-info-row">
@@ -235,17 +235,17 @@
                         @endphp
                         <div class="file-item">
                             @if(in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif']))
-                                <img src="{{ asset('public/admin/assets/images/documents/' . $file) }}" alt="{{ $file }}" class="file-image">
+                                <img src="{{ asset('admin/assets/images/documents/' . $file) }}" alt="{{ $file }}" class="file-image">
                             @elseif($fileExtension == 'pdf')
-                                <img src="{{ asset('public/admin/assets/icons/pdf-icon.png') }}" alt="PDF" class="file-icon">
+                                <img src="{{ asset('admin/assets/icons/pdf-icon.png') }}" alt="PDF" class="file-icon">
                             @elseif(in_array($fileExtension, ['docx', 'doc']))
-                                <img src="{{ asset('public/admin/assets/icons/word-icon.png') }}" alt="Word" class="file-icon">
+                                <img src="{{ asset('admin/assets/icons/word-icon.png') }}" alt="Word" class="file-icon">
                             @elseif(in_array($fileExtension, ['xlsx', 'xls']))
-                                <img src="{{ asset('public/admin/assets/icons/excel-icon.png') }}" alt="Excel" class="file-icon">
+                                <img src="{{ asset('admin/assets/icons/excel-icon.png') }}" alt="Excel" class="file-icon">
                             @elseif($fileExtension == 'zip')
-                                <img src="{{ asset('public/admin/assets/icons/zip-icon.png') }}" alt="Zip" class="file-icon">
+                                <img src="{{ asset('admin/assets/icons/zip-icon.png') }}" alt="Zip" class="file-icon">
                             @else
-                                <img src="{{ asset('public/admin/assets/icons/file-icon.png') }}" alt="File" class="file-icon">
+                                <img src="{{ asset('admin/assets/icons/file-icon.png') }}" alt="File" class="file-icon">
                             @endif
                             <div class="file-name" style="max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ $file }}</div>
                             <div style="font-size: 11px; color: #888; margin-top: 2px;">{{ $fileType }}</div>

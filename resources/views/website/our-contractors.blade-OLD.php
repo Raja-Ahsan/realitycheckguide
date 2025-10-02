@@ -42,9 +42,9 @@
                     <div class="agent1-img">
                         <a href="{{ url('contractor-detail/'.$agent->id) }}">
                             @if($agent->image)
-                            <img src="{{ asset('public/admin/assets/images/UserImage/'.$agent->image) }}">
+                            <img src="{{ asset('admin/assets/images/UserImage/'.$agent->image) }}">
                             @else
-                            <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" style="height: 300px">
+                            <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" style="height: 300px">
                             @endif
                         </a>
                         <div class="agent1-icons">
@@ -93,9 +93,9 @@ $allContractors = App\Models\User::whereHas('roles', function ($q) {
                     <div class="agent2-img">
                         <a href="{{ url('contractor-detail/'.$agent->id) }}">
                             @if($agent->image)
-                            <img src="{{ asset('public/admin/assets/images/UserImage/'.$agent->image) }}">
+                            <img src="{{ asset('admin/assets/images/UserImage/'.$agent->image) }}">
                             @else
-                            <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" style="height: 392px">
+                            <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" style="height: 392px">
                             @endif
                         </a>
                         <div class="agent1-icons">

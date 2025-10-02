@@ -20,7 +20,7 @@
                 @foreach ($search_result as $result )
                     <div class="col-md-4 pb-3">
                         <div class="rental-box">
-                            <div class="pack-image-box"> <img src="{{ asset('public/admin/assets/images/property_thumbnails') }}/{{ $result->image }}" alt="">
+                            <div class="pack-image-box"> <img src="{{ asset('admin/assets/images/property_thumbnails') }}/{{ $result->image }}" alt="">
                                 <div class="rent-header">
                                     <div class="rent-featured">
                                         @if ($result->is_featured == 1)

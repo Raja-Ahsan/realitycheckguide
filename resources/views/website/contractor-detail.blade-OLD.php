@@ -22,9 +22,9 @@
                     <div class="agent-main-div">
                         <div class="agent-img-detail img">
                             @if($agent_detail->image)
-								<img src="{{ asset('public/admin/assets/images/UserImage/'.$agent_detail->image) }}">
+								<img src="{{ asset('admin/assets/images/UserImage/'.$agent_detail->image) }}">
                             @else
-                                <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}">
+                                <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}">
                             @endif
                             <div class="agent-contact-detail">
                                 <h4>{{ $agent_detail->name }}</h4>

@@ -1,6 +1,6 @@
 <header class="main-header">
     <a href="{{ route('dashboard') }}" class="logo">
-        <img id="header-logo" src="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" style="width: 200px;position:absolute;left: 1%;top: 20%;height: 140px;" alt="">
+        <img id="header-logo" src="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" style="width: 200px;position:absolute;left: 1%;top: 20%;height: 140px;" alt="">
         <!--  <span class="logo-lg" style="position:absolute;top:230%;left:3%;">{{ Auth::user()->name }} {{ Auth::user()->last_name }}</span> -->
     </a>
     <nav class="navbar navbar-static-top">
@@ -101,7 +101,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         @if (!empty( Auth::user()->image ))
-                             <img  src="{{ asset('public/admin/assets/images/UserImage') }}/{{  Auth::user()->image }}" style="object-fit: cover;width: 40px;height: 40px;border-radius: 50px;margin-top: -10px;margin-right: 8px;" alt="">
+                             <img  src="{{ asset('admin/assets/images/UserImage') }}/{{  Auth::user()->image }}" style="object-fit: cover;width: 40px;height: 40px;border-radius: 50px;margin-top: -10px;margin-right: 8px;" alt="">
                         @else 
                              <i class="fa fa-user-circle" style="font-size: 20px;" aria-hidden="true"></i>
                         @endif 

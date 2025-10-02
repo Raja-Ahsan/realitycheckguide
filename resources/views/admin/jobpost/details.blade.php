@@ -149,7 +149,7 @@
 @if(!empty($banner->image))
 <section class="inner-banner benefits-banner" style="background-image: url('{{ asset('admin/assets/images/banner') }}/{{ $banner->image }}');"> 
 @else
-<section class="inner-banner benefits-banner" style="background-image: url('{{ asset('public/admin/assets/images/images.png') }}');" style="width:100%">
+<section class="inner-banner benefits-banner" style="background-image: url('{{ asset('admin/assets/images/images.png') }}');" style="width:100%">
 @endif
   <div class="banner-wrapper position-relative z-1">
     <div class="container">
@@ -180,9 +180,9 @@
                 <div class="job-details-card">
                     <div class="listing-slide-img">
                         @if($jobpost->image)
-                        <img src="{{ asset('public/admin/assets/images/jobpost/' . $jobpost->image) }}" class="jobpost-img" alt="">
+                        <img src="{{ asset('admin/assets/images/jobpost/' . $jobpost->image) }}" class="jobpost-img" alt="">
                         @else
-                        <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" class="jobpost-img">
+                        <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" class="jobpost-img">
                         @endif
                     </div>
                     <div class="list-tit">
@@ -202,9 +202,9 @@
                     <div class="box-head">
                         <div class="box-img">
                             @if($contractor_detail && $contractor_detail->image)
-                            <img src="{{ asset('public/admin/assets/images/UserImage/' . $contractor_detail->image) }}" class="img-fluid">
+                            <img src="{{ asset('admin/assets/images/UserImage/' . $contractor_detail->image) }}" class="img-fluid">
                             @else
-                            <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" class="img-fluid">
+                            <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" class="img-fluid">
                             @endif
                         </div>
                         <div class="agent-des">
@@ -263,9 +263,9 @@
                         <div class="rental-box">
                             <div class="pack-image-box">
                                 @if($related_jobpost->image)
-                                <img src="{{ asset('public/admin/assets/images/jobpost/' . $related_jobpost->image) }}" class="jobpost-image" alt="{{ $related_jobpost->name }}">
+                                <img src="{{ asset('admin/assets/images/jobpost/' . $related_jobpost->image) }}" class="jobpost-image" alt="{{ $related_jobpost->name }}">
                                 @else
-                                <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}">
+                                <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}">
                                 @endif
                             </div>
                             <div class="pack-rent-content">

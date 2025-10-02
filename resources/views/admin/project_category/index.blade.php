@@ -51,9 +51,9 @@
 									<td>{{ $models->firstItem()+$key }}.</td>
 									{{-- <td>
 										@if($model->image)
-										<img src="{{ asset('public/admin/assets/images/project_category/'.$model->image) }}" alt="" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/project_category/'.$model->image) }}" alt="" style="width:60px;">
 										@else
-										<img src="{{ asset('public/admin/assets/images/default.jpg') }}" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/default.jpg') }}" style="width:60px;">
 										@endif
 									</td> --}}
 

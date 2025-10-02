@@ -45,7 +45,7 @@
                                 <input type="file" class="form-control" accept="image*" name="image" id="image">
                             </div>
                             <div class="col-sm-4">
-                                <img style="width: 80px " id="banner_preview"  src="{{ asset('public/admin/assets/images/about') }}/{{ $abouts->image }}" alt="">
+                                <img style="width: 80px " id="banner_preview"  src="{{ asset('admin/assets/images/about') }}/{{ $abouts->image }}" alt="">
                             </div>
                         </div>
 						<div class="form-group">

@@ -55,9 +55,9 @@
 									<td>{{ $teams->firstItem()+$key }}.</td>
 									<td>
 										@if($team->image)
-										<img src="{{ asset('public/admin/assets/images/team/'.$team->image) }}" alt="" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/team/'.$team->image) }}" alt="" style="width:60px;">
 										@else
-										<img src="{{ asset('public/admin/assets/images/team/no-photo1.jpg') }}" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/team/no-photo1.jpg') }}" style="width:60px;">
 										@endif
 									</td>
 									<td>{{ $team->name }}</td>

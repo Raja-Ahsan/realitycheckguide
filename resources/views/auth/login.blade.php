@@ -40,8 +40,8 @@
     <section class="inner-banner registration-banner"
     style="margin-top: 80px; height: 200px; background-size: cover; 
            background-image: url('{{ !empty($banner->image) 
-                ? asset('public/admin/assets/images/banner/' . $banner->image) 
-                : asset('public/admin/assets/images/images.png') }}'); 
+                ? asset('admin/assets/images/banner/' . $banner->image) 
+                : asset('admin/assets/images/images.png') }}'); 
            width:100%;">
 </section>
     <section class="login-sec">

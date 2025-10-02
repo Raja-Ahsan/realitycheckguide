@@ -8,7 +8,7 @@
                 <div class="">
                     <div class="logo">
                         <a href="{{ route('login') }}">
-                            <img src="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" alt="logo">
+                            <img src="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['header_logo'] }}" alt="logo">
                         </a>
                     </div>
                 </div>

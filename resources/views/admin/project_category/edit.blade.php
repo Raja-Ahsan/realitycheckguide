@@ -50,11 +50,11 @@
                             </div>
                             @if(!empty($model->image))
                                 <div class="col-sm-4">
-                                    <img style="width: 80px" src="{{ asset('public/admin/assets/images/project_category') }}/{{ $model->image }}" alt="">
+                                    <img style="width: 80px" src="{{ asset('admin/assets/images/project_category') }}/{{ $model->image }}" alt="">
                                 </div>
                             @else
                                 <div class="col-sm-4" >
-                                    <img style="width: 80px" id="banner_preview"  src="{{ asset('public/admin/assets/images/default.jpg') }}"  alt="Image Not Found ">
+                                    <img style="width: 80px" id="banner_preview"  src="{{ asset('admin/assets/images/default.jpg') }}"  alt="Image Not Found ">
                                 </div>
                             @endif
                         </div> --}}

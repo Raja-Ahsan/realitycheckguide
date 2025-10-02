@@ -58,9 +58,9 @@
 									<td>{{ $advertisements->firstItem()+$key }}.</td>
 									<td>
 										@if($advertisement->image)
-										<img src="{{ asset('public/admin/assets/images/advertisement') }}/{{ $advertisement->image }}" style="width:60px;" alt="">
+										<img src="{{ asset('admin/assets/images/advertisement') }}/{{ $advertisement->image }}" style="width:60px;" alt="">
 										@else
-										<img src="{{ asset('public/admin/assets/images/default.jpg') }}" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/default.jpg') }}" style="width:60px;">
 										@endif
 									</td>
 									<td>{{ $advertisement->name }}</td>

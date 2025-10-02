@@ -292,7 +292,7 @@
 {{-- @if(!empty($banner->image))
 <section class="inner-banner benefits-banner" style="background-image: url('{{ asset('admin/assets/images/banner') }}/{{ $banner->image }}');"> 
 @else
-<section class="inner-banner benefits-banner" style="background-image: url('{{ asset('public/admin/assets/images/images.png') }}');" style="width:100%">
+<section class="inner-banner benefits-banner" style="background-image: url('{{ asset('admin/assets/images/images.png') }}');" style="width:100%">
 @endif
   <div class="banner-wrapper position-relative z-1">
     <div class="container">
@@ -323,9 +323,9 @@
                 <div class="job-details-card">
                     <div class="listing-slide-img">
                         @if($project->image)
-                        <img src="{{ asset('public/admin/assets/images/projects/' . $project->image) }}" class="jobpost-img" alt="">
+                        <img src="{{ asset('admin/assets/images/projects/' . $project->image) }}" class="jobpost-img" alt="">
                         @else
-                        <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" class="jobpost-img">
+                        <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" class="jobpost-img">
                         @endif
                     </div>
                     <div class="list-tit">
@@ -345,9 +345,9 @@
                     <div class="box-head">
                         <div class="box-img">
                             @if($contractor_detail && $contractor_detail->image)
-                            <img src="{{ asset('public/admin/assets/images/UserImage/' . $contractor_detail->image) }}" class="img-fluid">
+                            <img src="{{ asset('admin/assets/images/UserImage/' . $contractor_detail->image) }}" class="img-fluid">
                             @else
-                            <img src="{{ asset('public/admin/assets/images/Agents/no-photo1.jpg') }}" class="img-fluid">
+                            <img src="{{ asset('admin/assets/images/Agents/no-photo1.jpg') }}" class="img-fluid">
                             @endif
                         </div>
                         <div class="agent-des">
@@ -407,7 +407,7 @@
                 <div class="project-card">
                     <div class="project-image">
                         @if($related_project->image)
-                            <img src="{{ asset('public/admin/assets/images/projects/' . $related_project->image) }}" alt="{{ $related_project->name }}">
+                            <img src="{{ asset('admin/assets/images/projects/' . $related_project->image) }}" alt="{{ $related_project->name }}">
                         @else
                             <div class="no-photo">No Photo</div>
                         @endif

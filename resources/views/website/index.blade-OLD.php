@@ -7,7 +7,7 @@
         <div class="swiper-wrapper">
             @foreach ($homesliders as $homeslider)
                 <div class="swiper-slide"
-                    style="background-image: url('{{ asset('public/admin/assets/images/HomeSlider/' . ($homeslider->image ? $homeslider->image : 'no-photo1.jpg')) }}');">
+                    style="background-image: url('{{ asset('admin/assets/images/HomeSlider/' . ($homeslider->image ? $homeslider->image : 'no-photo1.jpg')) }}');">
                     <div class="banner-wrapper">
                         <div class="container">
                             <div class="row">

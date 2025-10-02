@@ -70,9 +70,9 @@
 									<td>{{ $jobposts->firstItem()+$key }}.</td>
 									<td>
 										@if($jobpost->image)
-										<img src="{{ asset('public/admin/assets/images/jobpost') }}/{{ $jobpost->image }}" style="width:60px;" alt="">
+										<img src="{{ asset('admin/assets/images/jobpost') }}/{{ $jobpost->image }}" style="width:60px;" alt="">
 										@else
-										<img src="{{ asset('public/admin/assets/images/default.jpg') }}" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/default.jpg') }}" style="width:60px;">
 										@endif
 									</td>
 									<td>{{ $jobpost->name }}</td>

@@ -29,7 +29,7 @@
                     <div class="col-md-4">
                         <div class="blog-box">
                             <div class="blog-img-box">
-                                <img src="{{ asset('public/admin/assets/posts') }}/{{$blog->post}}" alt="">
+                                <img src="{{ asset('admin/assets/posts') }}/{{$blog->post}}" alt="">
                             </div>
                             <div class="blog-content-box">
                                 <h3>{{$blog->title}}</h3>

@@ -52,7 +52,7 @@
 								<img
 									style="width: 80px;"
 									id="about_banner_preview"
-									src="{{ isset($page_data['about_us_image']) ? asset('/public/admin/assets/images/page/'.$page_data['about_us_image']) : asset('public/admin/assets/images/default.jpg') }}"
+									src="{{ isset($page_data['about_us_image']) ? asset('/public/admin/assets/images/page/'.$page_data['about_us_image']) : asset('admin/assets/images/default.jpg') }}"
 									alt="Image Not Found">
 							</div>
 						</div>
@@ -79,7 +79,7 @@
 								<img
 									style="width: 80px;"
 									id="about_banner_preview2"
-									src="{{ isset($page_data['about_us_image2']) ? asset('/public/admin/assets/images/page/'.$page_data['about_us_image2']) : asset('public/admin/assets/images/default.jpg') }}"
+									src="{{ isset($page_data['about_us_image2']) ? asset('/public/admin/assets/images/page/'.$page_data['about_us_image2']) : asset('admin/assets/images/default.jpg') }}"
 									alt="Image Not Found">
 							</div>
 						</div>
@@ -142,7 +142,7 @@
 								<img
 									style="width: 80px;"
 									id="why_banner_preview"
-									src="{{ isset($page_data['why_image']) ? asset('/public/admin/assets/images/page/'.$page_data['why_image']) : asset('public/admin/assets/images/default.jpg') }}"
+									src="{{ isset($page_data['why_image']) ? asset('/public/admin/assets/images/page/'.$page_data['why_image']) : asset('admin/assets/images/default.jpg') }}"
 									alt="Image Not Found">
 							</div>
 						</div>

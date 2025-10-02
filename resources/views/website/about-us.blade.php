@@ -4,7 +4,7 @@
 <!-- ***** Page Header Start ***** -->
 @if (!empty($banner->image))
         <section class="inner-banner creators-banner"
-            style="margin-top: 80px; height: 200px; background-size: cover; background-image: url('{{ asset('public/admin/assets/images/banner') }}/{{ $banner->image }}');">
+            style="margin-top: 80px; height: 200px; background-size: cover; background-image: url('{{ asset('admin/assets/images/banner') }}/{{ $banner->image }}');">
         @else
         <section class="inner-banner creators-banner" 
             style="margin-top: 80px; height: 200px; background-size: cover; background-image: url('{{ asset('public/admin/assets/images/images.png') }}');">

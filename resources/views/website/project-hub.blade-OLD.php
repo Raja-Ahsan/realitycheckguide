@@ -263,7 +263,7 @@
 
     @if (!empty($banner->image))
         <section class="inner-banner project-hub"
-            style="background-image: url('{{ asset('public/admin/assets/images/banner') }}/{{ $banner->image }}');">
+            style="background-image: url('{{ asset('admin/assets/images/banner') }}/{{ $banner->image }}');">
         @else
             <section class="inner-banner project-hub"
                 style="background-image: url('{{ asset('public/admin/assets/images/images.png') }}');" style="width:100%">

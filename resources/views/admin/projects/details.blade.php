@@ -290,7 +290,7 @@
 </style>
 
 {{-- @if(!empty($banner->image))
-<section class="inner-banner benefits-banner" style="background-image: url('{{ asset('public/admin/assets/images/banner') }}/{{ $banner->image }}');"> 
+<section class="inner-banner benefits-banner" style="background-image: url('{{ asset('admin/assets/images/banner') }}/{{ $banner->image }}');"> 
 @else
 <section class="inner-banner benefits-banner" style="background-image: url('{{ asset('public/admin/assets/images/images.png') }}');" style="width:100%">
 @endif

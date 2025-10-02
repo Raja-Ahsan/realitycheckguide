@@ -75,7 +75,7 @@
                                                             <img src="{{ asset('public/admin/assets/images/member_directory') }}/{{ $member->image }}"
                                                                 alt="{{ $member->title }}">
                                                         @else
-                                                            <img src="{{ asset('public/assets/website') }}/images/default-member.png"
+                                                            <img src="{{ asset('assets/website') }}/images/default-member.png"
                                                                 alt="{{ $member->title }}">
                                                         @endif
                                                     </div>
@@ -143,7 +143,7 @@
                                                                 <img src="{{ asset('public/admin/assets/images/member_directory') }}/{{ $member->image }}"
                                                                     alt="{{ $member->title }}">
                                                             @else
-                                                                <img src="{{ asset('public/assets/website') }}/images/default-member.png"
+                                                                <img src="{{ asset('assets/website') }}/images/default-member.png"
                                                                     alt="{{ $member->title }}">
                                                             @endif
                                                         </div>

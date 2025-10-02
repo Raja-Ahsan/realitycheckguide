@@ -70,7 +70,7 @@
         <div class="container-flid">
             <div class="row row-gap-40">
                 <div class="col-lg-8">
-                    <img src="{{ asset('public/assets/website') }}/images/welcome.png" class="h-100 object-fit-cover"
+                    <img src="{{ asset('assets/website') }}/images/welcome.png" class="h-100 object-fit-cover"
                         alt="">
                 </div>
                 <div class="col-lg-4" data-aos="fade-left" data-aos-easing="linear" data-aos-duration="1500">

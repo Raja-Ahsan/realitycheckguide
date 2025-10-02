@@ -72,7 +72,7 @@
                                     <button  class="btn btn-warning-stripe btn-lg btn-block" value="Pay Now" style="color: white" type="submit">Pay Now</button>
                                 </div>
                                 <div class="col-md-12 form-group">
-                                    <img src="{{ asset('public/assets/website') }}/img/stripe_secure.png" alt="Pay-methods" class="img-fluid">
+                                    <img src="{{ asset('assets/website') }}/img/stripe_secure.png" alt="Pay-methods" class="img-fluid">
                                 </div>
                             </div>
                         </form>

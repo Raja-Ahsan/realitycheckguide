@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <img src="{{ asset('public/assets/website') }}/img/logo.png" alt="footer-logo" class="img-fluid mb-5 footer-logo">
+          <img src="{{ asset('assets/website') }}/img/logo.png" alt="footer-logo" class="img-fluid mb-5 footer-logo">
           <p class="mb-5 footer-para">Reality Check Guide is a video-based platform created to help people explore careers through honest, real-life experiences. Whether you're a student, a career changer, or simply curious, our mission is to show you what jobs are really like — before you commit time, money, or energy into the wrong path.</p>
           <ul class="d-flex footer-nav gap-5 mb-5 justify-content-center" >
             <li><a href="{{ route('index') }}">Home</a></li>

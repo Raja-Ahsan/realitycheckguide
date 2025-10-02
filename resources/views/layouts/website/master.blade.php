@@ -10,12 +10,12 @@
     <title>@yield('title')</title>
     <link rel="icon" href="{{ asset('public/admin/assets/images/page') }}/{{ $home_page_data['header_favicon'] }}" type="image/png" sizes="32x32">
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('public/assets/website') }}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/website') }}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="{{ asset('public/assets/website') }}/css/fontawesome.css">
-    <link rel="stylesheet" href="{{ asset('public/assets/website') }}/css/templatemo-edu-meeting.css">
-    <link rel="stylesheet" href="{{ asset('public/assets/website') }}/css/owl.css">
-    <link rel="stylesheet" href="{{ asset('public/assets/website') }}/css/lightbox.css">
+    <link rel="stylesheet" href="{{ asset('assets/website') }}/css/fontawesome.css">
+    <link rel="stylesheet" href="{{ asset('assets/website') }}/css/templatemo-edu-meeting.css">
+    <link rel="stylesheet" href="{{ asset('assets/website') }}/css/owl.css">
+    <link rel="stylesheet" href="{{ asset('assets/website') }}/css/lightbox.css">
     @stack('styles')
 </head>
 
@@ -67,16 +67,16 @@
 
     <!-- Scripts -->
     <!-- Bootstrap core JavaScript -->
-    <script src="{{ asset('public/assets/website') }}/vendor/jquery/jquery.min.js"></script>
-    <script src="{{ asset('public/assets/website') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/website') }}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ asset('assets/website') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="{{ asset('public/assets/website') }}/js/isotope.min.js"></script>
-    <script src="{{ asset('public/assets/website') }}/js/owl-carousel.js"></script>
-    <script src="{{ asset('public/assets/website') }}/js/lightbox.js"></script>
-    <script src="{{ asset('public/assets/website') }}/js/tabs.js"></script>
-    <script src="{{ asset('public/assets/website') }}/js/video.js"></script>
-    <script src="{{ asset('public/assets/website') }}/js/slick-slider.js"></script>
-    <script src="{{ asset('public/assets/website') }}/js/custom.js"></script>
+    <script src="{{ asset('assets/website') }}/js/isotope.min.js"></script>
+    <script src="{{ asset('assets/website') }}/js/owl-carousel.js"></script>
+    <script src="{{ asset('assets/website') }}/js/lightbox.js"></script>
+    <script src="{{ asset('assets/website') }}/js/tabs.js"></script>
+    <script src="{{ asset('assets/website') }}/js/video.js"></script>
+    <script src="{{ asset('assets/website') }}/js/slick-slider.js"></script>
+    <script src="{{ asset('assets/website') }}/js/custom.js"></script>
     @stack('scripts')
     <script>
         var checkSection = function checkSection() {

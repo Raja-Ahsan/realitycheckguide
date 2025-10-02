@@ -6,7 +6,7 @@
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
             <a href="{{ route('index') }}" class="logo">
-              <img src="{{ asset('public/assets/website') }}/img/logo.png" alt="logo" class="logo-img">
+              <img src="{{ asset('assets/website') }}/img/logo.png" alt="logo" class="logo-img">
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->

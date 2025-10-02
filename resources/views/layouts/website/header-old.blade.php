@@ -42,7 +42,7 @@
                                     <li class="nav-item">
                                         <a class="navs {{ request()->is('login') ? 'active' : '' }}" href="{{ route('login') }}">
                                             <div class="d-flex align-items-center justify-content-center">
-                                                <img src="{{ asset('public/assets/website') }}/images/login.png" alt="login" style="width:100px; height:auto;">
+                                                <img src="{{ asset('assets/website') }}/images/login.png" alt="login" style="width:100px; height:auto;">
                                             </div>
                                         </a>
                                     </li>

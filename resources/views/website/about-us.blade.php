@@ -28,8 +28,8 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="our-story-img-overlay position-relative">
-            <img src="{{ asset('public/assets/website') }}/img/about-us.png" alt="our-story" class="our-story-img">
-            <img src="{{ asset('public/assets/website') }}/img/logo.png" alt="our-story-overlay"
+            <img src="{{ asset('assets/website') }}/img/about-us.png" alt="our-story" class="our-story-img">
+            <img src="{{ asset('assets/website') }}/img/logo.png" alt="our-story-overlay"
               class="our-story-img-overlay-img position-absolute">
           </div>
           <div class="our-story-img-overlay-text">
@@ -75,7 +75,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="mission-item">
             <div class="mission-icon">
-              <img src="{{ asset('public/assets/website') }}/img/about-icon1.svg" alt="mission-1" class="img-fluid">
+              <img src="{{ asset('assets/website') }}/img/about-icon1.svg" alt="mission-1" class="img-fluid">
             </div>
             <h4>Authentic Stories</h4>
             <p>We believe in the power of experiences. Every story on our platform comes from someone who actually works in that field, providing genuine insights you can't find anywhere else.</p>
@@ -84,7 +84,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="mission-item">
             <div class="mission-icon">
-              <img src="{{ asset('public/assets/website') }}/img/about-icon2.svg" alt="mission-2" class="img-fluid">
+              <img src="{{ asset('assets/website') }}/img/about-icon2.svg" alt="mission-2" class="img-fluid">
             </div>
             <h4>Informed Decisions</h4>
             <p>Our goal is to help you make career choices based on real information, not just job descriptions. We want you to know exactly what you're getting into before you commit.</p>
@@ -93,7 +93,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="mission-item">
             <div class="mission-icon">
-              <img src="{{ asset('public/assets/website') }}/img/about-icon3.svg" alt="mission-3" class="img-fluid">
+              <img src="{{ asset('assets/website') }}/img/about-icon3.svg" alt="mission-3" class="img-fluid">
             </div>
             <h4>Community Support</h4>
             <p>We're building a community where people help each other navigate their career journeys. By sharing your story, you're helping someone else make a better decision.</p>
@@ -153,7 +153,7 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="values-image">
-            <img src="{{ asset('public/assets/website') }}/img/discover-logo.png" alt="our-values" class="img-fluid">
+            <img src="{{ asset('assets/website') }}/img/discover-logo.png" alt="our-values" class="img-fluid">
           </div>
         </div>
       </div>

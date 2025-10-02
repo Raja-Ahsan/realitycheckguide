@@ -5,7 +5,7 @@
   <!-- ***** Main Banner Area Start ***** -->
   <section class="section main-banner" id="top" data-section="section1">
     <video autoplay muted loop id="bg-video">
-      <source src="{{ asset('public/assets/website') }}/img/banner-video.mp4" type="video/mp4" />
+      <source src="{{ asset('assets/website') }}/img/banner-video.mp4" type="video/mp4" />
     </video>
 
     <div class="video-overlay header-text">
@@ -18,7 +18,7 @@
               <div class="main-button-red">
                 <div class="scroll-to-section"><a href="{{ route('creators.index') }}"><i class="fa fa-play-circle-o"></i> Watch Real Stories </a>
                 </div>
-                <div class="scroll-to-section"><a href="#contact">Upload Your Own <img src="{{ asset('public/assets/website') }}/img/file-upload.svg"
+                <div class="scroll-to-section"><a href="#contact">Upload Your Own <img src="{{ asset('assets/website') }}/img/file-upload.svg"
                       alt="upload" class="upload-icon"></a></div>
               </div>
             </div>
@@ -35,8 +35,8 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="about-us-img-overlay position-relative">
-            <img src="{{ asset('public/assets/website') }}/img/about-us.png" alt="about-us" class="about-us-img">
-            <img src="{{ asset('public/assets/website') }}/img/logo.png" alt="about-us-img-overlay"
+            <img src="{{ asset('assets/website') }}/img/about-us.png" alt="about-us" class="about-us-img">
+            <img src="{{ asset('assets/website') }}/img/logo.png" alt="about-us-img-overlay"
               class="about-us-img-overlay-img position-absolute">
           </div>
           <div class="about-us-img-overlay-text">
@@ -94,7 +94,7 @@
                 
                   <div class="how-it-work-item-image-number position-relative">
                     <div class="how-it-work-item-img1">
-                      <img src="{{ asset('public/assets/website') }}/img/icon1.svg" alt="how-it-work-1" class="img-fluid">
+                      <img src="{{ asset('assets/website') }}/img/icon1.svg" alt="how-it-work-1" class="img-fluid">
                     </div>
                     <span class="how-it-work-item-image-number-text position-absolute d-block">01</span>
                   </div>
@@ -112,7 +112,7 @@
               <div class="how-it-work-item">
                 <div class="how-it-work-item-image-number position-relative">
                   <div class="how-it-work-item-img">
-                    <img src="{{ asset('public/assets/website') }}/img/icon2.svg" alt="how-it-work-1" class="img-fluid">
+                    <img src="{{ asset('assets/website') }}/img/icon2.svg" alt="how-it-work-1" class="img-fluid">
                   </div>
                   <span class="how-it-work-item-image-number-text position-absolute d-block">02</span>
                 </div>
@@ -129,7 +129,7 @@
               <div class="how-it-work-item">
                 <div class="how-it-work-item-image-number position-relative">
                   <div class="how-it-work-item-img">
-                    <img src="{{ asset('public/assets/website') }}/img/icon3.svg" alt="how-it-work-1" class="img-fluid">
+                    <img src="{{ asset('assets/website') }}/img/icon3.svg" alt="how-it-work-1" class="img-fluid">
                   </div>
                   <span class="how-it-work-item-image-number-text position-absolute d-block">03</span>
                 </div>
@@ -159,7 +159,7 @@
         </div>
         <div class="col-lg-12">
           <div class="featured-video-item position-relative">
-            <video src="{{ asset('public/assets/website') }}/img/intro.mp4" autoplay muted loop class="img-fluid"></video>
+            <video src="{{ asset('assets/website') }}/img/intro.mp4" autoplay muted loop class="img-fluid"></video>
             <div class="featured-video-item-text position-absolute">
               <h4>Planning Your Path: The <span>Power of Focus</span></h4>
               <p>Watch how clarity and dedication can lay the groundwork for any career—whether it’s digital, trade-based, or creative. Sometimes the first step is just showing up and doing the work.</p>
@@ -185,42 +185,42 @@
         <div class="col-lg-12">
           <div class="owl-category-item owl-carousel">
             <div class="item">
-              <img src="{{ asset('public/assets/website') }}/img/cat1.png" alt="Course One">
+              <img src="{{ asset('assets/website') }}/img/cat1.png" alt="Course One">
               <div class="down-content">
                 <h4>Skilled Trades</h4>
                 <p>Electrician, Plumber, Welder</p>
               </div>
             </div>
             <div class="item">
-              <img src="{{ asset('public/assets/website') }}/img/cat2.png" alt="Course Two">
+              <img src="{{ asset('assets/website') }}/img/cat2.png" alt="Course Two">
               <div class="down-content">
                 <h4>Tech & IT</h4>
                 <p>Web Developer, Data Analyst, UX Designer</p>
               </div>
             </div>
             <div class="item">
-              <img src="{{ asset('public/assets/website') }}/img/cat3.png" alt="">
+              <img src="{{ asset('assets/website') }}/img/cat3.png" alt="">
               <div class="down-content">
                 <h4>Healthcare</h4>
                 <p>Nurse, Medical Assistant, Radiologist</p>
               </div>
             </div>
             <div class="item">
-              <img src="{{ asset('public/assets/website') }}/img/cat4.png" alt="">
+              <img src="{{ asset('assets/website') }}/img/cat4.png" alt="">
               <div class="down-content">
                 <h4>Design & Creative</h4>
                 <p>Graphic Designer, Animator, Illustrator</p>
               </div>
             </div>
             <div class="item">
-              <img src="{{ asset('public/assets/website') }}/img/cat5.png" alt="">
+              <img src="{{ asset('assets/website') }}/img/cat5.png" alt="">
               <div class="down-content">
                 <h4>Business & Admin</h4>
                 <p>Accountant, HR, Marketing Coordinator</p>
               </div>
             </div>
             <div class="item">
-              <img src="{{ asset('public/assets/website') }}/img/cat6.png" alt="">
+              <img src="{{ asset('assets/website') }}/img/cat6.png" alt="">
               <div class="down-content">
                 <h4>Master Chef</h4>
                 <p>Chef, Pastry Chef, Food Critic</p>
@@ -256,7 +256,7 @@
           <div class="bottom-text">Find Your Fit</div>
         </div>
         <div class="col-lg-4">
-          <img src="{{ asset('public/assets/website') }}/img/discover-logo.png" alt="discover-your-strengths" class="img-fluid discover-your-strengths-img">
+          <img src="{{ asset('assets/website') }}/img/discover-logo.png" alt="discover-your-strengths" class="img-fluid discover-your-strengths-img">
         </div>
       </div>
     </div>
@@ -278,7 +278,7 @@
               <div class="col-lg-4">
                 <div class="upload-your-story-item-box">
                   <div class="upload-your-story-item text-center">
-                    <img src="{{ asset('public/assets/website') }}/img/upload-file.svg" alt="upload-your-story-1" class="img-fluid">
+                    <img src="{{ asset('assets/website') }}/img/upload-file.svg" alt="upload-your-story-1" class="img-fluid">
                     <span class="mt-2 mb-0">Upload here</span>
                   </div>
                   <div class="upload-your-story-sm text-center">
@@ -327,13 +327,13 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="education-resources-item">
-                <img src="{{ asset('public/assets/website') }}/img/education-resources-1.png" alt="education-resources-1" class="img-fluid">
+                <img src="{{ asset('assets/website') }}/img/education-resources-1.png" alt="education-resources-1" class="img-fluid">
                 <h4>Education & Resources</h4>
                 <ul>
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> GED / High School Equivalency</li>  
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Community Colleges</li>
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Trade Schools</li>
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Online Courses & Certifications</li>
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> GED / High School Equivalency</li>  
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Community Colleges</li>
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Trade Schools</li>
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Online Courses & Certifications</li>
                 </ul>
                 <div class="education-resources-item-button">
                   <a href="#">Find a Path</a>
@@ -342,13 +342,13 @@
             </div>
             <div class="col-lg-4">
               <div class="education-resources-item">
-                <img src="{{ asset('public/assets/website') }}/img/education-resources-2.png" alt="education-resources-1" class="img-fluid">
+                <img src="{{ asset('assets/website') }}/img/education-resources-2.png" alt="education-resources-1" class="img-fluid">
                 <h4>Career Essentials</h4>
                 <ul>
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Resume Builder</li>  
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Interview Prep</li>
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Soft Skills</li>
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Work Readiness Checklists</li>
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Resume Builder</li>  
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Interview Prep</li>
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Soft Skills</li>
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Work Readiness Checklists</li>
                 </ul>
                 <div class="education-resources-item-button">
                   <a href="#">Get Job Ready</a>
@@ -357,13 +357,13 @@
             </div>
             <div class="col-lg-4">
               <div class="education-resources-item">
-                <img src="{{ asset('public/assets/website') }}/img/education-resources-3.png" alt="education-resources-1" class="img-fluid">
+                <img src="{{ asset('assets/website') }}/img/education-resources-3.png" alt="education-resources-1" class="img-fluid">
                 <h4>Paying for School</h4>
                 <ul>
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Scholarships & Grants</li>  
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> FAFSA Guide</li>
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Help for Adult Learners</li>
-                  <li><img src="{{ asset('public/assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Financial Aid</li>
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Scholarships & Grants</li>  
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> FAFSA Guide</li>
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Help for Adult Learners</li>
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Financial Aid</li>
                  </ul>
                 <div class="education-resources-item-button">
                   <a href="#">Explore Scholarships</a>
@@ -383,7 +383,7 @@
         <div class="col-lg-6">
           <div class="contact-us-item position-relative">
             <div class="contact-img-wrapper">
-              <img src="{{ asset('public/assets/website') }}/img/logo.png" alt="contact-img" class="img-fluid position-absolute">
+              <img src="{{ asset('assets/website') }}/img/logo.png" alt="contact-img" class="img-fluid position-absolute">
             </div>
             <ul>
               <li><a href=""><i class="fa fa-phone"></i> <span>Phone</span> (123) 456-7890</a></li>

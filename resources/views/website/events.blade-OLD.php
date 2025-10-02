@@ -38,25 +38,25 @@
             <div class="row row-gap-60">
                 <div class="col-lg-4" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="img-wrapper md-shape theme-blue">
-                        <img src="{{ asset('public/assets/website') }}/images/events-01.png" class=""
+                        <img src="{{ asset('assets/website') }}/images/events-01.png" class=""
                             alt="Events scvba">
                     </div>
                 </div>
                 <div class="col-lg-8" data-aos="fade-left" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="img-wrapper md-shape">
-                        <img src="{{ asset('public/assets/website') }}/images/events-02.png" class=""
+                        <img src="{{ asset('assets/website') }}/images/events-02.png" class=""
                             alt="Events scvba">
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="img-wrapper md-shape">
-                        <img src="{{ asset('public/assets/website') }}/images/events-03.png" class=""
+                        <img src="{{ asset('assets/website') }}/images/events-03.png" class=""
                             alt="Events scvba">
                     </div>
                 </div>
                 <div class="col-lg-8" data-aos="fade-left" data-aos-easing="linear" data-aos-duration="1500">
                     <div class="img-wrapper md-shape theme-blue">
-                        <img src="{{ asset('public/assets/website') }}/images/events-04.png" class=""
+                        <img src="{{ asset('assets/website') }}/images/events-04.png" class=""
                             alt="Events scvba">
                     </div>
                 </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2025 at 08:10 PM
+-- Generation Time: Oct 02, 2025 at 09:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `submittal-builder`
+-- Database: `realitycheckguide`
 --
 
 -- --------------------------------------------------------
@@ -47,6 +47,38 @@ CREATE TABLE `about_us` (
 
 INSERT INTO `about_us` (`id`, `created_by`, `slug`, `heading`, `image`, `short_description`, `description`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (2, 1, 'about-funky-fit-game', 'ABOUT FUNKY FIT GAME', '24-12-19-220950.png', 'Amid the hustle of raising families, juggling careers, and navigating the daily grind, a group of friends and neighbors found joy in coming together. Tucked away in a neighborhood in Fort Worth, TX, it was a whirlwind of game nights, impromptu driveway hangouts, spontaneous parties, and the occasional Tuesday night happy hour—just because! Over time, though, we realized that while the fun never stopped, the feeling of being our best selves seemed to slip away. That\'s when Funky Fit Game was born! In an effort to get back on track with our health and fitness, we created a New Year’s fitness challenge that not only helped us get moving but also rekindled our sense of community, friendship, and, of course, our love of having a good time.', NULL, '1', NULL, '2024-08-16 12:57:19', '2024-12-19 17:09:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_settings`
+--
+
+CREATE TABLE `admin_settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `key` varchar(255) NOT NULL,
+  `value` text NOT NULL,
+  `type` varchar(255) NOT NULL DEFAULT 'string',
+  `group` varchar(255) NOT NULL DEFAULT 'general',
+  `description` text DEFAULT NULL,
+  `is_editable` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admin_settings`
+--
+
+INSERT INTO `admin_settings` (`id`, `key`, `value`, `type`, `group`, `description`, `is_editable`, `created_at`, `updated_at`) VALUES
+(1, 'commission_rate', '30.0', 'decimal', 'commission', 'Default commission rate for video sales (%)', 1, '2025-08-22 14:13:07', '2025-08-22 16:53:17'),
+(2, 'max_video_price', '99.99', 'decimal', 'video', 'Maximum price a creator can set for videos', 1, '2025-08-22 14:13:07', '2025-08-22 16:53:17'),
+(3, 'min_video_price', '0.99', 'decimal', 'video', 'Minimum price a creator can set for videos', 1, '2025-08-22 14:13:07', '2025-08-22 16:53:17'),
+(4, 'videos_sold_threshold', '15', 'integer', 'video', 'Number of videos creator must sell to unlock custom pricing', 1, '2025-08-22 14:13:07', '2025-08-22 16:53:17'),
+(5, 'stripe_currency', 'usd', 'string', 'payment', 'Default currency for Stripe payments', 1, '2025-08-22 14:13:07', '2025-08-22 14:13:07'),
+(6, 'stripe_publishable_key', 'pk_test_51Msy7yLXqt7gmBJh4vuDL48V2faAe1J9y0Aq3SG1O6kd2WII3GC0RYEceDyp5Y9ojrldJZnWGwprLnY8tVMKyEEq00CteT32Fy', 'string', 'general', NULL, 1, '2025-08-22 15:16:54', '2025-08-22 15:16:54'),
+(7, 'stripe_secret_key', 'sk_test_51Msy7yLXqt7gmBJhSDeM5ROXhaEgMSq6e7IVguW9Gf2SoiK01k1iDJbtgQZa1mdOGovxzswL3uUVW3k5mQgENkcC00dgYYOTtK', 'string', 'general', NULL, 1, '2025-08-22 15:16:54', '2025-08-22 15:16:54'),
+(8, 'stripe_webhook_secret', 'http://localhost/realitycheckguide/', 'string', 'general', NULL, 1, '2025-08-22 15:16:54', '2025-08-22 15:16:54');
 
 -- --------------------------------------------------------
 
@@ -147,15 +179,18 @@ INSERT INTO `banners` (`id`, `name`, `slug`, `short_description`, `description`,
 (2, 'TERMS AND CONDITIONS', 'terms-and-conditions', NULL, NULL, '22-08-03-215418.png', '1', '2024-12-19 21:54:09', '2022-08-03 16:47:42', '2024-12-19 16:54:09'),
 (3, 'ABOUT SCVBA', 'about-scvba', NULL, NULL, '25-04-14-164130.png', '1', NULL, '2022-08-03 17:10:29', '2025-04-14 11:41:30'),
 (6, 'Member Benefits', 'member-benefits', NULL, NULL, '25-04-14-193231.png', '1', '2025-08-05 16:11:25', '2022-08-03 18:25:57', '2025-08-05 11:11:25'),
-(7, 'SCVBA Events', 'scvba-events', NULL, NULL, '25-04-15-154417.png', '1', '2025-08-05 16:11:21', '2022-08-03 18:34:07', '2025-08-05 11:11:21'),
+(7, 'Events', 'scvba-events', NULL, NULL, '25-04-15-154417.png', '1', '2025-08-05 16:11:21', '2022-08-03 18:34:07', '2025-09-29 12:24:58'),
 (8, 'Contact Us', 'contact-us', NULL, NULL, '25-04-15-161257.png', '1', NULL, '2022-08-03 18:44:41', '2025-04-15 11:12:57'),
-(9, 'SCVBA Project Hub', 'scvba-project-hub', NULL, NULL, '25-02-07-200724.jpg', '1', '2025-08-05 16:11:15', '2022-08-03 19:11:08', '2025-08-05 11:11:15'),
+(9, 'Project Hub', 'scvba-project-hub', NULL, NULL, '25-02-07-200724.jpg', '1', '2025-08-05 16:11:15', '2022-08-03 19:11:08', '2025-09-29 12:24:47'),
 (10, 'SIGN UP', 'sign-up', NULL, NULL, '25-02-10-151802.jpg', '1', NULL, '2022-08-04 11:48:58', '2025-02-10 10:18:02'),
-(15, 'SCVBA Member', 'scvba-member', NULL, NULL, '25-04-14-215905.png', '1', NULL, '2022-08-23 16:48:22', '2025-05-07 14:08:28'),
+(15, 'Member', 'scvba-member', NULL, NULL, '25-04-14-215905.png', '1', NULL, '2022-08-23 16:48:22', '2025-09-29 12:24:38'),
 (16, 'Registration', 'registration', NULL, NULL, '25-04-15-001254.png', '1', NULL, '2024-12-23 15:36:32', '2025-04-14 19:12:54'),
 (17, 'Welcome to Submittal Builder', 'login', NULL, NULL, '25-02-10-152007.jpg', '1', NULL, '2025-02-10 10:20:07', '2025-08-05 10:19:08'),
 (18, 'Project  Details', NULL, NULL, NULL, '25-05-08-180304.jpg', '1', NULL, '2025-05-08 13:03:04', '2025-06-11 12:42:41'),
-(19, 'Careers', NULL, NULL, NULL, '25-06-11-211324.jpg', '1', '2025-08-05 16:11:03', '2025-06-11 16:13:24', '2025-08-05 11:11:03');
+(19, 'Careers', NULL, NULL, NULL, '25-06-11-211324.jpg', '1', '2025-08-05 16:11:03', '2025-06-11 16:13:24', '2025-08-05 11:11:03'),
+(21, 'Content Creators Banner', 'creators', NULL, NULL, '25-08-25-174156.jpg', '1', NULL, '2025-08-22 19:20:20', '2025-08-25 12:41:56'),
+(22, 'Creator Profile Banner', 'creator-profile', 'Creator Profile', 'Learn more about this content creator', 'images.png', '1', NULL, '2025-08-22 19:20:20', '2025-08-22 19:20:20'),
+(23, 'Video Platform Banner', 'video-platform', 'Video Platform', 'Watch and learn from amazing content creators', 'images.png', '1', NULL, '2025-08-22 19:20:20', '2025-08-22 19:20:20');
 
 -- --------------------------------------------------------
 
@@ -175,15 +210,6 @@ CREATE TABLE `bids` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `bids`
---
-
-INSERT INTO `bids` (`id`, `job_post_id`, `electrician_id`, `user_id`, `bid_amount`, `proposal`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 5, 107, 106, 50.00, 'testing bid', 'completed', '2025-08-08 19:37:46', '2025-08-08 19:42:41', NULL),
-(2, 2, 107, 106, 60.00, 'testing bid', 'pending', '2025-08-11 11:19:43', '2025-08-11 11:20:09', '2025-08-11 11:20:09'),
-(3, 2, 107, 106, 60.00, 'testing bids', 'pending', '2025-08-11 11:20:29', '2025-08-11 11:24:23', NULL);
 
 -- --------------------------------------------------------
 
@@ -391,6 +417,15 @@ CREATE TABLE `contact_us` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `contact_us`
+--
+
+INSERT INTO `contact_us` (`id`, `name`, `email`, `phone`, `address`, `message`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'Test', 'rine@mailinator.com', '1231231231', NULL, 'testing', '1', '2025-09-29 17:23:55', '2025-09-29 12:08:48', '2025-09-29 12:23:55'),
+(2, 'Test', 'rine@mailinator.com', '1231231231', NULL, 'testing', '1', '2025-09-29 17:23:58', '2025-09-29 12:22:56', '2025-09-29 12:23:58'),
+(3, 'Test', 'rine@mailinator.com', '1231231231', NULL, 'asdasdas', '1', '2025-09-29 17:24:00', '2025-09-29 12:23:26', '2025-09-29 12:24:00');
+
 -- --------------------------------------------------------
 
 --
@@ -473,6 +508,36 @@ CREATE TABLE `cover_templates` (
 
 INSERT INTO `cover_templates` (`id`, `created_by`, `name`, `stored_path`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, 'Admin', 'cover-templates/2025/08/oyVZVeTmAjvYc1QW0P0Oe6SREgQesfFTYd514aqQ.pdf', '2025-08-08 13:26:08', '2025-08-08 13:26:08', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `creator_pricing_rules`
+--
+
+CREATE TABLE `creator_pricing_rules` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `creator_id` bigint(20) UNSIGNED NOT NULL,
+  `videos_sold_threshold` int(11) NOT NULL DEFAULT 15,
+  `max_price_cap` decimal(8,2) NOT NULL DEFAULT 99.99,
+  `min_price_floor` decimal(8,2) NOT NULL DEFAULT 0.99,
+  `custom_pricing_enabled` tinyint(1) NOT NULL DEFAULT 0,
+  `pricing_tiers` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`pricing_tiers`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `creator_pricing_rules`
+--
+
+INSERT INTO `creator_pricing_rules` (`id`, `creator_id`, `videos_sold_threshold`, `max_price_cap`, `min_price_floor`, `custom_pricing_enabled`, `pricing_tiers`, `created_at`, `updated_at`) VALUES
+(1, 4, 15, 19.99, 0.99, 0, '{\"bulk_5\":{\"count\":5,\"discount\":10,\"description\":\"Buy 5 videos, get 10% off\"},\"bulk_10\":{\"count\":10,\"discount\":20,\"description\":\"Buy 10 videos, get 20% off\"}}', '2025-08-22 12:44:21', '2025-08-22 12:44:21'),
+(2, 5, 15, 19.99, 0.99, 0, '{\"bulk_5\":{\"count\":5,\"discount\":10,\"description\":\"Buy 5 videos, get 10% off\"},\"bulk_10\":{\"count\":10,\"discount\":20,\"description\":\"Buy 10 videos, get 20% off\"}}', '2025-08-22 12:44:21', '2025-08-22 12:44:21'),
+(3, 6, 15, 19.99, 0.99, 0, '{\"bulk_5\":{\"count\":5,\"discount\":10,\"description\":\"Buy 5 videos, get 10% off\"},\"bulk_10\":{\"count\":10,\"discount\":20,\"description\":\"Buy 10 videos, get 20% off\"}}', '2025-08-22 12:44:21', '2025-08-22 12:44:21'),
+(4, 7, 15, 19.99, 0.99, 0, '{\"bulk_5\":{\"count\":5,\"discount\":10,\"description\":\"Buy 5 videos, get 10% off\"},\"bulk_10\":{\"count\":10,\"discount\":20,\"description\":\"Buy 10 videos, get 20% off\"}}', '2025-08-22 12:44:21', '2025-08-22 12:44:21'),
+(5, 12, 15, 19.99, 0.99, 0, '{\"bulk_5\":{\"count\":5,\"discount\":10,\"description\":\"Buy 5 videos, get 10% off\"},\"bulk_10\":{\"count\":10,\"discount\":20,\"description\":\"Buy 10 videos, get 20% off\"}}', '2025-08-22 12:44:21', '2025-08-22 12:44:21'),
+(6, 14, 15, 19.99, 0.99, 0, '{\"bulk_5\":{\"count\":5,\"discount\":10,\"description\":\"Buy 5 videos, get 10% off\"},\"bulk_10\":{\"count\":10,\"discount\":20,\"description\":\"Buy 10 videos, get 20% off\"}}', '2025-08-22 12:44:21', '2025-08-22 12:44:21');
 
 -- --------------------------------------------------------
 
@@ -573,6 +638,20 @@ INSERT INTO `f_a_q_s` (`id`, `created_by`, `question`, `answer`, `status`, `dele
 (9, 1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '1', NULL, '2022-05-19 12:43:29', '2022-05-19 12:43:29'),
 (10, 1, 'sdfsdfasdfsdfsdfsfsfsfsdf?', 'sdfgdfghd d g dgdfg dfgdsfgdfg sdfgsdfgdfgdgsdf sdfgsdfggfdgdfgdfgdg dfgdfgsdgdsgd sdfgdfgsdg\r\nsdfgdfghd d g dgdfg dfgdsfgdfg sdfgsdfgdfgdgsdf sdfgsdfggfdgdfgdfgdg dfgdfgsdgdsgd sdfgdfgsdg\r\nsdfgdfghd d g dgdfg dfgdsfgdfg sdfgsdfgdfgdgsdf sdfgsdfggfdgdfgdfgdg dfgdfgsdgdsgd sdfgdfgsdg sdfgdfghd d g dgdfg dfgdsfgdfg sdfgsdfgdfgdgsdf sdfgsdfggfdgdfgdfgdg dfgdfgsdgdsgd sdfgdfgsdg', '1', '2024-08-02 19:35:20', '2024-06-27 17:30:32', '2024-08-02 14:35:20'),
 (11, 1, 'hkhjkhjkhjkhjk', 'hgjkhjkghjkghjkhgjk', '1', '2024-08-02 19:35:16', '2024-06-27 17:32:12', '2024-08-02 14:35:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gallery_details`
+--
+
+CREATE TABLE `gallery_details` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `product_slug` varchar(255) DEFAULT NULL COMMENT 'Product slug',
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -884,7 +963,28 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (166, '2025_08_08_100200_create_submittal_sections_table', 103),
 (167, '2025_08_08_100300_create_submittal_timeline_events_table', 104),
 (168, '2025_08_08_100400_create_cover_templates_table', 105),
-(169, '2025_08_08_100500_add_fields_to_submittals_table', 106);
+(169, '2025_08_08_100500_add_fields_to_submittals_table', 106),
+(170, '2024_01_01_000001_create_videos_table', 107),
+(171, '2024_01_01_000002_create_video_purchases_table', 108),
+(172, '2024_01_01_000003_create_video_downloads_table', 109),
+(173, '2024_01_01_000004_create_creator_pricing_rules_table', 110),
+(174, '2024_01_01_000005_create_wallets_table', 111),
+(175, '2024_01_01_000006_create_wallet_transactions_table', 112),
+(176, '2024_01_01_000007_create_orders_table', 113),
+(177, '2024_01_01_000008_create_payouts_table', 114),
+(178, '2024_01_01_000009_create_admin_settings_table', 115),
+(179, '2024_01_01_000010_add_fields_to_videos_table', 116),
+(180, '2025_08_04_173242_create_bids_table', 117),
+(181, '2025_06_24_170754_create_sessions_table', 118),
+(182, '2022_05_18_190058_create_contact_us_table', 118),
+(183, '2022_05_19_182732_create_banners_table', 118),
+(184, '2022_10_26_160340_create_packages_table', 118),
+(185, '2025_06_24_165846_create_permission_tables', 118),
+(186, '2022_05_30_171946_create_gallery_details_table', 119),
+(187, '2024_01_01_000000_add_sample_banners', 120),
+(188, '2025_09_29_180503_create_video_questions_table', 121),
+(189, '2025_09_29_180531_create_video_question_options_table', 121),
+(190, '2025_09_29_180537_create_video_question_responses_table', 121);
 
 -- --------------------------------------------------------
 
@@ -916,169 +1016,20 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(1, 'App\\Models\\User', 99),
-(1, 'App\\Models\\User', 100),
-(4, 'App\\Models\\User', 5),
-(4, 'App\\Models\\User', 6),
-(4, 'App\\Models\\User', 8),
-(4, 'App\\Models\\User', 10),
-(4, 'App\\Models\\User', 11),
-(4, 'App\\Models\\User', 13),
-(4, 'App\\Models\\User', 17),
-(4, 'App\\Models\\User', 18),
-(4, 'App\\Models\\User', 19),
-(4, 'App\\Models\\User', 20),
-(4, 'App\\Models\\User', 22),
-(4, 'App\\Models\\User', 23),
-(4, 'App\\Models\\User', 24),
-(4, 'App\\Models\\User', 25),
-(4, 'App\\Models\\User', 26),
-(4, 'App\\Models\\User', 27),
-(4, 'App\\Models\\User', 28),
-(4, 'App\\Models\\User', 29),
-(4, 'App\\Models\\User', 32),
-(4, 'App\\Models\\User', 33),
-(4, 'App\\Models\\User', 37),
-(4, 'App\\Models\\User', 38),
-(4, 'App\\Models\\User', 41),
-(4, 'App\\Models\\User', 42),
-(4, 'App\\Models\\User', 43),
-(4, 'App\\Models\\User', 44),
-(4, 'App\\Models\\User', 50),
-(4, 'App\\Models\\User', 51),
-(4, 'App\\Models\\User', 52),
-(4, 'App\\Models\\User', 53),
-(4, 'App\\Models\\User', 54),
-(4, 'App\\Models\\User', 59),
-(4, 'App\\Models\\User', 60),
-(4, 'App\\Models\\User', 61),
-(4, 'App\\Models\\User', 68),
-(4, 'App\\Models\\User', 69),
-(4, 'App\\Models\\User', 74),
-(4, 'App\\Models\\User', 76),
-(4, 'App\\Models\\User', 77),
-(4, 'App\\Models\\User', 78),
-(4, 'App\\Models\\User', 79),
-(4, 'App\\Models\\User', 81),
-(4, 'App\\Models\\User', 85),
-(4, 'App\\Models\\User', 87),
-(4, 'App\\Models\\User', 89),
-(4, 'App\\Models\\User', 92),
-(4, 'App\\Models\\User', 93),
-(4, 'App\\Models\\User', 94),
-(4, 'App\\Models\\User', 95),
-(4, 'App\\Models\\User', 97),
-(4, 'App\\Models\\User', 101),
-(4, 'App\\Models\\User', 102),
-(4, 'App\\Models\\User', 103),
-(4, 'App\\Models\\User', 104),
-(4, 'App\\Models\\User', 105),
-(4, 'App\\Models\\User', 107),
-(4, 'App\\Models\\User', 108),
-(5, 'App\\Models\\User', 2),
-(5, 'App\\Models\\User', 3),
-(5, 'App\\Models\\User', 4),
-(5, 'App\\Models\\User', 5),
-(5, 'App\\Models\\User', 6),
-(5, 'App\\Models\\User', 7),
-(5, 'App\\Models\\User', 8),
-(5, 'App\\Models\\User', 9),
-(5, 'App\\Models\\User', 10),
-(5, 'App\\Models\\User', 11),
-(5, 'App\\Models\\User', 12),
-(5, 'App\\Models\\User', 13),
-(5, 'App\\Models\\User', 14),
-(5, 'App\\Models\\User', 15),
-(5, 'App\\Models\\User', 16),
-(5, 'App\\Models\\User', 17),
-(5, 'App\\Models\\User', 18),
-(5, 'App\\Models\\User', 19),
-(5, 'App\\Models\\User', 20),
-(5, 'App\\Models\\User', 21),
-(5, 'App\\Models\\User', 22),
-(5, 'App\\Models\\User', 23),
-(5, 'App\\Models\\User', 24),
-(5, 'App\\Models\\User', 25),
-(5, 'App\\Models\\User', 26),
-(5, 'App\\Models\\User', 27),
-(5, 'App\\Models\\User', 28),
-(5, 'App\\Models\\User', 29),
-(5, 'App\\Models\\User', 30),
-(5, 'App\\Models\\User', 31),
-(5, 'App\\Models\\User', 32),
-(5, 'App\\Models\\User', 33),
-(5, 'App\\Models\\User', 34),
-(5, 'App\\Models\\User', 35),
-(5, 'App\\Models\\User', 36),
-(5, 'App\\Models\\User', 37),
-(5, 'App\\Models\\User', 38),
-(5, 'App\\Models\\User', 39),
-(5, 'App\\Models\\User', 40),
-(5, 'App\\Models\\User', 41),
-(5, 'App\\Models\\User', 42),
-(5, 'App\\Models\\User', 43),
-(5, 'App\\Models\\User', 44),
-(5, 'App\\Models\\User', 45),
-(5, 'App\\Models\\User', 46),
-(5, 'App\\Models\\User', 47),
-(5, 'App\\Models\\User', 48),
-(5, 'App\\Models\\User', 49),
-(5, 'App\\Models\\User', 50),
-(5, 'App\\Models\\User', 51),
-(5, 'App\\Models\\User', 52),
-(5, 'App\\Models\\User', 53),
-(5, 'App\\Models\\User', 54),
-(5, 'App\\Models\\User', 55),
-(5, 'App\\Models\\User', 56),
-(5, 'App\\Models\\User', 57),
-(5, 'App\\Models\\User', 58),
-(5, 'App\\Models\\User', 59),
-(5, 'App\\Models\\User', 60),
-(5, 'App\\Models\\User', 61),
-(5, 'App\\Models\\User', 62),
-(5, 'App\\Models\\User', 63),
-(5, 'App\\Models\\User', 64),
-(5, 'App\\Models\\User', 65),
-(5, 'App\\Models\\User', 66),
-(5, 'App\\Models\\User', 67),
-(5, 'App\\Models\\User', 68),
-(5, 'App\\Models\\User', 69),
-(5, 'App\\Models\\User', 70),
-(5, 'App\\Models\\User', 71),
-(5, 'App\\Models\\User', 72),
-(5, 'App\\Models\\User', 73),
-(5, 'App\\Models\\User', 74),
-(5, 'App\\Models\\User', 75),
-(5, 'App\\Models\\User', 76),
-(5, 'App\\Models\\User', 77),
-(5, 'App\\Models\\User', 78),
-(5, 'App\\Models\\User', 79),
-(5, 'App\\Models\\User', 80),
-(5, 'App\\Models\\User', 81),
-(5, 'App\\Models\\User', 82),
-(5, 'App\\Models\\User', 83),
-(5, 'App\\Models\\User', 84),
-(5, 'App\\Models\\User', 85),
-(5, 'App\\Models\\User', 86),
-(5, 'App\\Models\\User', 87),
-(5, 'App\\Models\\User', 88),
-(5, 'App\\Models\\User', 89),
-(5, 'App\\Models\\User', 90),
-(5, 'App\\Models\\User', 91),
-(5, 'App\\Models\\User', 92),
-(5, 'App\\Models\\User', 93),
-(5, 'App\\Models\\User', 96),
-(5, 'App\\Models\\User', 97),
-(5, 'App\\Models\\User', 98),
-(5, 'App\\Models\\User', 99),
-(5, 'App\\Models\\User', 100),
-(5, 'App\\Models\\User', 101),
-(5, 'App\\Models\\User', 102),
-(5, 'App\\Models\\User', 103),
-(5, 'App\\Models\\User', 104),
-(5, 'App\\Models\\User', 105),
-(5, 'App\\Models\\User', 106),
-(5, 'App\\Models\\User', 107);
+(1, 'App\\Models\\User', 2),
+(1, 'App\\Models\\User', 3),
+(2, 'App\\Models\\User', 8),
+(2, 'App\\Models\\User', 9),
+(2, 'App\\Models\\User', 10),
+(2, 'App\\Models\\User', 11),
+(2, 'App\\Models\\User', 13),
+(2, 'App\\Models\\User', 15),
+(3, 'App\\Models\\User', 4),
+(3, 'App\\Models\\User', 5),
+(3, 'App\\Models\\User', 6),
+(3, 'App\\Models\\User', 7),
+(3, 'App\\Models\\User', 12),
+(3, 'App\\Models\\User', 14);
 
 -- --------------------------------------------------------
 
@@ -1128,6 +1079,40 @@ CREATE TABLE `notifications` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `video_id` bigint(20) UNSIGNED NOT NULL,
+  `creator_id` bigint(20) UNSIGNED NOT NULL,
+  `order_number` varchar(255) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `commission_rate` decimal(5,2) NOT NULL,
+  `commission_amount` decimal(10,2) NOT NULL,
+  `creator_earning` decimal(10,2) NOT NULL,
+  `stripe_payment_intent_id` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'pending',
+  `paid_at` timestamp NULL DEFAULT NULL,
+  `stripe_data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`stripe_data`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `video_id`, `creator_id`, `order_number`, `amount`, `commission_rate`, `commission_amount`, `creator_earning`, `stripe_payment_intent_id`, `status`, `paid_at`, `stripe_data`, `created_at`, `updated_at`) VALUES
+(2, 4, 3, 4, 'ORD2025082523585993AE87', 10.00, 30.00, 3.00, 7.00, 'pi_3S0AHuLXqt7gmBJh03VlHZQv', 'completed', '2025-08-25 18:58:59', '{\"id\":\"pi_3S0AHuLXqt7gmBJh03VlHZQv\",\"object\":\"payment_intent\",\"amount\":1000,\"amount_capturable\":0,\"amount_details\":{\"tip\":[]},\"amount_received\":0,\"application\":null,\"application_fee_amount\":null,\"automatic_payment_methods\":{\"allow_redirects\":\"never\",\"enabled\":true},\"canceled_at\":null,\"cancellation_reason\":null,\"capture_method\":\"automatic_async\",\"client_secret\":\"pi_3S0AHuLXqt7gmBJh03VlHZQv_secret_6d5Q5Cjbq9UeF1MYo0sHuJcCz\",\"confirmation_method\":\"automatic\",\"created\":1756166338,\"currency\":\"usd\",\"customer\":null,\"description\":null,\"excluded_payment_method_types\":null,\"invoice\":null,\"last_payment_error\":null,\"latest_charge\":null,\"livemode\":false,\"metadata\":{\"creator_id\":\"4\",\"user_id\":\"4\",\"video_id\":\"3\"},\"next_action\":null,\"on_behalf_of\":null,\"payment_method\":\"pm_1S0AHtLXqt7gmBJh4tHCU3vk\",\"payment_method_configuration_details\":{\"id\":\"pmc_1QTywMLXqt7gmBJh5cGsc200\",\"parent\":null},\"payment_method_options\":{\"card\":{\"installments\":null,\"mandate_options\":null,\"network\":null,\"request_three_d_secure\":\"automatic\"},\"link\":{\"persistent_token\":null}},\"payment_method_types\":[\"card\",\"link\"],\"processing\":null,\"receipt_email\":null,\"review\":null,\"setup_future_usage\":null,\"shipping\":null,\"source\":null,\"statement_descriptor\":null,\"statement_descriptor_suffix\":null,\"status\":\"requires_confirmation\",\"transfer_data\":null,\"transfer_group\":null}', '2025-08-25 18:58:59', '2025-08-25 18:58:59'),
+(3, 8, 3, 4, 'ORD20250826163734EC2451', 10.00, 30.00, 3.00, 7.00, 'pi_3S0PsILXqt7gmBJh1v2emZ0f', 'completed', '2025-08-26 11:37:34', '{\"id\":\"pi_3S0PsILXqt7gmBJh1v2emZ0f\",\"object\":\"payment_intent\",\"amount\":1000,\"amount_capturable\":0,\"amount_details\":{\"tip\":[]},\"amount_received\":0,\"application\":null,\"application_fee_amount\":null,\"automatic_payment_methods\":{\"allow_redirects\":\"never\",\"enabled\":true},\"canceled_at\":null,\"cancellation_reason\":null,\"capture_method\":\"automatic_async\",\"client_secret\":\"pi_3S0PsILXqt7gmBJh1v2emZ0f_secret_8vKQn6tWp6ZGTmpGy9l3RBDhR\",\"confirmation_method\":\"automatic\",\"created\":1756226254,\"currency\":\"usd\",\"customer\":null,\"description\":null,\"excluded_payment_method_types\":null,\"invoice\":null,\"last_payment_error\":null,\"latest_charge\":null,\"livemode\":false,\"metadata\":{\"creator_id\":\"4\",\"user_id\":\"8\",\"video_id\":\"3\"},\"next_action\":null,\"on_behalf_of\":null,\"payment_method\":\"pm_1S0PsHLXqt7gmBJh9bNDYZ54\",\"payment_method_configuration_details\":{\"id\":\"pmc_1QTywMLXqt7gmBJh5cGsc200\",\"parent\":null},\"payment_method_options\":{\"card\":{\"installments\":null,\"mandate_options\":null,\"network\":null,\"request_three_d_secure\":\"automatic\"},\"link\":{\"persistent_token\":null}},\"payment_method_types\":[\"card\",\"link\"],\"processing\":null,\"receipt_email\":null,\"review\":null,\"setup_future_usage\":null,\"shipping\":null,\"source\":null,\"statement_descriptor\":null,\"statement_descriptor_suffix\":null,\"status\":\"requires_confirmation\",\"transfer_data\":null,\"transfer_group\":null}', '2025-08-26 11:37:34', '2025-08-26 11:37:34'),
+(4, 8, 5, 4, 'ORD20250929182711907819', 10.00, 30.00, 3.00, 7.00, 'pi_3SClmqLXqt7gmBJh1UmeYP0J', 'completed', '2025-09-29 13:27:11', '{\"id\":\"pi_3SClmqLXqt7gmBJh1UmeYP0J\",\"object\":\"payment_intent\",\"amount\":1000,\"amount_capturable\":0,\"amount_details\":{\"tip\":[]},\"amount_received\":0,\"application\":null,\"application_fee_amount\":null,\"automatic_payment_methods\":{\"allow_redirects\":\"never\",\"enabled\":true},\"canceled_at\":null,\"cancellation_reason\":null,\"capture_method\":\"automatic_async\",\"client_secret\":\"pi_3SClmqLXqt7gmBJh1UmeYP0J_secret_VrYZ9pczRZ8F2LmwHsveiJDMR\",\"confirmation_method\":\"automatic\",\"created\":1759170420,\"currency\":\"usd\",\"customer\":null,\"description\":null,\"excluded_payment_method_types\":null,\"invoice\":null,\"last_payment_error\":null,\"latest_charge\":null,\"livemode\":false,\"metadata\":{\"creator_id\":\"4\",\"user_id\":\"8\",\"video_id\":\"5\"},\"next_action\":null,\"on_behalf_of\":null,\"payment_method\":\"pm_1SClmkLXqt7gmBJhaL2kx0fT\",\"payment_method_configuration_details\":{\"id\":\"pmc_1QTywMLXqt7gmBJh5cGsc200\",\"parent\":null},\"payment_method_options\":{\"card\":{\"installments\":null,\"mandate_options\":null,\"network\":null,\"request_three_d_secure\":\"automatic\"},\"link\":{\"persistent_token\":null}},\"payment_method_types\":[\"card\",\"link\"],\"processing\":null,\"receipt_email\":null,\"review\":null,\"setup_future_usage\":null,\"shipping\":null,\"source\":null,\"statement_descriptor\":null,\"statement_descriptor_suffix\":null,\"status\":\"requires_confirmation\",\"transfer_data\":null,\"transfer_group\":null}', '2025-09-29 13:27:11', '2025-09-29 13:27:11'),
+(5, 8, 6, 4, 'ORD20250930214733CCDF1C', 5.00, 30.00, 1.50, 3.50, 'pi_3SDBOJLXqt7gmBJh0lHdKwgZ', 'completed', '2025-09-30 16:47:33', '{\"id\":\"pi_3SDBOJLXqt7gmBJh0lHdKwgZ\",\"object\":\"payment_intent\",\"amount\":500,\"amount_capturable\":0,\"amount_details\":{\"tip\":[]},\"amount_received\":0,\"application\":null,\"application_fee_amount\":null,\"automatic_payment_methods\":{\"allow_redirects\":\"never\",\"enabled\":true},\"canceled_at\":null,\"cancellation_reason\":null,\"capture_method\":\"automatic_async\",\"client_secret\":\"pi_3SDBOJLXqt7gmBJh0lHdKwgZ_secret_m5aolkjoVecxWB70LmWbGhKPA\",\"confirmation_method\":\"automatic\",\"created\":1759268843,\"currency\":\"usd\",\"customer\":null,\"description\":null,\"excluded_payment_method_types\":null,\"invoice\":null,\"last_payment_error\":null,\"latest_charge\":null,\"livemode\":false,\"metadata\":{\"creator_id\":\"4\",\"user_id\":\"8\",\"video_id\":\"6\"},\"next_action\":null,\"on_behalf_of\":null,\"payment_method\":\"pm_1SDBOGLXqt7gmBJhWDnpKFMP\",\"payment_method_configuration_details\":{\"id\":\"pmc_1QTywMLXqt7gmBJh5cGsc200\",\"parent\":null},\"payment_method_options\":{\"card\":{\"installments\":null,\"mandate_options\":null,\"network\":null,\"request_three_d_secure\":\"automatic\"},\"link\":{\"persistent_token\":null}},\"payment_method_types\":[\"card\",\"link\"],\"processing\":null,\"receipt_email\":null,\"review\":null,\"setup_future_usage\":null,\"shipping\":null,\"source\":null,\"statement_descriptor\":null,\"statement_descriptor_suffix\":null,\"status\":\"requires_confirmation\",\"transfer_data\":null,\"transfer_group\":null}', '2025-09-30 16:47:33', '2025-09-30 16:47:33');
 
 -- --------------------------------------------------------
 
@@ -1214,11 +1199,11 @@ CREATE TABLE `page_settings` (
 --
 
 INSERT INTO `page_settings` (`id`, `parent_slug`, `key`, `value`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'header', '_token', '3FbNNvpRRfUfmvJlOWZPOXkeS9wflYEfAfzbRugK', NULL, '2022-06-03 18:31:33', '2025-08-08 18:05:45'),
+(1, 'header', '_token', 'iDQqtVO4PYySNjm2H7SuDfwrqMaFHmEKys9PivzX', NULL, '2022-06-03 18:31:33', '2025-08-18 12:32:11'),
 (2, 'header', 'parent_slug', 'header', NULL, '2022-06-03 18:31:33', '2022-06-03 18:31:33'),
 (3, 'header', 'form_blog', NULL, NULL, '2022-06-03 18:31:33', '2022-06-03 18:31:33'),
-(4, 'header', 'header_favicon', '08082025230546.png', NULL, '2022-06-03 18:31:33', '2025-08-08 18:05:46'),
-(5, 'header', 'header_logo', '08082025230546.png', NULL, '2022-06-03 18:31:33', '2025-08-08 18:05:46'),
+(4, 'header', 'header_favicon', '18082025173211.ico', NULL, '2022-06-03 18:31:33', '2025-08-18 12:32:11'),
+(5, 'header', 'header_logo', '18082025173211.png', NULL, '2022-06-03 18:31:33', '2025-08-18 12:32:11'),
 (6, 'footer', '_token', '3FbNNvpRRfUfmvJlOWZPOXkeS9wflYEfAfzbRugK', NULL, '2022-06-03 18:41:30', '2025-08-08 18:05:59'),
 (7, 'footer', 'parent_slug', 'footer', NULL, '2022-06-03 18:41:30', '2022-06-03 18:41:30'),
 (8, 'footer', 'footer_description', '<p>Duis aute irure dolor in reprehenderit in volutate velit esse cillum dolore eu fugiat nulla pariatur.</p>', NULL, '2022-06-03 18:41:30', '2024-12-16 12:26:49'),
@@ -1298,11 +1283,11 @@ INSERT INTO `page_settings` (`id`, `parent_slug`, `key`, `value`, `deleted_at`, 
 (144, 'about-us', 'heading_two', 'WELCOME TO RENOVAEN', NULL, '2024-06-27 14:20:29', '2024-08-16 13:03:33'),
 (145, 'about-us', 'description_two', '<p>We created this website to make your life easier, more affordable, and more trustworthy. Whether you need to fix problems in your home, business, car, or truck, we have everything you need. We even offer home warranty services with some free services included coming soon. Plus, if you&rsquo;re planning a remodeling project, you can apply for a remodeling loan to help you save money.</p>\r\n<p>At Renovaen, we also provide a taxi service that&rsquo;s cheaper and safer than other companies. And if you&rsquo;re a truck driver, we can help you find loads and even provide repair services if your truck breaks down. We&rsquo;ve figured out a unique way to make our website the number one go-to for contractors and mechanics. No more spending hours on the phone trying to find the right company with the best prices and experience. With Renovaen, all you have to do is tell us what you need, and we&rsquo;ll find the right, trusted, cheapest, and most experienced professionals for you. We&rsquo;ll send your request to our contractors and mechanics, who will make offers for you to choose from. You&rsquo;ll be able to read about each company&rsquo;s offers and choose the one that works best for you. We even conduct background checks on all the contractors and mechanics working with us, so you can rest assured that you&rsquo;re in good hands. Thank you for choosing Renovaen. We&rsquo;re committed to providing you with the best service possible, and we look forward to helping you with all your needs.</p>', NULL, '2024-06-27 14:20:29', '2024-08-16 13:03:33'),
 (146, 'about-us', 'title', 'About Us', NULL, '2024-06-27 14:28:52', '2024-06-27 14:28:52'),
-(147, 'contact-us', '_token', 'WtnRofBmM7Dzovjuws2CyL48FfizTG5tEFcSPJpW', NULL, '2024-06-27 14:59:53', '2025-04-15 11:28:31'),
+(147, 'contact-us', '_token', 'mfqzqrfp3hMvvbRGjReGrrA1YokJcpjggOXw3ZC5', NULL, '2024-06-27 14:59:53', '2025-09-29 12:01:39'),
 (148, 'contact-us', 'parent_slug', 'contact-us', NULL, '2024-06-27 14:59:53', '2024-06-27 14:59:53'),
-(149, 'contact-us', 'contact_address', '4758 Sunburst Drive Fort Myers, FL 33908', NULL, '2024-06-27 14:59:53', '2024-12-19 14:37:23'),
-(150, 'contact-us', 'contact_email', 'Info@scvba.com', NULL, '2024-06-27 14:59:53', '2025-04-15 11:28:31'),
-(151, 'contact-us', 'contact_phone', '+61383760628', NULL, '2024-06-27 14:59:53', '2025-04-15 11:28:31'),
+(149, 'contact-us', 'contact_address', '123 Career Street New York, NY 10001', NULL, '2024-06-27 14:59:53', '2025-09-29 12:01:52'),
+(150, 'contact-us', 'contact_email', 'Info@realitycheckguide.com', NULL, '2024-06-27 14:59:53', '2025-09-29 12:01:39'),
+(151, 'contact-us', 'contact_phone', '+1 (555) 123-4567', NULL, '2024-06-27 14:59:53', '2025-09-29 12:01:39'),
 (152, 'contact-us', 'form_contact', NULL, NULL, '2024-06-27 14:59:53', '2024-06-27 14:59:53'),
 (153, 'contact-us', 'form_heading', 'SOCIAL <span>MEDIA</span>', NULL, '2024-12-19 14:37:23', '2025-04-15 11:28:31'),
 (154, 'contact-us', 'contact_heading', 'CONTACT<span>INFO</span>', NULL, '2024-12-19 14:37:23', '2025-04-15 11:28:31'),
@@ -1531,7 +1516,9 @@ INSERT INTO `payments` (`id`, `customer_id`, `package_id`, `order_number`, `tota
 (127, 103, 3, 13122, 300.00, 300.00, 0.00, 'succeeded', 1, '2025-07-31 16:20:29', '2025-07-31 16:20:29'),
 (128, 105, 3, 62828, 300.00, 300.00, 0.00, 'succeeded', 1, '2025-07-31 17:24:39', '2025-07-31 17:24:39'),
 (129, 106, 5, 51850, 0.00, 0.00, 0.00, 'completed', 1, '2025-08-07 13:40:26', '2025-08-07 13:40:26'),
-(130, 107, 2, 93179, 150.00, 150.00, 0.00, 'succeeded', 1, '2025-08-07 14:59:07', '2025-08-07 14:59:07');
+(130, 107, 2, 93179, 150.00, 150.00, 0.00, 'succeeded', 1, '2025-08-07 14:59:07', '2025-08-07 14:59:07'),
+(131, 13, 1, 34686, 0.00, 0.00, 0.00, 'completed', 1, '2025-08-22 11:27:35', '2025-08-22 11:27:35'),
+(132, 14, 1, 89362, 0.00, 0.00, 0.00, 'completed', 1, '2025-08-22 11:28:47', '2025-08-22 11:28:47');
 
 -- --------------------------------------------------------
 
@@ -1682,6 +1669,38 @@ INSERT INTO `payment_details` (`id`, `order_number`, `transaction_id`, `transact
 (123, 13122, 'ch_3Rr3tkLXqt7gmBJh0LEu51GQ', 'succeeded', '2025-07-31', NULL, '11', '2026', '2025-07-31 16:20:29', '2025-07-31 16:20:29'),
 (124, 62828, 'ch_3Rr4tqLXqt7gmBJh1UR1dnSO', 'succeeded', '2025-07-31', NULL, '11', '2029', '2025-07-31 17:24:39', '2025-07-31 17:24:39'),
 (125, 93179, 'ch_3RtZxrLXqt7gmBJh0wwLIPBA', 'succeeded', '2025-08-07', NULL, '11', '2026', '2025-08-07 14:59:07', '2025-08-07 14:59:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payouts`
+--
+
+CREATE TABLE `payouts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `creator_id` bigint(20) UNSIGNED NOT NULL,
+  `wallet_id` bigint(20) UNSIGNED NOT NULL,
+  `payout_number` varchar(255) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'pending',
+  `payout_method` varchar(255) DEFAULT NULL,
+  `stripe_transfer_id` varchar(255) DEFAULT NULL,
+  `admin_notes` text DEFAULT NULL,
+  `rejection_reason` text DEFAULT NULL,
+  `processed_at` timestamp NULL DEFAULT NULL,
+  `paid_at` timestamp NULL DEFAULT NULL,
+  `stripe_data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`stripe_data`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payouts`
+--
+
+INSERT INTO `payouts` (`id`, `creator_id`, `wallet_id`, `payout_number`, `amount`, `status`, `payout_method`, `stripe_transfer_id`, `admin_notes`, `rejection_reason`, `processed_at`, `paid_at`, `stripe_data`, `created_at`, `updated_at`) VALUES
+(1, 4, 1, 'PAY20250825222203A1538F', 50.00, 'approved', 'bank_transfer', NULL, 'test', NULL, '2025-08-25 17:26:56', NULL, NULL, '2025-08-25 17:22:03', '2025-08-25 17:26:56'),
+(2, 4, 1, 'PAY20250826002016F5E0E5', 57.00, 'pending', 'bank_transfer', NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-25 19:20:16', '2025-08-25 19:20:16');
 
 -- --------------------------------------------------------
 
@@ -1867,7 +1886,27 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `permission`, `deleted_at
 (278, 'electrician-list', 'web', 'list', NULL, '2025-08-08 12:15:55', '2025-08-08 12:15:55'),
 (279, 'electrician-create', 'web', 'create', NULL, '2025-08-08 12:15:55', '2025-08-08 12:15:55'),
 (280, 'electrician-edit', 'web', 'edit', NULL, '2025-08-08 12:15:55', '2025-08-08 12:15:55'),
-(281, 'electrician-delete', 'web', 'delete', NULL, '2025-08-08 12:15:55', '2025-08-08 12:15:55');
+(281, 'electrician-delete', 'web', 'delete', NULL, '2025-08-08 12:15:55', '2025-08-08 12:15:55'),
+(282, 'admin-dashboard', 'web', NULL, NULL, '2025-08-22 11:12:21', '2025-08-22 11:12:21'),
+(283, 'manage-users', 'web', NULL, NULL, '2025-08-22 11:12:21', '2025-08-22 11:12:21'),
+(284, 'manage-roles', 'web', NULL, NULL, '2025-08-22 11:12:21', '2025-08-22 11:12:21'),
+(285, 'manage-permissions', 'web', NULL, NULL, '2025-08-22 11:12:21', '2025-08-22 11:12:21'),
+(286, 'manage-jobposts', 'web', NULL, NULL, '2025-08-22 11:12:21', '2025-08-22 11:12:21'),
+(287, 'manage-bids', 'web', NULL, NULL, '2025-08-22 11:12:21', '2025-08-22 11:12:21'),
+(288, 'manage-categories', 'web', NULL, NULL, '2025-08-22 11:12:21', '2025-08-22 11:12:21'),
+(289, 'manage-settings', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(290, 'view-jobs', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(291, 'bid-on-jobs', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(292, 'contact-users', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(293, 'creator-dashboard', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(294, 'create-jobpost', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(295, 'manage-own-jobposts', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(296, 'view-own-bids', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(297, 'viewer-dashboard', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(298, 'submittals-list', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(299, 'submittals-create', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(300, 'submittals-edit', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22'),
+(301, 'submittals-delete', 'web', NULL, NULL, '2025-08-22 11:12:22', '2025-08-22 11:12:22');
 
 -- --------------------------------------------------------
 
@@ -2006,9 +2045,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `description`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'web', 'Admin Role Permissions', NULL, '2022-04-06 14:41:39', '2024-07-10 13:27:58'),
-(4, 'Electrician', 'web', 'Electrician Role Permissions', NULL, '2024-06-21 18:28:35', '2025-08-04 19:08:07'),
-(5, 'User', 'web', 'User Role Permissions', NULL, '2025-05-07 19:38:04', '2025-08-04 19:08:19');
+(1, 'Admin', 'web', 'Admin Role Permissions', NULL, '2025-08-06 14:41:39', '2025-08-10 13:27:58'),
+(2, 'Viewer', 'web', NULL, NULL, '2025-08-18 16:23:18', '2025-08-18 16:23:18'),
+(3, 'Creator', 'web', NULL, NULL, '2025-08-18 16:23:19', '2025-08-18 16:23:19');
 
 -- --------------------------------------------------------
 
@@ -2043,7 +2082,6 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (19, 1),
 (20, 1),
 (21, 1),
-(21, 4),
 (22, 1),
 (23, 1),
 (24, 1),
@@ -2068,11 +2106,8 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (55, 1),
 (56, 1),
 (57, 1),
-(57, 4),
 (58, 1),
-(58, 4),
 (59, 1),
-(59, 4),
 (60, 1),
 (61, 1),
 (62, 1),
@@ -2111,11 +2146,13 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (103, 1),
 (104, 1),
 (105, 1),
-(105, 4),
 (106, 1),
 (107, 1),
 (108, 1),
+(109, 1),
+(110, 1),
 (111, 1),
+(112, 1),
 (129, 1),
 (130, 1),
 (131, 1),
@@ -2133,10 +2170,13 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (143, 1),
 (144, 1),
 (173, 1),
+(174, 1),
+(175, 1),
 (176, 1),
 (177, 1),
+(178, 1),
+(179, 1),
 (197, 1),
-(197, 4),
 (198, 1),
 (199, 1),
 (200, 1),
@@ -2149,82 +2189,96 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (211, 1),
 (212, 1),
 (229, 1),
-(229, 4),
-(229, 5),
 (230, 1),
-(230, 5),
 (231, 1),
-(231, 5),
 (232, 1),
-(232, 5),
 (233, 1),
-(233, 4),
-(233, 5),
 (234, 1),
-(234, 5),
 (235, 1),
-(235, 5),
 (236, 1),
-(236, 5),
 (237, 1),
-(237, 5),
 (238, 1),
-(238, 5),
 (239, 1),
-(239, 5),
 (240, 1),
-(240, 5),
 (241, 1),
-(241, 5),
 (242, 1),
-(242, 4),
-(242, 5),
 (243, 1),
-(243, 4),
-(243, 5),
 (244, 1),
-(244, 4),
-(244, 5),
 (245, 1),
-(245, 4),
-(245, 5),
 (246, 1),
-(246, 4),
-(246, 5),
 (247, 1),
-(247, 5),
 (248, 1),
-(248, 5),
 (249, 1),
-(249, 5),
 (250, 1),
-(250, 4),
-(250, 5),
 (251, 1),
-(251, 5),
 (252, 1),
-(252, 5),
 (253, 1),
-(253, 5),
 (258, 1),
 (259, 1),
 (260, 1),
 (261, 1),
-(262, 4),
-(265, 4),
+(262, 1),
+(263, 1),
+(264, 1),
+(265, 1),
 (274, 1),
 (275, 1),
 (276, 1),
 (277, 1),
 (278, 1),
-(278, 4),
-(278, 5),
 (279, 1),
-(279, 4),
 (280, 1),
-(280, 4),
 (281, 1),
-(281, 4);
+(282, 1),
+(283, 1),
+(284, 1),
+(285, 1),
+(286, 1),
+(287, 1),
+(287, 3),
+(288, 1),
+(289, 1),
+(290, 1),
+(290, 3),
+(291, 1),
+(291, 3),
+(292, 1),
+(292, 3),
+(293, 1),
+(293, 3),
+(294, 1),
+(294, 2),
+(295, 1),
+(295, 2),
+(296, 1),
+(296, 2),
+(297, 1),
+(297, 2),
+(298, 1),
+(298, 2),
+(298, 3),
+(299, 1),
+(299, 2),
+(299, 3),
+(300, 1),
+(300, 2),
+(300, 3),
+(301, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3495,9 +3549,278 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `last_name`, `role`, `package_id`, `category_id`, `designation`, `team`, `phone`, `email`, `address`, `top_rated`, `leaderboard`, `about_me`, `date_of_birth`, `gender`, `whatsapp`, `skype`, `facebook`, `twitter`, `instagram`, `linkedin`, `youtube`, `city_id`, `state_id`, `zip_code`, `license`, `image`, `email_verified_at`, `password`, `verify_token`, `deleted_at`, `expiry_date`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin@gmail.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$QowHn04SUEIx8Lo.kQahTehd1cmYS2NnLkwDlqRARD7bVtpnNg/mi', '676f265264ab2', NULL, NULL, '1', '2024-01-05 23:37:49', NULL),
-(106, 'New', 'User', 'User', 5, NULL, NULL, NULL, '+1 (213) 835-7651', 'asjadmmc67@gmail.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-07 14:47:16', '$2y$10$v7c/XsTLRoVcHq8Iu7nmfek3NO8V9Bie13GG0dKkkvyRHAvS2pOO.', NULL, NULL, NULL, '1', '2025-08-07 13:40:17', '2025-08-07 14:47:16'),
-(107, 'New', 'Electrician', 'Electrician', 2, NULL, NULL, NULL, '5574475582', 'newelectrician@gmail.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-07 20:15:59', '$2y$10$n1y1NiqHWo50EPX13ZkJtOZbzN.nksmR0f7bfSqp5FRsQnFWfcFIK', '', NULL, NULL, '1', '2025-08-07 14:59:03', '2025-08-07 14:59:03');
+(1, 'Hardik', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'admin@gmail.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-22 11:21:54', '$2y$10$7ZnflKnVe0z1NzWNb.kbQOX.KkpVhCFdukYSebIFCDLKu2JHIQA4i', NULL, NULL, NULL, '1', '2025-08-22 11:21:54', '2025-08-22 11:21:54'),
+(2, 'John', 'Administrator', NULL, NULL, NULL, 'System Administrator', NULL, '+1-555-0101', 'admin@realitycheckguide.com', NULL, '1', '0', 'Experienced system administrator with 10+ years in web development and platform management.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-22 11:21:55', '$2y$10$9QwXnYD1.obkVjsIQvje1.lf2MDkM47.2zhFcdWLso10Yi63QMbwa', NULL, NULL, NULL, '1', '2025-08-22 11:21:55', '2025-08-22 11:21:55'),
+(3, 'Sarah', 'Manager', NULL, NULL, NULL, 'Platform Manager', NULL, '+1-555-0102', 'manager@realitycheckguide.com', NULL, '1', '0', 'Platform manager focused on user experience and community growth.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-22 11:21:55', '$2y$10$24nmAnVC.CX9Dm7rHmu8Ae/g/T6bugOI3sB74qkA3Bc9OLQj5NSJG', NULL, NULL, NULL, '1', '2025-08-22 11:21:55', '2025-08-22 11:21:55'),
+(4, 'Mike', 'Johnson', NULL, 1, NULL, 'Licensed Electrician', NULL, '+1-555-0201', 'mike.johnson@email.com', NULL, '1', '0', 'Certified electrician with 15 years of experience in residential and commercial electrical work. Specializing in smart home installations and energy-efficient solutions.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2024001, NULL, '2025-08-22 11:21:55', '$2y$10$gx53FPJeBMLeDh1lNjw0BOOxx//FUI77jUtUrULKLUZOWD9rHNtL6', NULL, NULL, NULL, '1', '2025-08-22 11:21:56', '2025-08-22 11:21:56'),
+(5, 'Lisa', 'Chen', NULL, 1, NULL, 'Interior Designer', NULL, '+1-555-0202', 'lisa.chen@email.com', NULL, '1', '0', 'Creative interior designer with expertise in modern and minimalist designs. Transforming spaces with innovative solutions and attention to detail.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2024002, NULL, '2025-08-22 11:21:55', '$2y$10$EgiYFwc5s1.VcaF2EkFmXu.5dVTdAvC2wxJnyw4PCMOwnBynAD/Su', NULL, NULL, NULL, '1', '2025-08-22 11:21:56', '2025-08-22 11:21:56'),
+(6, 'David', 'Martinez', NULL, 1, NULL, 'Plumbing Specialist', NULL, '+1-555-0203', 'david.martinez@email.com', NULL, '0', '0', 'Master plumber with 12 years of experience. Expert in emergency repairs, installations, and maintenance for both residential and commercial properties.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2024003, NULL, '2025-08-22 11:21:55', '$2y$10$c3A4Ay9MDf2usY34OMzYlumniiOBk8FRV86PW70EU8d6tD2oFHnme', NULL, NULL, NULL, '1', '2025-08-22 11:21:56', '2025-08-22 11:21:56'),
+(7, 'Emma', 'Wilson', NULL, 1, NULL, 'Landscape Architect', NULL, '+1-555-0204', 'emma.wilson@email.com', NULL, '0', '0', 'Passionate landscape architect creating beautiful outdoor spaces. Specializing in sustainable landscaping and garden design.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-22 11:21:56', '$2y$10$En5BOtUrGo/Ylu2m6McsCuj2RZkFysbV9dwNzokJWU18eHVH2TK9W', NULL, NULL, NULL, '1', '2025-08-22 11:21:56', '2025-08-22 11:21:56'),
+(8, 'Robert', 'Thompson', NULL, 1, NULL, 'Homeowner', NULL, '+1-555-0301', 'robert.thompson@email.com', NULL, '0', '0', 'Homeowner looking for reliable contractors for various home improvement projects.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-22 11:21:56', '$2y$10$PyQkQ/TX/.L7iQeuq5dCrO3Rjm0oguO/nR651xA8NwGWmSiP5p97u', NULL, NULL, NULL, '1', '2025-08-22 11:21:56', '2025-08-22 11:21:56'),
+(9, 'Jennifer', 'Davis', NULL, 1, NULL, 'Business Owner', NULL, '+1-555-0302', 'jennifer.davis@email.com', NULL, '0', '0', 'Small business owner seeking professional services for office renovations and maintenance.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-22 11:21:56', '$2y$10$Xrcs8EjDWjMQFG/71w08.OHw695SEiQSZd55wfkvjZsizVxsNde1.', NULL, NULL, NULL, '1', '2025-08-22 11:21:56', '2025-08-22 11:21:56'),
+(10, 'Michael', 'Brown', NULL, 1, NULL, 'Property Manager', NULL, '+1-555-0303', 'michael.brown@email.com', NULL, '0', '0', 'Property manager overseeing multiple residential properties, always looking for quality contractors.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-22 11:21:56', '$2y$10$D0VBDf4oFbLZ8nmaH1W/H.WVUEcQOGOu7.HxzmiqecYrPe/XCdBte', NULL, NULL, NULL, '1', '2025-08-22 11:21:57', '2025-08-22 11:21:57'),
+(11, 'Amanda', 'Garcia', NULL, 1, NULL, 'Real Estate Developer', NULL, '+1-555-0304', 'amanda.garcia@email.com', NULL, '0', '0', 'Real estate developer working on multiple projects, need reliable contractors for various construction phases.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-08-22 11:21:56', '$2y$10$DBaZ1W4TkM4giUc4GGJeBeXaDBWrfdTzHN6A7m8asi63CgpbKmCiC', NULL, NULL, NULL, '1', '2025-08-22 11:21:57', '2025-08-22 11:21:57'),
+(12, 'Test', 'Test', 'Creator', 1, NULL, NULL, NULL, '1231231231', 'test1@test.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$BWrh7ZxWY5VaeU8BN.HVq.ZaS9LxO6SCkMJAo5Q/rxBWBoShQcrMW', NULL, NULL, NULL, '0', '2025-08-22 11:24:10', '2025-08-22 11:24:10'),
+(13, 'Test', 'Test', 'Viewer', 1, NULL, NULL, NULL, '1231231231', 'test2@test.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$FbzsWSi4k9L4nHGR1uSnoeTxgDyphXxdDhU70N2m.8/2ToU2YT7m2', '68a89a77ad7e0', NULL, NULL, '0', '2025-08-22 11:27:35', '2025-08-22 11:27:35'),
+(14, 'Test', 'Test', 'Creator', 1, NULL, NULL, NULL, '123456784', 'test3@test.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$pCkcUY2vNLGYm7Kn.IDroO3.koktQf9Y6aZfiSiAr4xbwOi/cs.Gy', '68a89abf3ec7f', NULL, NULL, '0', '2025-08-22 11:28:46', '2025-08-22 11:28:47'),
+(15, 'Raja', 'Ahsan', 'Viewer', 1, NULL, NULL, NULL, '123123123', 'production8430@gmail.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$7xGvr9pDWqNwTPD8kmDIW.F.SvlDjEcvgpx5ishqY6LhwVSvRNpxK', NULL, NULL, NULL, '0', '2025-08-22 11:33:12', '2025-08-22 11:33:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `videos`
+--
+
+CREATE TABLE `videos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `learning_objectives` text DEFAULT NULL,
+  `prerequisites` text DEFAULT NULL,
+  `difficulty_level` varchar(255) NOT NULL DEFAULT 'beginner',
+  `video_path` varchar(255) NOT NULL,
+  `thumbnail_path` varchar(255) DEFAULT NULL,
+  `duration` varchar(255) DEFAULT NULL,
+  `video_quality` varchar(255) NOT NULL DEFAULT 'HD',
+  `is_intro` tinyint(1) NOT NULL DEFAULT 0,
+  `is_featured` tinyint(1) NOT NULL DEFAULT 0,
+  `price` decimal(8,2) NOT NULL DEFAULT 0.00,
+  `downloads_enabled` tinyint(1) NOT NULL DEFAULT 1,
+  `status` varchar(255) NOT NULL DEFAULT 'active',
+  `creator_id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `tags` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`tags`)),
+  `tags_array` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`tags_array`)),
+  `views_count` int(11) NOT NULL DEFAULT 0,
+  `purchases_count` int(11) NOT NULL DEFAULT 0,
+  `videos_sold` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `videos`
+--
+
+INSERT INTO `videos` (`id`, `title`, `description`, `learning_objectives`, `prerequisites`, `difficulty_level`, `video_path`, `thumbnail_path`, `duration`, `video_quality`, `is_intro`, `is_featured`, `price`, `downloads_enabled`, `status`, `creator_id`, `category_id`, `tags`, `tags_array`, `views_count`, `purchases_count`, `videos_sold`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Test Intro Video', 'This is a test intro video for the platform', NULL, NULL, 'beginner', 'test-video.mp4', 'test-thumbnail.jpg', '60', 'HD', 1, 0, 0.00, 1, 'active', 4, 1, '[\"test\",\"intro\",\"demo\"]', NULL, 0, 0, 0, '2025-08-22 12:45:48', '2025-08-22 12:45:49', '2025-08-22 12:45:49'),
+(2, 'Introduction Video', 'This is a introduction video for the creator dashboard.', NULL, NULL, 'beginner', 'videos/xd5xcoPkjEk8XwoutzEsUfwfoOUqAg5LxFi9wknf.mp4', 'video-thumbnails/jscELQiOK6dRTaTO8NWivtBUCiOyffWSidM977DW.jpg', '60', 'HD', 1, 0, 0.00, 1, 'active', 4, 1, '[]', NULL, 21, 0, 0, '2025-08-22 13:03:15', '2025-08-26 15:53:03', NULL),
+(3, 'Lorem Ipsum is simply', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', NULL, NULL, 'beginner', 'videos/tk80mdnsO4QPw5575YVMycecvKNCmxN5BP8TskuF.mp4', 'video-thumbnails/eshUlRppanfvqltWsZcqsVDUS9PLootI5y3ZALse.png', '60', 'HD', 0, 0, 10.00, 1, 'active', 4, 2, '[\"tes\",\"  testing\"]', NULL, 7, 2, 0, '2025-08-22 18:36:33', '2025-08-26 15:05:19', NULL),
+(4, 'New Video', 'Web accessibility is accessiBel', NULL, NULL, 'beginner', 'videos/KEMfppVLysqL71GqgfW7cG11fMzQ7bwMmS4I0snj.mp4', 'video-thumbnails/in92wJpYfYBiB58IDzTKIV6GjkX7hDP9iFN3wiPF.png', '60', 'HD', 0, 0, 20.00, 1, 'active', 4, 15, '[]', NULL, 0, 0, 0, '2025-08-26 16:29:18', '2025-08-26 16:29:18', NULL),
+(5, 'testing video', 'best video for students', NULL, NULL, 'beginner', 'videos/jZCJITYB6SiijrvGEfu85huwM3lxNsQfBInFYQdp.mp4', 'video-thumbnails/DOectNqLnoeNlJHsoLY60mfZt8WdQSbQfZJHipiu.jpg', '60', 'HD', 0, 0, 10.00, 1, 'active', 4, 1, '[]', NULL, 5, 1, 0, '2025-09-29 13:17:29', '2025-09-29 15:49:21', NULL),
+(6, 'Best Video', 'Testing', NULL, NULL, 'beginner', 'videos/jvSa82X9oLtuqjLG0k9pdgGYpr6qLXNvctyjCnSJ.mp4', 'video-thumbnails/whMTAwMgkybE7lOaXtjHCUfC8lLmXFP76fmqRKLT.jpg', '60', 'HD', 0, 0, 5.00, 1, 'active', 4, 2, '[]', NULL, 2, 1, 0, '2025-09-29 14:01:17', '2025-09-30 16:50:02', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video_downloads`
+--
+
+CREATE TABLE `video_downloads` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `video_id` bigint(20) UNSIGNED NOT NULL,
+  `ip_address` varchar(255) DEFAULT NULL,
+  `user_agent` varchar(255) DEFAULT NULL,
+  `downloaded_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `video_downloads`
+--
+
+INSERT INTO `video_downloads` (`id`, `user_id`, `video_id`, `ip_address`, `user_agent`, `downloaded_at`, `created_at`, `updated_at`) VALUES
+(1, 4, 3, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-25 23:59:07', '2025-08-25 18:59:07', '2025-08-25 18:59:07'),
+(2, 8, 3, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36', '2025-08-26 17:12:41', '2025-08-26 12:12:41', '2025-08-26 12:12:41'),
+(3, 8, 5, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', '2025-09-29 18:27:29', '2025-09-29 13:27:29', '2025-09-29 13:27:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video_purchases`
+--
+
+CREATE TABLE `video_purchases` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `video_id` bigint(20) UNSIGNED NOT NULL,
+  `amount_paid` decimal(8,2) NOT NULL,
+  `payment_method` varchar(255) DEFAULT NULL,
+  `transaction_id` varchar(255) DEFAULT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'completed',
+  `purchased_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `video_purchases`
+--
+
+INSERT INTO `video_purchases` (`id`, `user_id`, `video_id`, `amount_paid`, `payment_method`, `transaction_id`, `status`, `purchased_at`, `expires_at`, `created_at`, `updated_at`) VALUES
+(2, 4, 3, 10.00, NULL, NULL, 'completed', '2025-08-25 18:58:59', NULL, '2025-08-25 18:58:59', '2025-08-25 18:58:59'),
+(3, 8, 3, 10.00, NULL, NULL, 'completed', '2025-08-26 11:37:34', NULL, '2025-08-26 11:37:34', '2025-08-26 11:37:34'),
+(4, 8, 5, 10.00, NULL, NULL, 'completed', '2025-09-29 13:27:11', NULL, '2025-09-29 13:27:11', '2025-09-29 13:27:11'),
+(5, 8, 6, 5.00, NULL, NULL, 'completed', '2025-09-30 16:47:33', NULL, '2025-09-30 16:47:33', '2025-09-30 16:47:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video_questions`
+--
+
+CREATE TABLE `video_questions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `video_id` bigint(20) UNSIGNED NOT NULL,
+  `question` text NOT NULL,
+  `order` int(11) NOT NULL DEFAULT 1,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `video_questions`
+--
+
+INSERT INTO `video_questions` (`id`, `video_id`, `question`, `order`, `is_active`, `created_at`, `updated_at`) VALUES
+(3, 5, 'Q 1', 2, 1, '2025-09-29 14:51:09', '2025-09-29 14:51:09'),
+(4, 5, 'Q 2', 3, 1, '2025-09-29 14:51:09', '2025-09-29 14:51:09'),
+(5, 6, 'Q 1', 2, 1, '2025-09-30 16:45:49', '2025-09-30 16:45:49'),
+(6, 6, 'Q 2', 3, 1, '2025-09-30 16:45:49', '2025-09-30 16:45:49');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video_question_options`
+--
+
+CREATE TABLE `video_question_options` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `video_question_id` bigint(20) UNSIGNED NOT NULL,
+  `option_text` text NOT NULL,
+  `option_order` int(11) NOT NULL DEFAULT 1,
+  `is_correct` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `video_question_options`
+--
+
+INSERT INTO `video_question_options` (`id`, `video_question_id`, `option_text`, `option_order`, `is_correct`, `created_at`, `updated_at`) VALUES
+(9, 3, 'test 1', 1, 1, '2025-09-29 14:51:09', '2025-09-29 14:51:09'),
+(10, 3, 'test 2', 2, 0, '2025-09-29 14:51:09', '2025-09-29 14:51:09'),
+(11, 3, 'test 3', 5, 0, '2025-09-29 14:51:09', '2025-09-29 14:51:09'),
+(12, 3, 'test 4', 6, 0, '2025-09-29 14:51:09', '2025-09-29 14:51:09'),
+(13, 4, 'test 1', 1, 0, '2025-09-29 14:51:10', '2025-09-29 14:51:10'),
+(14, 4, 'test 2', 2, 1, '2025-09-29 14:51:10', '2025-09-29 14:51:10'),
+(15, 4, 'test 3', 3, 0, '2025-09-29 14:51:10', '2025-09-29 14:51:10'),
+(16, 4, 'test 4', 4, 0, '2025-09-29 14:51:10', '2025-09-29 14:51:10'),
+(17, 5, 'test 1', 1, 1, '2025-09-30 16:45:49', '2025-09-30 16:45:49'),
+(18, 5, 'test 2', 2, 0, '2025-09-30 16:45:49', '2025-09-30 16:45:49'),
+(19, 5, 'test 3', 5, 0, '2025-09-30 16:45:49', '2025-09-30 16:45:49'),
+(20, 5, 'test 4', 6, 0, '2025-09-30 16:45:49', '2025-09-30 16:45:49'),
+(21, 6, 'test 1', 1, 0, '2025-09-30 16:45:49', '2025-09-30 16:45:49'),
+(22, 6, 'test 2', 2, 1, '2025-09-30 16:45:49', '2025-09-30 16:45:49'),
+(23, 6, 'test 3', 3, 0, '2025-09-30 16:45:49', '2025-09-30 16:45:49'),
+(24, 6, 'test 5', 4, 0, '2025-09-30 16:45:50', '2025-09-30 16:45:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video_question_responses`
+--
+
+CREATE TABLE `video_question_responses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `video_id` bigint(20) UNSIGNED NOT NULL,
+  `video_question_id` bigint(20) UNSIGNED NOT NULL,
+  `video_question_option_id` bigint(20) UNSIGNED NOT NULL,
+  `is_correct` tinyint(1) NOT NULL DEFAULT 0,
+  `answered_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `video_question_responses`
+--
+
+INSERT INTO `video_question_responses` (`id`, `user_id`, `video_id`, `video_question_id`, `video_question_option_id`, `is_correct`, `answered_at`, `created_at`, `updated_at`) VALUES
+(1, 8, 5, 4, 14, 1, '2025-09-29 14:52:20', '2025-09-29 14:52:20', '2025-09-29 14:52:20'),
+(2, 8, 5, 3, 10, 0, '2025-09-29 14:52:20', '2025-09-29 14:52:20', '2025-09-29 14:52:20'),
+(3, 8, 6, 5, 17, 1, '2025-09-30 16:48:57', '2025-09-30 16:48:57', '2025-09-30 16:48:57'),
+(4, 8, 6, 6, 21, 0, '2025-09-30 16:48:57', '2025-09-30 16:48:57', '2025-09-30 16:48:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wallets`
+--
+
+CREATE TABLE `wallets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `creator_id` bigint(20) UNSIGNED NOT NULL,
+  `balance` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `pending_balance` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `total_earned` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `total_paid_out` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wallets`
+--
+
+INSERT INTO `wallets` (`id`, `creator_id`, `balance`, `pending_balance`, `total_earned`, `total_paid_out`, `created_at`, `updated_at`) VALUES
+(1, 4, 74.50, 107.00, 50.00, 0.00, '2025-08-22 14:13:14', '2025-09-30 16:47:34'),
+(2, 5, 0.00, 0.00, 0.00, 0.00, '2025-08-22 14:13:14', '2025-08-22 14:13:14'),
+(3, 6, 0.00, 0.00, 0.00, 0.00, '2025-08-22 14:13:14', '2025-08-22 14:13:14'),
+(4, 7, 0.00, 0.00, 0.00, 0.00, '2025-08-22 14:13:14', '2025-08-22 14:13:14'),
+(5, 12, 0.00, 0.00, 0.00, 0.00, '2025-08-22 14:13:14', '2025-08-22 14:13:14'),
+(6, 14, 0.00, 0.00, 0.00, 0.00, '2025-08-22 14:13:14', '2025-08-22 14:13:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wallet_transactions`
+--
+
+CREATE TABLE `wallet_transactions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `wallet_id` bigint(20) UNSIGNED NOT NULL,
+  `creator_id` bigint(20) UNSIGNED NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `balance_before` decimal(10,2) NOT NULL,
+  `balance_after` decimal(10,2) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `metadata` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`metadata`)),
+  `reference_id` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wallet_transactions`
+--
+
+INSERT INTO `wallet_transactions` (`id`, `wallet_id`, `creator_id`, `type`, `amount`, `balance_before`, `balance_after`, `description`, `metadata`, `reference_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 'credit', 50.00, 0.00, 50.00, 'Test credit for testing', '{\"test\":true}', NULL, '2025-08-22 14:16:24', '2025-08-22 14:16:24'),
+(2, 1, 4, 'payout_request', 50.00, 50.00, 50.00, 'Payout request #PAY20250825222203A1538F', NULL, '1', '2025-08-25 17:22:03', '2025-08-25 17:22:03'),
+(3, 1, 4, 'credit', 7.00, 57.00, 64.00, 'Earning from video: Lorem Ipsum is simply', NULL, '2', '2025-08-25 18:58:59', '2025-08-25 18:58:59'),
+(4, 1, 4, 'payout_request', 57.00, 57.00, 57.00, 'Payout request #PAY20250826002016F5E0E5', NULL, '2', '2025-08-25 19:20:17', '2025-08-25 19:20:17'),
+(5, 1, 4, 'credit', 7.00, 64.00, 71.00, 'Earning from video: Lorem Ipsum is simply', NULL, '3', '2025-08-26 11:37:35', '2025-08-26 11:37:35'),
+(6, 1, 4, 'credit', 7.00, 71.00, 78.00, 'Earning from video: testing video', NULL, '4', '2025-09-29 13:27:11', '2025-09-29 13:27:11'),
+(7, 1, 4, 'credit', 3.50, 74.50, 78.00, 'Earning from video: Best Video', NULL, '5', '2025-09-30 16:47:34', '2025-09-30 16:47:34');
 
 --
 -- Indexes for dumped tables
@@ -3508,6 +3831,14 @@ INSERT INTO `users` (`id`, `name`, `last_name`, `role`, `package_id`, `category_
 --
 ALTER TABLE `about_us`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admin_settings`
+--
+ALTER TABLE `admin_settings`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `admin_settings_key_unique` (`key`),
+  ADD KEY `admin_settings_key_group_index` (`key`,`group`);
 
 --
 -- Indexes for table `advertisements`
@@ -3586,6 +3917,13 @@ ALTER TABLE `cover_templates`
   ADD KEY `cover_templates_created_by_index` (`created_by`);
 
 --
+-- Indexes for table `creator_pricing_rules`
+--
+ALTER TABLE `creator_pricing_rules`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `creator_pricing_rules_creator_id_custom_pricing_enabled_index` (`creator_id`,`custom_pricing_enabled`);
+
+--
 -- Indexes for table `document_repositories`
 --
 ALTER TABLE `document_repositories`
@@ -3609,6 +3947,12 @@ ALTER TABLE `failed_jobs`
 -- Indexes for table `f_a_q_s`
 --
 ALTER TABLE `f_a_q_s`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gallery_details`
+--
+ALTER TABLE `gallery_details`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -3669,6 +4013,18 @@ ALTER TABLE `notifications`
   ADD KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `orders_order_number_unique` (`order_number`),
+  ADD KEY `orders_video_id_foreign` (`video_id`),
+  ADD KEY `orders_user_id_status_index` (`user_id`,`status`),
+  ADD KEY `orders_creator_id_status_index` (`creator_id`,`status`),
+  ADD KEY `orders_order_number_index` (`order_number`),
+  ADD KEY `orders_stripe_payment_intent_id_index` (`stripe_payment_intent_id`);
+
+--
 -- Indexes for table `packages`
 --
 ALTER TABLE `packages`
@@ -3703,6 +4059,17 @@ ALTER TABLE `payments`
 --
 ALTER TABLE `payment_details`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `payouts`
+--
+ALTER TABLE `payouts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `payouts_payout_number_unique` (`payout_number`),
+  ADD KEY `payouts_wallet_id_foreign` (`wallet_id`),
+  ADD KEY `payouts_creator_id_status_index` (`creator_id`,`status`),
+  ADD KEY `payouts_payout_number_index` (`payout_number`),
+  ADD KEY `payouts_status_index` (`status`);
 
 --
 -- Indexes for table `permissions`
@@ -3744,6 +4111,14 @@ ALTER TABLE `roles`
 ALTER TABLE `role_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
+
+--
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
 -- Indexes for table `settings`
@@ -3810,6 +4185,76 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `videos`
+--
+ALTER TABLE `videos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `videos_category_id_foreign` (`category_id`),
+  ADD KEY `videos_creator_id_is_intro_index` (`creator_id`,`is_intro`),
+  ADD KEY `videos_status_is_intro_index` (`status`,`is_intro`),
+  ADD KEY `videos_price_index` (`price`);
+
+--
+-- Indexes for table `video_downloads`
+--
+ALTER TABLE `video_downloads`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `video_downloads_video_id_foreign` (`video_id`),
+  ADD KEY `video_downloads_user_id_video_id_index` (`user_id`,`video_id`),
+  ADD KEY `video_downloads_downloaded_at_index` (`downloaded_at`);
+
+--
+-- Indexes for table `video_purchases`
+--
+ALTER TABLE `video_purchases`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `video_purchases_user_id_video_id_unique` (`user_id`,`video_id`),
+  ADD KEY `video_purchases_user_id_status_index` (`user_id`,`status`),
+  ADD KEY `video_purchases_video_id_status_index` (`video_id`,`status`),
+  ADD KEY `video_purchases_purchased_at_index` (`purchased_at`);
+
+--
+-- Indexes for table `video_questions`
+--
+ALTER TABLE `video_questions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `video_questions_video_id_order_index` (`video_id`,`order`);
+
+--
+-- Indexes for table `video_question_options`
+--
+ALTER TABLE `video_question_options`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `video_question_options_video_question_id_option_order_index` (`video_question_id`,`option_order`);
+
+--
+-- Indexes for table `video_question_responses`
+--
+ALTER TABLE `video_question_responses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_user_question_response` (`user_id`,`video_question_id`),
+  ADD KEY `video_question_responses_video_id_foreign` (`video_id`),
+  ADD KEY `video_question_responses_video_question_option_id_foreign` (`video_question_option_id`),
+  ADD KEY `video_question_responses_user_id_video_id_index` (`user_id`,`video_id`),
+  ADD KEY `video_question_responses_video_question_id_is_correct_index` (`video_question_id`,`is_correct`);
+
+--
+-- Indexes for table `wallets`
+--
+ALTER TABLE `wallets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `wallets_creator_id_index` (`creator_id`);
+
+--
+-- Indexes for table `wallet_transactions`
+--
+ALTER TABLE `wallet_transactions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `wallet_transactions_wallet_id_foreign` (`wallet_id`),
+  ADD KEY `wallet_transactions_creator_id_type_index` (`creator_id`,`type`),
+  ADD KEY `wallet_transactions_reference_id_index` (`reference_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -3818,6 +4263,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `about_us`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `admin_settings`
+--
+ALTER TABLE `admin_settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `advertisements`
@@ -3835,13 +4286,13 @@ ALTER TABLE `agents`
 -- AUTO_INCREMENT for table `banners`
 --
 ALTER TABLE `banners`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `bids`
 --
 ALTER TABLE `bids`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -3871,7 +4322,7 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT for table `contact_us`
 --
 ALTER TABLE `contact_us`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `coupons`
@@ -3890,6 +4341,12 @@ ALTER TABLE `coupon_usages`
 --
 ALTER TABLE `cover_templates`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `creator_pricing_rules`
+--
+ALTER TABLE `creator_pricing_rules`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `document_repositories`
@@ -3914,6 +4371,12 @@ ALTER TABLE `failed_jobs`
 --
 ALTER TABLE `f_a_q_s`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `gallery_details`
+--
+ALTER TABLE `gallery_details`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `home_sliders`
@@ -3943,13 +4406,19 @@ ALTER TABLE `member_directories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
 -- AUTO_INCREMENT for table `news_letters`
 --
 ALTER TABLE `news_letters`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `packages`
@@ -3973,7 +4442,7 @@ ALTER TABLE `page_settings`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT for table `payment_details`
@@ -3982,10 +4451,16 @@ ALTER TABLE `payment_details`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
+-- AUTO_INCREMENT for table `payouts`
+--
+ALTER TABLE `payouts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=282;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=302;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -4009,7 +4484,7 @@ ALTER TABLE `project_categories`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -4063,7 +4538,55 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `videos`
+--
+ALTER TABLE `videos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `video_downloads`
+--
+ALTER TABLE `video_downloads`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `video_purchases`
+--
+ALTER TABLE `video_purchases`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `video_questions`
+--
+ALTER TABLE `video_questions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `video_question_options`
+--
+ALTER TABLE `video_question_options`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT for table `video_question_responses`
+--
+ALTER TABLE `video_question_responses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `wallets`
+--
+ALTER TABLE `wallets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `wallet_transactions`
+--
+ALTER TABLE `wallet_transactions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -4076,6 +4599,12 @@ ALTER TABLE `bids`
   ADD CONSTRAINT `bids_electrician_id_foreign` FOREIGN KEY (`electrician_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `bids_job_post_id_foreign` FOREIGN KEY (`job_post_id`) REFERENCES `job_posts` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `bids_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `creator_pricing_rules`
+--
+ALTER TABLE `creator_pricing_rules`
+  ADD CONSTRAINT `creator_pricing_rules_creator_id_foreign` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `document_repositories`
@@ -4096,11 +4625,81 @@ ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_creator_id_foreign` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_video_id_foreign` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `payouts`
+--
+ALTER TABLE `payouts`
+  ADD CONSTRAINT `payouts_creator_id_foreign` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `payouts_wallet_id_foreign` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `videos`
+--
+ALTER TABLE `videos`
+  ADD CONSTRAINT `videos_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `videos_creator_id_foreign` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `video_downloads`
+--
+ALTER TABLE `video_downloads`
+  ADD CONSTRAINT `video_downloads_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `video_downloads_video_id_foreign` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `video_purchases`
+--
+ALTER TABLE `video_purchases`
+  ADD CONSTRAINT `video_purchases_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `video_purchases_video_id_foreign` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `video_questions`
+--
+ALTER TABLE `video_questions`
+  ADD CONSTRAINT `video_questions_video_id_foreign` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `video_question_options`
+--
+ALTER TABLE `video_question_options`
+  ADD CONSTRAINT `video_question_options_video_question_id_foreign` FOREIGN KEY (`video_question_id`) REFERENCES `video_questions` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `video_question_responses`
+--
+ALTER TABLE `video_question_responses`
+  ADD CONSTRAINT `video_question_responses_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `video_question_responses_video_id_foreign` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `video_question_responses_video_question_id_foreign` FOREIGN KEY (`video_question_id`) REFERENCES `video_questions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `video_question_responses_video_question_option_id_foreign` FOREIGN KEY (`video_question_option_id`) REFERENCES `video_question_options` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `wallets`
+--
+ALTER TABLE `wallets`
+  ADD CONSTRAINT `wallets_creator_id_foreign` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `wallet_transactions`
+--
+ALTER TABLE `wallet_transactions`
+  ADD CONSTRAINT `wallet_transactions_creator_id_foreign` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `wallet_transactions_wallet_id_foreign` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

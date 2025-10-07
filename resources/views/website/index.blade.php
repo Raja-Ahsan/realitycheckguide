@@ -53,7 +53,7 @@
                 
                 <div class="how-it-work-item-text">
                   <h4>Watch Real Stories</h4>
-                  <p>Change the text to “Watch other successful people’s careers in free 1-minute videos to start your journey.</p>
+                  <p>Watch other successful people’s careers in free 1-minute videos to start your journey.</p>
                   <div class="how-it-work-item-button">
                     <a href="#">Learn More</a>
                   </div>

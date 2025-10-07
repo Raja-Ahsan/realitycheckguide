@@ -52,10 +52,10 @@
           
           <p>That's when the idea for Reality Check Guide was born. Instead of relying on polished job descriptions or theoretical career advice, we decided to create a platform where real people share their real experiences, helping others make informed decisions about their professional futures.</p>
           
-          <div class="main-button-yellow">
+          <!--<div class="main-button-yellow">
             <a href="{{ route('index') }}#courses">Start Exploring Careers</a>
             <a href="{{ route('index') }}#upload-your-story">Share Your Story</a>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>

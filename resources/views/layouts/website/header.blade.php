@@ -21,7 +21,7 @@
                                   <li><a href="meeting-details.html">Meeting Details</a></li>
                               </ul>
                           </li> -->
-              <li class="scroll-to-section"><a href="#courses">intake</a></li>
+              <!--<li class="scroll-to-section"><a href="#courses">intake</a></li>-->
               <li class="scroll-to-section"><a href="{{ route('contact-us') }}">Contact</a></li>
               <li class="scroll-to-section"><a href="{{ route('creators.index') }}">Creators</a></li>
               

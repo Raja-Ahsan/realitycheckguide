@@ -29,62 +29,14 @@
   </section>
   <!-- ***** Main Banner Area End ***** -->
 
-  <!-- ***** About us ***** -->
-  <section class="about-us" id="about-us">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="about-us-img-overlay position-relative">
-            <img src="{{ asset('assets/website') }}/img/about-us.png" alt="about-us" class="about-us-img">
-            <img src="{{ asset('assets/website') }}/img/logo.png" alt="about-us-img-overlay"
-              class="about-us-img-overlay-img position-absolute">
-          </div>
-          <div class="about-us-img-overlay-text">
-            <p>After seeing so many people unhappy in their careers, I wanted to create a place where we could learn
-              from each other’s real stories. This isn’t just a site it’s a movement toward clarity, purpose, and truth.
-            </p>
-          </div>
-          <div class="about-us-img-overlay-text-bottom">
-            <p>Jeanmarie, Founder of Reality Check Guide</p>
-          </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-12">
-          <div class="section-heading">
-            <h4>About</h4>
-            <h2>Reality <span>Check Guide</span></h2>
-          </div>
-          <p>Reality Check Guide is a video-based platform created to help people explore careers through honest,
-            real-life experiences. Whether you're a student, a career changer, or simply curious, our mission is to show
-            you what jobs are really like — before you commit time, money, or energy into the wrong path.
-          </p>
-          <p>
-            Instead of polished resumes or job descriptions, you’ll find authentic stories from people who live the job
-            every day. We believe guidance should come from experience, not just theory.
-          </p>
-          <p>
-            By watching or sharing a video, you're helping others make smarter, more informed career choices. One real
-            story can save someone years of regret — or inspire a dream they didn’t know they had.</p>
-          <!--<div class="main-button-yellow">
-            <a href="#">Start Exploring Careers</a>
-            <a href="#">Share Your Story</a>
-          </div>-->
-          <div class="bottom-text">
-            <p class="bottom-text-bold">Real People.</p>
-            <p class="bottom-text-bold text-right d-color">Real Careers. </p>
-            <p class="bottom-text-bold d-color">Real Insight.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ***** About us ***** -->
+  
   <!-- ***** HOw It Work ***** -->
   <section class="how-it-work" id="how-it-work">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="section-heading">
-            <h2>HOW <span class="">IT WORKS</span></h2>
+            <h2>Instructions for  <span class="">Easy  Upload</span></h2>
           </div>
         </div>
         <div class="col-lg-12">
@@ -101,7 +53,7 @@
                 
                 <div class="how-it-work-item-text">
                   <h4>Watch Real Stories</h4>
-                  <p>Take career quizzes and assessments to see what suits your interests, personality, and lifestyle.Find guidance before you commit to a path.</p>
+                  <p>Change the text to “Watch other successful people’s careers in free 1-minute videos to start your journey.</p>
                   <div class="how-it-work-item-button">
                     <a href="#">Learn More</a>
                   </div>
@@ -135,7 +87,7 @@
                 </div>
                 <div class="how-it-work-item-text">
                   <h4>Share Your Experience</h4>
-                  <p>Take career quizzes and assessments to see what suits your interests, personality, and lifestyle.Find guidance before you commit to a path.</p>
+                  <p>Share your career success with others and start with a 1-minute video to introduce yourself. Upload your videos below.</p>
                   <div class="how-it-work-item-button">
                     <a href="#">Learn More</a>
                   </div>
@@ -366,7 +318,7 @@
                   <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Financial Aid</li>
                  </ul>
                 <div class="education-resources-item-button">
-                  <a href="#">Explore Scholarships</a>
+                  <a href="#">Explore Financial Options.</a>
                 </div>
               </div>
             </div>
@@ -433,7 +385,55 @@
     </div>
    </section>
 
-  
+  <!-- ***** About us ***** -->
+  <section class="about-us" id="about-us">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="about-us-img-overlay position-relative">
+            <img src="{{ asset('assets/website') }}/img/about-us.png" alt="about-us" class="about-us-img">
+            <img src="{{ asset('assets/website') }}/img/logo.png" alt="about-us-img-overlay"
+              class="about-us-img-overlay-img position-absolute">
+          </div>
+          <div class="about-us-img-overlay-text">
+            <p>After seeing so many people unhappy in their careers, I wanted to create a place where we could learn
+              from each other’s real stories. This isn’t just a site it’s a movement toward clarity, purpose, and truth.
+            </p>
+          </div>
+          <div class="about-us-img-overlay-text-bottom">
+            <p>Jeanmarie, Founder of Reality Check Guide</p>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <div class="section-heading">
+            <h4>About</h4>
+            <h2>Reality <span>Check Guide</span></h2>
+          </div>
+          <p>Reality Check Guide is a video-based platform created to help people explore careers through honest,
+            real-life experiences. Whether you're a student, a career changer, or simply curious, our mission is to show
+            you what jobs are really like — before you commit time, money, or energy into the wrong path.
+          </p>
+          <p>
+            Instead of polished resumes or job descriptions, you’ll find authentic stories from people who live the job
+            every day. We believe guidance should come from experience, not just theory.
+          </p>
+          <p>
+            By watching or sharing a video, you're helping others make smarter, more informed career choices. One real
+            story can save someone years of regret — or inspire a dream they didn’t know they had.</p>
+          <!--<div class="main-button-yellow">
+            <a href="#">Start Exploring Careers</a>
+            <a href="#">Share Your Story</a>
+          </div>-->
+          <div class="bottom-text">
+            <p class="bottom-text-bold">Real People.</p>
+            <p class="bottom-text-bold text-right d-color">Real Careers. </p>
+            <p class="bottom-text-bold d-color">Real Insight.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ***** About us ***** -->
   
 
 

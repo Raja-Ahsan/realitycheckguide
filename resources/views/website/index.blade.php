@@ -100,31 +100,7 @@
     </div>
   </section>
   <!-- ***** HOw It Work ***** -->
-  <!-- ***** Featured Video ***** -->
-  <section class="featured-video" id="featured-video">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="section-heading">
-            <h2>Featured Video of the <span>Week</span></h2>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="featured-video-item position-relative">
-            <video src="{{ asset('assets/website') }}/img/intro.mp4" autoplay muted loop class="img-fluid"></video>
-            <div class="featured-video-item-text position-absolute">
-              <h4>Planning Your Path: The <span>Power of Focus</span></h4>
-              <p>Watch how clarity and dedication can lay the groundwork for any career—whether it’s digital, trade-based, or creative. Sometimes the first step is just showing up and doing the work.</p>
-              <div class="featured-video-item-button">
-                <a href="#">view full video</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ***** Featured Video ***** --> 
+  
   <!-- ***** Browse Career Categories ***** -->
   <section class="browse-career-categories" id="browse-career-categories">
     <div class="container-fluid p-0">
@@ -267,6 +243,31 @@
     </div>
   </section>
   <!-- ***** Upload Your Story ***** -->  
+   <!-- ***** Featured Video ***** -->
+  <section class="featured-video" id="featured-video">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-heading">
+            <h2>Featured Video of the <span>Week</span></h2>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="featured-video-item position-relative">
+            <video src="{{ asset('assets/website') }}/img/intro.mp4" autoplay muted loop class="img-fluid"></video>
+            <div class="featured-video-item-text position-absolute">
+              <h4>Planning Your Path: The <span>Power of Focus</span></h4>
+              <p>Watch how clarity and dedication can lay the groundwork for any career—whether it’s digital, trade-based, or creative. Sometimes the first step is just showing up and doing the work.</p>
+              <div class="featured-video-item-button">
+                <a href="#">view full video</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ***** Featured Video ***** --> 
   <!-- ***** Education & Resources ***** -->
   <section class="education-resources" id="education-resources">
     <div class="container">

@@ -175,7 +175,30 @@
                 </ul>
             </li>
 
-            <!-- @can('submittals-list')
+            <!-- Quiz Management -->
+            <li class="treeview {{ (request()->is('admin/quiz*')) ? 'active' : '' }}" style="height: auto;">
+                <a href="#" class="{{ (request()->is('admin/quiz*')) ? 'active' : '' }}">
+                    <i class="fa fa-question-circle"></i>
+                    <span>Quiz Management</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" style="display: {{ (request()->is('admin/quiz*')) ? 'block' : 'none' }};">
+                    
+                    <li class="treeview mt-2">
+                        <a href="{{ route('admin.quiz.categories.index') }}" class="{{ request()->is('admin/quiz/categories*') ? 'active' : '' }}">
+                            <i class="fa fa-folder"></i> <span>Quiz Categories</span>
+                        </a>
+                    </li>
+
+                    <li class="treeview mt-2">
+                        <a href="{{ route('admin.quiz.questions.index') }}" class="{{ request()->is('admin/quiz/questions*') ? 'active' : '' }}">
+                            <i class="fa fa-question"></i> <span>Quiz Questions</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="treeview mt-2">
                 <a href="{{ route('submittals.index') }}" class="{{ request()->is('submittals') || request()->is('submittals/create') || request()->is('submittals/*/edit') ? 'active' : '' }}">
                     <i class="fa fa-file-pdf-o"></i> <span>Submittals</span>

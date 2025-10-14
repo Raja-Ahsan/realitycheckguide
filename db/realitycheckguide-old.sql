@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2025 at 12:24 AM
+-- Generation Time: Oct 02, 2025 at 09:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -984,10 +984,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (187, '2024_01_01_000000_add_sample_banners', 120),
 (188, '2025_09_29_180503_create_video_questions_table', 121),
 (189, '2025_09_29_180531_create_video_question_options_table', 121),
-(190, '2025_09_29_180537_create_video_question_responses_table', 121),
-(191, '2025_01_15_000001_create_quiz_categories_table', 122),
-(192, '2025_01_15_000002_create_quiz_questions_table', 122),
-(193, '2025_01_15_000003_create_quiz_results_table', 122);
+(190, '2025_09_29_180537_create_video_question_responses_table', 121);
 
 -- --------------------------------------------------------
 
@@ -2026,112 +2023,6 @@ INSERT INTO `project_categories` (`id`, `created_by`, `parent_id`, `title`, `slu
 (18, 1, '0', 'Site Security', 'site-security', NULL, NULL, '1', NULL, '2025-05-23 15:55:16', '2025-05-23 15:55:16'),
 (19, 1, '0', 'Trucking & Hauling', 'trucking-hauling', NULL, NULL, '1', NULL, '2025-05-23 15:55:28', '2025-05-23 15:55:28'),
 (20, 1, '0', 'Waste & Recycling Services', 'waste-recycling-services', NULL, NULL, '1', NULL, '2025-05-23 15:55:38', '2025-05-23 15:55:38');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `quiz_categories`
---
-
-CREATE TABLE `quiz_categories` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `quiz_categories`
---
-
-INSERT INTO `quiz_categories` (`id`, `name`, `description`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 'General Knowledge', 'Test your general knowledge with questions about various topics including history, science, geography, and more.', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
-(2, 'Science & Technology', 'Explore questions about physics, chemistry, biology, computer science, and technological advancements.', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
-(3, 'History & Geography', 'Challenge yourself with questions about world history, historical events, countries, capitals, and geographical features.', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(4, 'Sports & Entertainment', 'Test your knowledge about sports, movies, music, celebrities, and entertainment industry.', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(5, 'General Knowledge', 'Test your general knowledge with questions about various topics including history, science, geography, and more.', 1, '2025-10-14 12:21:30', '2025-10-14 12:21:30'),
-(6, 'Science & Technology', 'Explore questions about physics, chemistry, biology, computer science, and technological advancements.', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(7, 'History & Geography', 'Challenge yourself with questions about world history, historical events, countries, capitals, and geographical features.', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(8, 'Sports & Entertainment', 'Test your knowledge about sports, movies, music, celebrities, and entertainment industry.', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `quiz_questions`
---
-
-CREATE TABLE `quiz_questions` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `category_id` bigint(20) UNSIGNED NOT NULL,
-  `question` text NOT NULL,
-  `option_a` text NOT NULL,
-  `option_b` text NOT NULL,
-  `option_c` text NOT NULL,
-  `option_d` text NOT NULL,
-  `correct_option` enum('A','B','C','D') NOT NULL,
-  `is_active` tinyint(1) NOT NULL DEFAULT 1,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `quiz_questions`
---
-
-INSERT INTO `quiz_questions` (`id`, `category_id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `correct_option`, `is_active`, `created_at`, `updated_at`) VALUES
-(1, 1, 'What is the capital of France?', 'London', 'Paris', 'Berlin', 'Madrid', 'B', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
-(2, 1, 'Which planet is known as the Red Planet?', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'B', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
-(3, 1, 'What is the largest mammal in the world?', 'African Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus', 'B', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
-(4, 2, 'What is the chemical symbol for gold?', 'Go', 'Gd', 'Au', 'Ag', 'C', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(5, 2, 'Which programming language was created by Guido van Rossum?', 'Java', 'Python', 'C++', 'JavaScript', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(6, 2, 'What does CPU stand for?', 'Central Processing Unit', 'Computer Processing Unit', 'Central Program Unit', 'Computer Program Unit', 'A', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(7, 3, 'In which year did World War II end?', '1944', '1945', '1946', '1947', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(8, 3, 'Which country has the most natural lakes?', 'Russia', 'Canada', 'United States', 'Finland', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(9, 3, 'Who was the first person to walk on the moon?', 'Buzz Aldrin', 'Neil Armstrong', 'John Glenn', 'Alan Shepard', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(10, 4, 'Which country won the FIFA World Cup in 2018?', 'Germany', 'Brazil', 'France', 'Argentina', 'C', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(11, 4, 'Who directed the movie \"Inception\"?', 'Steven Spielberg', 'Christopher Nolan', 'Martin Scorsese', 'Quentin Tarantino', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(12, 4, 'Which band released the album \"Abbey Road\"?', 'The Rolling Stones', 'The Beatles', 'Led Zeppelin', 'Pink Floyd', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
-(13, 5, 'What is the capital of France?', 'London', 'Paris', 'Berlin', 'Madrid', 'B', 1, '2025-10-14 12:21:30', '2025-10-14 12:21:30'),
-(14, 5, 'Which planet is known as the Red Planet?', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(15, 5, 'What is the largest mammal in the world?', 'African Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(16, 6, 'What is the chemical symbol for gold?', 'Go', 'Gd', 'Au', 'Ag', 'C', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(17, 6, 'Which programming language was created by Guido van Rossum?', 'Java', 'Python', 'C++', 'JavaScript', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(18, 6, 'What does CPU stand for?', 'Central Processing Unit', 'Computer Processing Unit', 'Central Program Unit', 'Computer Program Unit', 'A', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(19, 7, 'In which year did World War II end?', '1944', '1945', '1946', '1947', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(20, 7, 'Which country has the most natural lakes?', 'Russia', 'Canada', 'United States', 'Finland', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(21, 7, 'Who was the first person to walk on the moon?', 'Buzz Aldrin', 'Neil Armstrong', 'John Glenn', 'Alan Shepard', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(22, 8, 'Which country won the FIFA World Cup in 2018?', 'Germany', 'Brazil', 'France', 'Argentina', 'C', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(23, 8, 'Who directed the movie \"Inception\"?', 'Steven Spielberg', 'Christopher Nolan', 'Martin Scorsese', 'Quentin Tarantino', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
-(24, 8, 'Which band released the album \"Abbey Road\"?', 'The Rolling Stones', 'The Beatles', 'Led Zeppelin', 'Pink Floyd', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `quiz_results`
---
-
-CREATE TABLE `quiz_results` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_name` varchar(255) NOT NULL,
-  `user_email` varchar(255) DEFAULT NULL,
-  `category_id` bigint(20) UNSIGNED NOT NULL,
-  `total_questions` int(11) NOT NULL,
-  `correct_answers` int(11) NOT NULL,
-  `score_percentage` decimal(5,2) NOT NULL,
-  `completed_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `quiz_results`
---
-
-INSERT INTO `quiz_results` (`id`, `user_name`, `user_email`, `category_id`, `total_questions`, `correct_answers`, `score_percentage`, `completed_at`, `created_at`, `updated_at`) VALUES
-(1, 'Jon Doe', 'rine@mailinator.com', 1, 3, 1, 33.33, '2025-10-14 14:01:45', '2025-10-14 14:01:45', '2025-10-14 14:01:45'),
-(2, 'testtt', 'rine@mailinator.com', 6, 3, 2, 66.67, '2025-10-14 17:17:17', '2025-10-14 17:17:17', '2025-10-14 17:17:17');
 
 -- --------------------------------------------------------
 
@@ -4208,28 +4099,6 @@ ALTER TABLE `project_categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `quiz_categories`
---
-ALTER TABLE `quiz_categories`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `quiz_categories_is_active_index` (`is_active`);
-
---
--- Indexes for table `quiz_questions`
---
-ALTER TABLE `quiz_questions`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `quiz_questions_category_id_is_active_index` (`category_id`,`is_active`);
-
---
--- Indexes for table `quiz_results`
---
-ALTER TABLE `quiz_results`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `quiz_results_category_id_completed_at_index` (`category_id`,`completed_at`),
-  ADD KEY `quiz_results_user_email_index` (`user_email`);
-
---
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -4537,7 +4406,7 @@ ALTER TABLE `member_directories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
 
 --
 -- AUTO_INCREMENT for table `news_letters`
@@ -4610,24 +4479,6 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `project_categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT for table `quiz_categories`
---
-ALTER TABLE `quiz_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `quiz_questions`
---
-ALTER TABLE `quiz_questions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- AUTO_INCREMENT for table `quiz_results`
---
-ALTER TABLE `quiz_results`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -4787,18 +4638,6 @@ ALTER TABLE `orders`
 ALTER TABLE `payouts`
   ADD CONSTRAINT `payouts_creator_id_foreign` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `payouts_wallet_id_foreign` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `quiz_questions`
---
-ALTER TABLE `quiz_questions`
-  ADD CONSTRAINT `quiz_questions_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `quiz_categories` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `quiz_results`
---
-ALTER TABLE `quiz_results`
-  ADD CONSTRAINT `quiz_results_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `quiz_categories` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `role_has_permissions`

@@ -48,6 +48,9 @@ use App\Http\Controllers\WalletController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\VideoPurchaseController;
 use App\Http\Controllers\VideoDownloadController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\admin\QuizCategoryController;
+use App\Http\Controllers\admin\QuizQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -307,6 +310,16 @@ Route::group(['middleware' => ['auth']], function () {
     //pages settings
     Route::resource('page', PageController::class);
     Route::resource('page_setting', PageSettingController::class);
+    
+    // Quiz Management Routes (Admin)
+    Route::prefix('admin/quiz')->name('admin.quiz.')->group(function () {
+        Route::resource('categories', QuizCategoryController::class);
+        Route::post('categories/{category}/toggle-status', [QuizCategoryController::class, 'toggleStatus'])->name('categories.toggle-status');
+        
+        Route::resource('questions', QuizQuestionController::class);
+        Route::post('questions/{question}/toggle-status', [QuizQuestionController::class, 'toggleStatus'])->name('questions.toggle-status');
+        Route::post('questions/bulk-action', [QuizQuestionController::class, 'bulkAction'])->name('questions.bulk-action');
+    });
 });
 
 // Video Platform Routes
@@ -362,4 +375,17 @@ Route::prefix('creators')->name('creators.')->group(function () {
     Route::get('/{creator}', [CreatorController::class, 'show'])->name('show');
     Route::get('/{creator}/videos', [CreatorController::class, 'videos'])->name('videos');
     Route::get('/{creator}/intro-video', [CreatorController::class, 'introVideo'])->name('intro-video');
+});
+
+// Quiz Routes (Public - No authentication required)
+Route::prefix('quiz')->name('quiz.')->group(function () {
+    Route::get('/', [QuizController::class, 'index'])->name('index');
+    Route::get('/test', function() {
+        $categories = \App\Models\QuizCategory::active()->get();
+        return view('quiz-test', compact('categories'));
+    })->name('test');
+    Route::post('/load', [QuizController::class, 'loadQuiz'])->name('load');
+    Route::post('/submit', [QuizController::class, 'submitQuiz'])->name('submit');
+    Route::get('/results', [QuizController::class, 'results'])->name('results');
+    Route::get('/stats', [QuizController::class, 'getStats'])->name('stats');
 });

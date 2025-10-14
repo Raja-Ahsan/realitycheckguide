@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="TemplateMo">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <title>@yield('title')</title>
     <link rel="icon" href="{{ asset('admin/assets/images/page') }}/{{ $home_page_data['header_favicon'] }}" type="image/png" sizes="32x32">
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('assets/website') }}/css/owl.css">
     <link rel="stylesheet" href="{{ asset('assets/website') }}/css/lightbox.css">
     @stack('styles')
+    @stack('css')
 </head>
 
 <body>
@@ -78,6 +80,7 @@
     <script src="{{ asset('assets/website') }}/js/slick-slider.js"></script>
     <script src="{{ asset('assets/website') }}/js/custom.js"></script>
     @stack('scripts')
+    @stack('js')
     <script>
         var checkSection = function checkSection() {
             $('.section').each(function() {

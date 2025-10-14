@@ -3103,6 +3103,74 @@ section.meetings-page .pagination ul li a:hover {
   color: #f5a425;
 }
 
+
+#quiz-section .section-heading h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-style: Bold;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: -4%;
+  color: #303030;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+#quiz-section .section-heading h2 span {
+  color: #ffc430;
+  font-style: italic;
+}
+#quiz-section #start-quiz-btn{
+  font-size: 14px;
+    margin-top: 10px;
+    border: 1px solid #ffc430;
+    padding: 10px 30px;
+    text-transform: capitalize;
+    font-weight: 500;
+    transition: all .3s;
+    display: inline-block;
+    text-align: center;
+    color: #303030;
+    border-radius: 25px;
+    background: #ffc430;
+}
+#quiz-results-section .section-heading h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-style: Bold;
+  font-size: 40px;
+  line-height: 100%;
+  letter-spacing: -4%;
+  color: #303030;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+#quiz-results-section .section-heading h2 span {
+  color: #ffc430;
+  font-style: italic;
+}
+#quiz-results-section #take-another-quiz-btn{
+  font-size: 14px;
+    margin-top: 10px;
+    border: 1px solid #ffc430;
+    padding: 10px 30px;
+    text-transform: capitalize;
+    font-weight: 500;
+    transition: all .3s;
+    display: inline-block;
+    text-align: center;
+    color: #303030;
+    border-radius: 25px;
+    background: #ffc430;
+    margin-bottom: 30px;
+}
+
+.badge{
+  background: #ffc430;
+  color: #303030;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 5px 10px;
+}
 /* Meeting item column */
 .templatemo-item-col {
 	width: 31%;

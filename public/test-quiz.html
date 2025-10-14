@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Test</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{ asset('assets/website') }}/vendor/jquery/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Quiz JavaScript Test</h1>
+    
+    <form id="test-form">
+        <div>
+            <label>Category:</label>
+            <select id="category_id">
+                <option value="">Select...</option>
+                <option value="1">Test Category</option>
+            </select>
+        </div>
+        <div>
+            <label>Name:</label>
+            <input type="text" id="user_name" value="Test User">
+        </div>
+        <div>
+            <label>Email:</label>
+            <input type="email" id="user_email" value="test@example.com">
+        </div>
+        <button type="submit">Test Submit</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+    console.log('jQuery version:', $.fn.jquery);
+    console.log('CSRF token:', $('meta[name="csrf-token"]').attr('content'));
+    
+    $('#test-form').submit(function(e) {
+        e.preventDefault();
+        console.log('Form submitted via JavaScript');
+        
+        const categoryId = $('#category_id').val();
+        const userName = $('#user_name').val();
+        const userEmail = $('#user_email').val();
+        
+        console.log('Values:', {categoryId, userName, userEmail});
+        
+        if (!categoryId) {
+            alert('Please select a category');
+            return;
+        }
+        
+        $('#result').html('<p>Loading quiz...</p>');
+        
+        $.ajax({
+            url: '/quiz/load',
+            method: 'POST',
+            data: {
+                category_id: categoryId,
+                user_name: userName,
+                user_email: userEmail,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                console.log('AJAX Success:', response);
+                $('#result').html('<p>Success! Check console for details.</p>');
+            },
+            error: function(xhr) {
+                console.log('AJAX Error:', xhr);
+                $('#result').html('<p>Error! Check console for details.</p>');
+            }
+        });
+    });
+    </script>
+</body>
+</html>
+

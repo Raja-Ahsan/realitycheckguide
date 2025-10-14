@@ -199,12 +199,12 @@
                     </li>
                 </ul>
             </li>
-            <li class="treeview mt-2">
+            <!-- <li class="treeview mt-2">
                 <a href="{{ route('submittals.index') }}" class="{{ request()->is('submittals') || request()->is('submittals/create') || request()->is('submittals/*/edit') ? 'active' : '' }}">
                     <i class="fa fa-file-pdf-o"></i> <span>Submittals</span>
                 </a>
             </li>
-            @endcan -->
+           {{--  @endcan --}} -->
 
             <!-- <li class="treeview mt-2">
                 <a href="{{ route('cover-templates.index') }}" class="{{ request()->is('cover-templates') || request()->is('cover-templates/create') ? 'active' : '' }}">

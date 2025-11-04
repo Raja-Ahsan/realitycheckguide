@@ -395,7 +395,7 @@
             <!-- <img src="{{ asset('assets/website') }}/img/about-us.png" alt="about-us" class="about-us-img"> -->   
               <img src="{{ asset('assets/website') }}/img/logo.png" alt="about-us-img-overlay"
                 class="about-us-img-overlay-img position-absolute">
-              <video src="{{ asset('assets/website') }}/img/about.MOV" autoplay muted loop width="100%" height="100%" class="about-us-img-overlay-video"></video>
+              <video src="{{ asset('assets/website') }}/img/about.mov" autoplay muted loop width="100%" height="100%" class="about-us-img-overlay-video"></video>
           
           </div>
           <div class="about-us-img-overlay-text">

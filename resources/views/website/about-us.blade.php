@@ -31,7 +31,7 @@
             <!-- <img src="{{ asset('assets/website') }}/img/about-us.png" alt="our-story" class="our-story-img"> -->
               <img src="{{ asset('assets/website') }}/img/logo.png" alt="our-story-overlay"
                 class="our-story-img-overlay-img position-absolute"> 
-              <video src="{{ asset('assets/website') }}/img/about.mov" autoplay muted loop width="100%" height="100%" class="our-story-img-overlay-video "></video>
+              <video src="{{ asset('assets/website') }}/img/about.mov" autoplay controls loop width="100%" height="100%" class="our-story-img-overlay-video "></video>
           </div>
           <div class="our-story-img-overlay-text">
             <p>After seeing so many people unhappy in their careers, I wanted to create a place where we could learn

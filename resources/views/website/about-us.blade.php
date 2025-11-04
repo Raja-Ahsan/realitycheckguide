@@ -28,9 +28,10 @@
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
           <div class="our-story-img-overlay position-relative">
-            <img src="{{ asset('assets/website') }}/img/about-us.png" alt="our-story" class="our-story-img">
-            <img src="{{ asset('assets/website') }}/img/logo.png" alt="our-story-overlay"
-              class="our-story-img-overlay-img position-absolute">
+            <!-- <img src="{{ asset('assets/website') }}/img/about-us.png" alt="our-story" class="our-story-img"> -->
+              <img src="{{ asset('assets/website') }}/img/logo.png" alt="our-story-overlay"
+                class="our-story-img-overlay-img position-absolute"> 
+              <video src="{{ asset('assets/website') }}/img/about.MOV" autoplay muted loop width="100%" height="100%" class="our-story-img-overlay-video "></video>
           </div>
           <div class="our-story-img-overlay-text">
             <p>After seeing so many people unhappy in their careers, I wanted to create a place where we could learn

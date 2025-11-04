@@ -21,3 +21,9 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Large video files
+*.mov
+*.MOV
+public/assets/website/img/*.mov
+public/assets/website/img/*.MOV

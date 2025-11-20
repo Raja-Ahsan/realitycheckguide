@@ -207,13 +207,20 @@
 	    var scrollPos = $(document).scrollTop();
 	    $('.nav a').each(function () {
 	        var currLink = $(this);
-	        var refElement = $(currLink.attr("href"));
-	        if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
-	            $('.nav ul li a').removeClass("active");
-	            currLink.addClass("active");
-	        }
-	        else{
-	            currLink.removeClass("active");
+	        var href = currLink.attr("href");
+	        
+	        // Check if href is a valid selector (starts with #) and not a full URL
+	        if (href && href.indexOf('#') === 0) {
+	            var refElement = $(href);
+	            if (refElement.length && refElement.position()) {
+	                var refTop = refElement.position().top;
+	                if (refTop <= scrollPos && refTop + refElement.height() > scrollPos) {
+	                    $('.nav ul li a').removeClass("active");
+	                    currLink.addClass("active");
+	                } else {
+	                    currLink.removeClass("active");
+	                }
+	            }
 	        }
 	    });
 	}
@@ -281,8 +288,14 @@
         var $t = partial,
             $w = jQuery(window),
             viewTop = $w.scrollTop(),
-            viewBottom = viewTop + $w.height(),
-            _top = $t.offset().top,
+            viewBottom = viewTop + $w.height();
+        
+        // Check if element exists and has offset
+        if (!$t.length || !$t.is(':visible') || !$t.offset()) {
+            return false;
+        }
+        
+        var _top = $t.offset().top,
             _bottom = _top + $t.height(),
             compareTop = partial === true ? _bottom : _top,
             compareBottom = partial === true ? _top : _bottom;

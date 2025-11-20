@@ -1,26 +1,19 @@
 @foreach($models as $key=>$model)
     <tr id="id-{{ $model->slug }}">
         <td>{{ $models->firstItem()+$key }}.</td>
-        <!-- <td>
+        <td>
 			@if($model->image)
-				<img src="{{ asset('admin/assets/images/services/'.$model->image) }}" alt="" style="width:60px;">
+				<img src="{{ asset('admin/assets/images/categories/'.$model->image) }}" alt="" style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
 			@else
-				<img src="{{ asset('admin/assets/images/default.jpg') }}" style="width:60px;">
+				<img src="{{ asset('admin/assets/images/default.jpg') }}" style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
 			@endif
-		</td> -->
+		</td>
 
         <td>{{\Illuminate\Support\Str::limit($model->title,40)}}</td>
-       <!--  <td>
-            @if($model->parent_id)
-            <span class="label label-primary">{{\Illuminate\Support\Str::limit($model->parent_id,40)}}</span>
-            @else
-            <span class="badge badge-danger">No Parent</span>
-            @endif
-        </td>
-        <td>{{\Illuminate\Support\Str::limit($model->description,40)}}</td> -->
+        <td>{{\Illuminate\Support\Str::limit(strip_tags($model->description ?? 'N/A'),50)}}</td>
 		
         <td>
-            @if($model->status)
+            @if($model->status == '1' || $model->status == 1)
                 <span class="label label-success">Active</span>
             @else
                 <span class="label label-danger">In-Active</span>
@@ -38,7 +31,7 @@
     </tr>
 @endforeach
 <tr>
-    <td colspan="8">
+    <td colspan="6">
 		Displying {{$models->firstItem()}} to {{$models->lastItem()}} of {{$models->total()}} records
         <div class="d-flex justify-content-center">
             {!! $models->links('pagination::bootstrap-4') !!}

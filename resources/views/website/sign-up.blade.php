@@ -343,16 +343,21 @@
     }
     
     // Form validation
-    document.getElementById('subscription-form').addEventListener('submit', function(e) {
-        const roleSelect = document.getElementById('role');
-        
-        if (!roleSelect.value) {
-            e.preventDefault();
-            alert('Please select a role before submitting.');
-            roleSelect.focus();
-            return false;
-        }
-    });
+    var subscriptionForm = document.getElementById('subscription-form');
+    if (subscriptionForm) {
+        subscriptionForm.addEventListener('submit', function(e) {
+            const roleSelect = document.getElementById('role');
+            
+            if (!roleSelect || !roleSelect.value) {
+                e.preventDefault();
+                alert('Please select a role before submitting.');
+                if (roleSelect) {
+                    roleSelect.focus();
+                }
+                return false;
+            }
+        });
+    }
     
     // Show role info on page load if role is pre-selected
     document.addEventListener('DOMContentLoaded', function() {

@@ -3,7 +3,7 @@
 @section('content')
 <section class="content-header">
 	<div class="content-header-left">
-		<h1>Add Service</h1>
+		<h1>Add Category</h1>
 	</div>
 	<div class="content-header-right">
 		<a href="{{ route('services.index') }}" class="btn btn-primary btn-sm">View All</a>
@@ -32,27 +32,59 @@
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Title<span style='color:red'>*</span></label>
 							<div class="col-sm-9">
-								<input type="text" autocomplete="off" class="form-control" name="title" value="" placeholder="Enter category name">
+								<input type="text" autocomplete="off" class="form-control" name="title" value="{{ old('title') }}" placeholder="Enter category name">
 								<span style="color: red">{{ $errors->first('title') }}</span>
 							</div>
 						</div>
-						<!-- <div class="form-group">
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label">Subtitle</label>
+							<div class="col-sm-9">
+								<input type="text" autocomplete="off" class="form-control" name="subtitle" value="{{ old('subtitle') }}" placeholder="Enter category subtitle (e.g., Explore real career stories)">
+								<span style="color: red">{{ $errors->first('subtitle') }}</span>
+							</div>
+						</div>
+						<div class="form-group">
 							<label for="" class="col-sm-2 control-label">Description</label>
 							<div class="col-sm-9">
-								<textarea class="form-control" name="description" style="height:140px;" value="{{ old('description') }}" placeholder="Enter Description"></textarea>
+								<textarea class="form-control texteditor" name="description" style="height:140px;" placeholder="Enter category description">{{ old('description') }}</textarea>
 								<span style="color: red">{{ $errors->first('description') }}</span>
 							</div>
-						</div> -->
-						<!-- <div class="form-group">
-							<label for="" class="col-sm-2 control-label">Image<span style="color: red">*</span></label>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label">Image</label>
                             <div class="col-sm-6" style="padding-top:5px">
-                                <input type="file" class="form-control" accept="image*"  name="image" id="image">
+                                <input type="file" class="form-control" accept="image/*"  name="image" id="image">
                                 <span style="color: red">{{ $errors->first('image') }}</span>
                             </div>
                             <div class="col-sm-4" >
-                                <img style="width: 80px" id="banner_preview"  src="{{ asset('admin/assets/images/default.jpg') }}"  alt="Image Not Found ">
+                                <img style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px;" id="banner_preview"  src="{{ asset('admin/assets/images/default.jpg') }}"  alt="Image Preview">
                             </div>
-                        </div> -->
+                        </div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label">What You'll Discover</label>
+							<div class="col-sm-9">
+								<div id="discover-points-container">
+									<div class="discover-point-item mb-2">
+										<div class="input-group">
+											<input type="text" class="form-control" name="discover_points[]" placeholder="Enter discover point (e.g., Real job experiences)">
+											<button type="button" class="btn btn-danger remove-point" style="display:none;"><i class="fa fa-times"></i></button>
+										</div>
+									</div>
+								</div>
+								<button type="button" class="btn btn-sm btn-info mt-2" id="add-discover-point"><i class="fa fa-plus"></i> Add Another Point</button>
+								<p class="help-block text-muted mt-2">Add multiple points that users will discover in this category</p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-sm-2 control-label">Status</label>
+							<div class="col-sm-9">
+								<select name="status" class="form-control">
+									<option value="1" {{ old('status', 1) == 1 ? 'selected' : '' }}>Active</option>
+									<option value="0" {{ old('status') == 0 ? 'selected' : '' }}>Inactive</option>
+								</select>
+								<span style="color: red">{{ $errors->first('status') }}</span>
+							</div>
+						</div>
 						<div class="form-group">
 							<label for="" class="col-sm-2 control-label"></label>
 							<div class="col-sm-6">
@@ -96,6 +128,36 @@
 			const [file] = image.files
 			if (file) {
 				banner_preview.src = URL.createObjectURL(file)
+			}
+		}
+
+		// Discover Points Management
+		let pointCount = 1;
+		$('#add-discover-point').on('click', function() {
+			pointCount++;
+			const newPoint = `
+				<div class="discover-point-item mb-2">
+					<div class="input-group">
+						<input type="text" class="form-control" name="discover_points[]" placeholder="Enter discover point">
+						<button type="button" class="btn btn-danger remove-point"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			`;
+			$('#discover-points-container').append(newPoint);
+			updateRemoveButtons();
+		});
+
+		$(document).on('click', '.remove-point', function() {
+			$(this).closest('.discover-point-item').remove();
+			updateRemoveButtons();
+		});
+
+		function updateRemoveButtons() {
+			const items = $('.discover-point-item').length;
+			if (items > 1) {
+				$('.remove-point').show();
+			} else {
+				$('.remove-point').hide();
 			}
 		}
 

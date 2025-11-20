@@ -36,63 +36,67 @@
 							<thead>
 								<tr>
 									<th>No.</th>
-									<!-- <th>Image</th> -->
+									<th>Image</th>
 									<th>Title</th>
-									<!-- <th>Parent Category</th>
-									<th>Description</th> -->
+									<th>Description</th>
 									<th>Status</th>
-									<!-- <th>Created by</th> -->
 									<th width="140">Action</th>
 								</tr>
 							</thead>
 							<tbody id="body">
-								@foreach($models as $key=>$model)
+								@forelse($models as $key=>$model)
 								<tr id="id-{{ $model->slug }}">
 									<td>{{ $models->firstItem()+$key }}.</td>
-									<!-- <td>
+									<td>
 										@if($model->image)
-										<img src="{{ asset('admin/assets/images/services/'.$model->image) }}" alt="" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/categories/'.$model->image) }}" alt="{{ $model->title }}" style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
 										@else
-										<img src="{{ asset('admin/assets/images/default.jpg') }}" style="width:60px;">
+										<img src="{{ asset('admin/assets/images/default.jpg') }}" alt="No Image" style="width:60px; height:60px; object-fit:cover; border-radius:4px;">
 										@endif
-									</td> -->
+									</td>
 
-									<td>{{\Illuminate\Support\Str::limit($model->title,40)}}</td>
-									<!-- <td>
-										@if($model->parent_id)
-										<span class="label label-primary">{{\Illuminate\Support\Str::limit($model->parent_id,40)}}</span>
+									<td>{{ \Illuminate\Support\Str::limit($model->title, 40) }}</td>
+									<td>
+										@if(!empty($model->description))
+											{{ \Illuminate\Support\Str::limit(strip_tags($model->description), 50) }}
 										@else
-										<span class="badge badge-danger">No Parent</span>
+											<span class="text-muted">No description</span>
 										@endif
-									</td> -->
-									<!-- <td>{{\Illuminate\Support\Str::limit($model->description,40)}}</td> -->
+									</td>
 
 									<td>
-										@if($model->status)
+										@if($model->status == '1' || $model->status == 1)
 										<span class="label label-success">Active</span>
 										@else
 										<span class="label label-danger">In-Active</span>
 										@endif
 									</td>
-									<!-- <td>{{isset($model->hasCreatedBy)?$model->hasCreatedBy->name:'N/A'}}</td> -->
 									<td width="250px">
 										@can('services-edit')
-										<a href="{{route('services.edit', $model->slug)}}" data-toggle="tooltip" data-placement="top" title="Edit Service" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Edit</a>
+										<a href="{{route('services.edit', $model->slug)}}" data-toggle="tooltip" data-placement="top" title="Edit Category" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Edit</a>
 										@endcan
 										@can('services-delete')
 										<button class="btn btn-danger btn-xs delete" data-slug="{{ $model->slug }}" data-del-url="{{ url('services', $model->slug) }}"><i class="fa fa-trash"></i> Delete</button>
 										@endcan
 									</td>
 								</tr>
-								@endforeach
+								@empty
 								<tr>
-									<td colspan="8">
+									<td colspan="6" class="text-center">
+										<p class="text-muted">No categories found. <a href="{{ route('services.create') }}">Create your first category</a></p>
+									</td>
+								</tr>
+								@endforelse
+								@if($models->count() > 0)
+								<tr>
+									<td colspan="6">
 										Displying {{$models->firstItem()}} to {{$models->lastItem()}} of {{$models->total()}} records
 										<div class="d-flex justify-content-center">
 											{!! $models->links('pagination::bootstrap-4') !!}
 										</div>
 									</td>
 								</tr>
+								@endif
 							</tbody>
 						</table>
 					</div>
@@ -104,4 +108,61 @@
 @endsection
 
 @push('js')
+<script>
+	$(document).ready(function() {
+		var searchTimeout;
+		
+		// Function to load categories via AJAX
+		function loadCategories(url, pushToHistory = true) {
+			$.ajax({
+				url: url,
+				type: 'GET',
+				dataType: 'html',
+				beforeSend: function() {
+					// Show loading indicator if needed
+				},
+				success: function(data) {
+					var $html = $(data);
+					$('#body').html($html.find('tbody').html());
+					
+					// Update URL in browser without reloading
+					if (pushToHistory) {
+						history.pushState(null, '', url);
+					}
+				},
+				error: function(xhr, status, error) {
+					console.error("AJAX Error:", status, error);
+					console.error(xhr.responseText);
+					alert('Error loading categories. Please refresh the page.');
+				}
+			});
+		}
+	
+		// Handle search input with debounce
+		$('#search').on('keyup', function() {
+			clearTimeout(searchTimeout);
+			var search = $(this).val();
+			var status = $('#status').val();
+			// Use the base URL from the hidden input
+			var url = $('#page_url').val();
+			// Append search and status parameters
+			url += '?search=' + encodeURIComponent(search) + '&status=' + status;
+			
+			searchTimeout = setTimeout(function() {
+				loadCategories(url);
+			}, 500); // Wait 500ms after user stops typing
+		});
+	
+		// Handle status dropdown change
+		$('#status').on('change', function() {
+			var search = $('#search').val();
+			var status = $(this).val();
+			// Use the base URL from the hidden input
+			var url = $('#page_url').val();
+			// Append search and status parameters
+			url += '?search=' + encodeURIComponent(search) + '&status=' + status;
+			loadCategories(url);
+		});
+	});
+</script>
 @endpush

@@ -94,6 +94,14 @@
                         </li>
                     @endcan
 
+                    @can('services-list')
+                        <li class="treeview mt-2">
+                            <a href="{{ route('services.index') }}" class="{{ request()->is('services') || request()->is('services/create') || request()->is('services/*/edit') ? 'active' : '' }}">
+                                <i class="fa fa-folder"></i> <span>Career Categories</span>
+                            </a>
+                        </li>
+                    @endcan
+
                     {{-- <li class="treeview mt-2 {{ (request()->is('services') || request()->is('services/create') || request()->is('services/*/edit') || request()->is('member_directory') || request()->is('member_directory/create') || request()->is('member_directory/*/edit') || request()->is('member_directory/*')) ? 'active' : '' }}" style="height: auto;">
                         <a href="#" class="{{ (request()->is('services') || request()->is('services/create') || request()->is('services/*/edit') || request()->is('member_directory') || request()->is('member_directory/create') || request()->is('member_directory/*/edit') || request()->is('member_directory/*')) ? 'active' : '' }}">
                             <i class="fa fa-files-o"></i>

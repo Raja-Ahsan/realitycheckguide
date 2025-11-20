@@ -112,53 +112,26 @@
         </div>
         <div class="col-lg-12">
           <div class="owl-category-item owl-carousel">
+            @forelse($categories as $category)
             <div class="item">
-              <img src="{{ asset('assets/website') }}/img/cat1.png" alt="Course One">
-              <div class="down-content">
-                <h4>Skilled Trades</h4>
-                <p>Electrician, Plumber, Welder</p>
-              </div>
+              <a href="{{ route('category.detail', $category->slug) }}">
+                @if($category->image)
+                  <img src="{{ asset('admin/assets/images/categories/'.$category->image) }}" alt="{{ $category->title }}">
+                @else
+                  <img src="{{ asset('assets/website') }}/img/cat{{ ($loop->index % 6) + 1 }}.png" alt="{{ $category->title }}">
+                @endif
+                <div class="down-content">
+                  <h4>{{ $category->title }}</h4>
+                  <p>{{ $category->subtitle }}</p>
+                </div>
+              </a>
             </div>
-            <div class="item">
-              <img src="{{ asset('assets/website') }}/img/cat2.png" alt="Course Two">
-              <div class="down-content">
-                <h4>Tech & IT</h4>
-                <p>Web Developer, Data Analyst, UX Designer</p>
-              </div>
-            </div>
-            <div class="item">
-              <img src="{{ asset('assets/website') }}/img/cat3.png" alt="">
-              <div class="down-content">
-                <h4>Healthcare</h4>
-                <p>Nurse, Medical Assistant, Radiologist</p>
-              </div>
-            </div>
-            <div class="item">
-              <img src="{{ asset('assets/website') }}/img/cat4.png" alt="">
-              <div class="down-content">
-                <h4>Design & Creative</h4>
-                <p>Graphic Designer, Animator, Illustrator</p>
-              </div>
-            </div>
-            <div class="item">
-              <img src="{{ asset('assets/website') }}/img/cat5.png" alt="">
-              <div class="down-content">
-                <h4>Business & Admin</h4>
-                <p>Accountant, HR, Marketing Coordinator</p>
-              </div>
-            </div>
-            <div class="item">
-              <img src="{{ asset('assets/website') }}/img/cat6.png" alt="">
-              <div class="down-content">
-                <h4>Master Chef</h4>
-                <p>Chef, Pastry Chef, Food Critic</p>
-                
-              </div>
-            </div>
-
+            @empty
+            <!-- Fallback to default categories if none exist -->
+            @endforelse
           </div>
           <div class="browse-career-categories-button">
-            <a href="#">Browse All Categories</a>
+            <a href="{{ route('categories') }}">Browse All Categories</a>
           </div>
         </div>
       </div>
@@ -313,7 +286,7 @@
                 <img src="{{ asset('assets/website') }}/img/education-resources-3.png" alt="education-resources-1" class="img-fluid">
                 <h4>Paying for School</h4>
                 <ul>
-                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Scholarships & Grants</li>  
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"><a href="{{ route('scholarships.index') }}"> Scholarships & Grants</a></li>  
                   <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> FAFSA Guide</li>
                   <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Help for Adult Learners</li>
                   <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Financial Aid</li>

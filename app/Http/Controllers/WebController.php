@@ -79,9 +79,11 @@ class WebController extends Controller
             $user->status = 1; // Activate user upon verification
             $user->update();
 
-            return redirect()->route('login');
+            $page_title = 'Email Verified Successfully';
+            return view('auth.email-verified', compact('page_title'));
         } else {
-            return redirect()->back()->with('error', 'Your token is expired');
+            $page_title = 'Verification Failed';
+            return redirect()->route('login')->with('error', 'Your verification token is invalid or has expired. Please request a new verification email.');
         }
     }
 
@@ -179,8 +181,32 @@ class WebController extends Controller
     public function index() 
     {
         $page_title = 'Reality Check Guide';
-        //$abouts = AboutUs::where('status', 1)->get();
-        return view('website.index', compact('page_title'));
+        $categories = Category::where('status', 1)->orderBy('id', 'ASC')->get();
+        return view('website.index', compact('page_title', 'categories'));
+    }
+    
+    public function allCategories()
+    {
+        $page_title = 'All Career Categories';
+        $categories = Category::where('status', 1)->orderBy('title', 'ASC')->get();
+        $banner = Banner::where('slug', 'categories')->where('status', 1)->first();
+        return view('website.categories', compact('page_title', 'categories', 'banner'));
+    }
+    
+    public function categoryDetail($slug)
+    {
+        $category = Category::where('slug', $slug)->where('status', 1)->first();
+        if (!$category) {
+            return redirect()->route('categories')->with('error', 'Category not found');
+        }
+        $page_title = $category->title;
+        $banner = Banner::where('slug', 'category-detail')->where('status', 1)->first();
+        $relatedCategories = Category::where('status', 1)
+            ->where('id', '!=', $category->id)
+            ->orderBy('title', 'ASC')
+            ->limit(6)
+            ->get();
+        return view('website.category-detail', compact('page_title', 'category', 'banner', 'relatedCategories'));
     }
     public function AboutUs() 
     {
@@ -467,7 +493,7 @@ class WebController extends Controller
                      'verify_token' => $user->verify_token,
                 ];
 
-                //Mail::to($user->email)->send(new \App\Mail\Email($details));
+                Mail::to($user->email)->send(new \App\Mail\Email($details));
 
                 // Create payment record for free package
                 $order_number = rand(10000, 99999);
@@ -502,27 +528,10 @@ class WebController extends Controller
      */
     private function handleRoleSpecificRegistration($user, $role)
     {
-        switch ($role) {
-            case 'Creator':
-                // Send welcome email with creator-specific information
-                $details = [
-                    'from' => 'welcome_creator',
-                    'title' => "Welcome to Reality Check Guide as a Creator!",
-                    'body' => "You can now browse available jobs and submit bids. Complete your profile to get started.",
-                ];
-                Mail::to($user->email)->send(new \App\Mail\Email($details));
-                break;
-                
-            case 'Viewer':
-                // Send welcome email with viewer-specific information
-                $details = [
-                    'from' => 'welcome_viewer',
-                    'title' => "Welcome to Reality Check Guide as a Viewer!",
-                    'body' => "You can now post job requests and projects. Complete your profile to get started.",
-                ];
-                Mail::to($user->email)->send(new \App\Mail\Email($details));
-                break;
-        }
+        // Note: Welcome emails are sent via the verification email
+        // This method can be extended for other role-specific logic if needed
+        // For now, we'll skip sending separate welcome emails to avoid conflicts
+        // The verification email already contains welcome information
     }
 
     public function __construct()

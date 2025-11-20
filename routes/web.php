@@ -144,6 +144,8 @@ Route::get('gallery', [WebController::class, 'Gallery'])->name('gallery');
 Route::get('contact-us', [WebController::class, 'ContactUs'])->name('contact-us');
 Route::get('faqs', [WebController::class, 'Faqs'])->name('faqs');
 Route::get('our-services', [WebController::class, 'Services'])->name('our-services');
+Route::get('categories', [WebController::class, 'allCategories'])->name('categories');
+Route::get('category/{slug}', [WebController::class, 'categoryDetail'])->name('category.detail');
 Route::get('privacy-policy', [WebController::class, 'privacyPolicy'])->name('privacy-policy');
 Route::get('term-and-conditions', [WebController::class, 'termAndConditions'])->name('term-and-conditions');
 Route::get('reviews', [WebController::class, 'Reviews'])->name('reviews');

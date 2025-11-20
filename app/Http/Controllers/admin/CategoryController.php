@@ -25,7 +25,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-            $query = Category::orderby('id', 'ASC')->where('id', '>', 0);
+            $query = Category::orderby('id', 'ASC');
             if($request['search'] != ""){
                 $query->where('title', 'like', '%'. $request['search'] .'%');
             }
@@ -38,7 +38,7 @@ class CategoryController extends Controller
             $models = $query->paginate(10);
             return (string) view('admin.category.search', compact('models'));
         }
-        $page_title = 'All Service Categories';
+        $page_title = 'All Career Categories';
         $models = Category::orderby('id', 'ASC')->paginate(10);
         return view('admin.category.index', compact("models","page_title"));
     }
@@ -50,7 +50,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $page_title = 'Add Service';
+        $page_title = 'Add Career Category';
         $categories = Category::orderby('id', 'desc')->where('status', 1)->get();
         return View('admin.category.create', compact('page_title','categories'));
     }
@@ -65,28 +65,34 @@ class CategoryController extends Controller
     {
         $validator = $request->validate([
             'title' => 'required',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $model = new Category();
 		
 		if (isset($request->image)) {
             $photo = date('YmdHis').'.'.$request->file('image')->getClientOriginalExtension();
-            $request->image->move(public_path('/admin/assets/images/services'), $photo);
+            $request->image->move(public_path('/admin/assets/images/categories'), $photo);
             $model->image = $photo;
         }
-		/* $parent_id = $request->parent_id;
-        if($parent_id == 0){
-            $parent_id = 0;
-        } */
 
         $model->created_by = Auth::user()->id;
         $model->title = $request->title;
-        /* $model->parent_id = $parent_id; */
-        /* $model->description = $request->description; */
+        $model->subtitle = $request->subtitle ?? null;
+        $model->description = $request->description ?? null;
         $model->slug = \Str::slug($request->title);
+        $model->status = $request->status ?? 1;
+        
+        // Handle discover points - convert array to JSON
+        if ($request->has('discover_points') && is_array($request->discover_points)) {
+            $discoverPoints = array_filter($request->discover_points); // Remove empty values
+            $model->discover_points = !empty($discoverPoints) ? json_encode($discoverPoints) : null;
+        }
+        
         $model->save();
 
-        return redirect()->route('services.index')->with('message', 'Service Added Successfully !');
+        return redirect()->route('services.index')->with('message', 'Category Added Successfully !');
 
     }
 
@@ -109,7 +115,7 @@ class CategoryController extends Controller
      */
     public function edit($slug)
     {
-        $page_title = 'Edit Service';
+        $page_title = 'Edit Career Category';
         $model = Category::where('slug', $slug)->first();
         $categories = Category::orderby('id', 'desc')->where('status', 1)->get();
         return View('admin.category.edit', compact("model", "page_title",'categories'));
@@ -126,28 +132,37 @@ class CategoryController extends Controller
     {
         $validator = $request->validate([
             'title' => 'required|max:100',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $update = Category::where('slug', $slug)->first();
 		
 		if (isset($request->image)) {
+            // Delete old image if exists
+            if($update->image && file_exists(public_path('/admin/assets/images/categories/'.$update->image))) {
+                unlink(public_path('/admin/assets/images/categories/'.$update->image));
+            }
             $photo = date('YmdHis').'.'.$request->file('image')->getClientOriginalExtension();
-            $request->image->move(public_path('/admin/assets/images/services'), $photo);
+            $request->image->move(public_path('/admin/assets/images/categories'), $photo);
             $update->image = $photo;
         }
-		/* $parent_id = $request->parent_id;
-        if($parent_id == 0){
-            $parent_id = 0;
-        } */
 
         $update->title = $request->title;
-        /* $update->parent_id = \Str::slug($parent_id); */
+        $update->subtitle = $request->subtitle ?? null;
+        $update->description = $request->description ?? null;
         $update->slug = \Str::slug($request->title);
-        /* $update->description = $request->description; */
-        $update->status = $request->status;
+        $update->status = $request->status ?? 1;
+        
+        // Handle discover points - convert array to JSON
+        if ($request->has('discover_points') && is_array($request->discover_points)) {
+            $discoverPoints = array_filter($request->discover_points); // Remove empty values
+            $update->discover_points = !empty($discoverPoints) ? json_encode($discoverPoints) : null;
+        }
+        
         $update->update();
 
-        return redirect()->route('services.index')->with('message', 'Service Updated Successfully !');
+        return redirect()->route('services.index')->with('message', 'Category Updated Successfully !');
     }
 
     /**

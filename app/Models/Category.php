@@ -11,6 +11,11 @@ class Category extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+    
+    protected $casts = [
+        'discover_points' => 'array',
+    ];
+    
     public function hasCreatedBy()
     {
         return $this->hasOne(User::class, 'id', 'created_by');

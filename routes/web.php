@@ -143,6 +143,7 @@ Route::get('leaderboard', [WebController::class, 'LeaderBoard'])->name('leaderbo
 Route::get('gallery', [WebController::class, 'Gallery'])->name('gallery');
 Route::get('contact-us', [WebController::class, 'ContactUs'])->name('contact-us');
 Route::post('contact-us/submit', [WebController::class, 'submitContactForm'])->name('contact-us.submit');
+Route::get('instructions-for-easy-upload', [WebController::class, 'instructionsForEasyUpload'])->name('instructions.upload');
 Route::get('faqs', [WebController::class, 'Faqs'])->name('faqs');
 Route::get('our-services', [WebController::class, 'Services'])->name('our-services');
 Route::get('categories', [WebController::class, 'allCategories'])->name('categories');

@@ -13,7 +13,7 @@
             <ul class="nav">
               <li class="scroll-to-section"><a href="{{ route('index') }}" class="active">Home</a></li>
               <li><a href="{{ route('about-us') }}">About</a></li>
-              <li class="scroll-to-section"><a href="#">instructions for easy upload</a></li>
+              <li class="scroll-to-section"><a href="{{ route('instructions.upload') }}">Instructions for Easy Upload</a></li>
               <!-- <li class="has-sub">
                               <a href="javascript:void(0)">intake</a>
                               <ul class="sub-menu">

@@ -8,7 +8,7 @@
           <ul class="d-flex footer-nav gap-5 mb-5 justify-content-center" >
             <li><a href="{{ route('index') }}">Home</a></li>
             <li><a href="{{ route('about-us') }}">About Us</a></li>
-            <li><a href="#">instructions for easy upload</a></li>
+            <li><a href="{{ route('instructions.upload') }}">Instructions for Easy Upload</a></li>
             <li><a href="#">intake</a></li>
             <li><a href="#">contact</a></li>
           </ul>

@@ -310,6 +310,13 @@ class WebController extends Controller
         return view('website.contact-us', compact('page_title'));
     }
 
+    public function instructionsForEasyUpload()
+    {
+        $page_title = 'Instructions for Easy Upload';
+        $banner = Banner::where('slug', 'instructions')->where('status', 1)->first();
+        return view('website.instructions-upload', compact('page_title', 'banner'));
+    }
+
     public function getStates(Request $request)
     {
         $city_id = $request->city_id;

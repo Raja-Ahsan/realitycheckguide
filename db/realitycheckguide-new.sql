@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 02, 2025 at 09:54 PM
+-- Host: 127.0.0.1:3307
+-- Generation Time: Nov 21, 2025 at 05:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -221,38 +221,44 @@ CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `created_by` bigint(20) NOT NULL,
   `title` varchar(255) NOT NULL,
+  `subtitle` varchar(255) DEFAULT NULL,
   `slug` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL DEFAULT '1' COMMENT '0=inactive, 1= active',
   `deleted_at` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `discover_points` text DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `created_by`, `title`, `slug`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Aerial Imaging', 'aerial-imaging', '1', NULL, '2025-02-18 14:55:48', '2025-02-18 15:03:58'),
-(2, 1, 'Agricultural Materials Supply', 'agricultural-materials-supply', '1', NULL, '2025-02-18 14:56:39', '2025-02-18 14:56:39'),
-(3, 1, 'Agriculture & Landscaping Services', 'agriculture-landscaping-services', '1', NULL, '2025-02-18 14:56:54', '2025-02-18 14:56:54'),
-(4, 1, 'Electrical Contractors', 'electrical-contractors', '1', NULL, '2025-02-18 14:57:07', '2025-02-18 14:57:07'),
-(5, 1, 'Energy Development', 'energy-development', '1', NULL, '2025-02-18 14:57:21', '2025-02-18 14:57:21'),
-(6, 1, 'Engineering & Procurement & Construction', 'engineering-procurement-construction', '1', NULL, '2025-02-18 14:57:33', '2025-02-18 14:57:33'),
-(7, 1, 'Environmental Services', 'environmental-services', '1', NULL, '2025-02-18 14:57:45', '2025-02-18 14:57:45'),
-(8, 1, 'Equipment Rental & Maintenance', 'equipment-rental-maintenance', '1', NULL, '2025-02-18 14:57:59', '2025-02-18 14:57:59'),
-(9, 1, 'Excavating & Civil Works', 'excavating-civil-works', '1', NULL, '2025-02-18 14:58:17', '2025-02-18 14:58:17'),
-(10, 1, 'Food & Lodging Services', 'food-lodging-services', '1', NULL, '2025-02-18 14:58:29', '2025-02-18 14:58:29'),
-(11, 1, 'General Construction', 'general-construction', '1', NULL, '2025-02-18 14:58:41', '2025-02-18 14:58:41'),
-(12, 1, 'Information Technology', 'information-technology', '1', NULL, '2025-02-18 14:58:52', '2025-02-18 14:58:52'),
-(13, 1, 'Land Clearing & Logging', 'land-clearing-logging', '1', NULL, '2025-02-18 14:59:02', '2025-02-18 14:59:02'),
-(14, 1, 'Material & Construction Supplies', 'material-construction-supplies', '1', NULL, '2025-02-18 14:59:11', '2025-02-18 14:59:11'),
-(15, 1, 'Non-Profit', 'non-profit', '1', NULL, '2025-02-18 14:59:21', '2025-02-18 14:59:21'),
-(16, 1, 'Professional Goods & Services', 'professional-goods-services', '1', NULL, '2025-02-18 14:59:31', '2025-02-18 14:59:31'),
-(17, 1, 'Real Estate Services', 'real-estate-services', '1', NULL, '2025-02-18 14:59:43', '2025-02-18 14:59:43'),
-(18, 1, 'Site Security', 'site-security', '1', NULL, '2025-02-18 14:59:52', '2025-02-18 14:59:52'),
-(19, 1, 'Trucking & Hauling', 'trucking-hauling', '1', NULL, '2025-02-18 15:00:04', '2025-02-18 15:00:04'),
-(20, 1, 'Waste & Recycling Services', 'waste-recycling-services', '1', NULL, '2025-02-18 15:00:14', '2025-02-18 15:00:14');
+INSERT INTO `categories` (`id`, `created_by`, `title`, `subtitle`, `slug`, `status`, `deleted_at`, `created_at`, `updated_at`, `discover_points`, `description`, `image`) VALUES
+(1, 1, 'Aerial Imaging', NULL, 'aerial-imaging', '1', '2025-11-20 21:01:06', '2025-02-18 14:55:48', '2025-11-20 16:01:06', NULL, NULL, NULL),
+(2, 1, 'Agricultural Materials Supply', NULL, 'agricultural-materials-supply', '1', '2025-11-20 21:01:10', '2025-02-18 14:56:39', '2025-11-20 16:01:10', NULL, NULL, NULL),
+(3, 1, 'Agriculture & Landscaping Services', NULL, 'agriculture-landscaping-services', '1', '2025-11-20 21:01:14', '2025-02-18 14:56:54', '2025-11-20 16:01:14', NULL, NULL, NULL),
+(4, 1, 'Electrical Contractors', NULL, 'electrical-contractors', '1', '2025-11-20 21:01:17', '2025-02-18 14:57:07', '2025-11-20 16:01:17', NULL, NULL, NULL),
+(5, 1, 'Energy Development', NULL, 'energy-development', '1', '2025-11-20 21:01:21', '2025-02-18 14:57:21', '2025-11-20 16:01:21', NULL, NULL, NULL),
+(6, 1, 'Engineering & Procurement & Construction', NULL, 'engineering-procurement-construction', '1', '2025-11-20 21:01:24', '2025-02-18 14:57:33', '2025-11-20 16:01:24', NULL, NULL, NULL),
+(7, 1, 'Environmental Services', NULL, 'environmental-services', '1', '2025-11-20 21:01:27', '2025-02-18 14:57:45', '2025-11-20 16:01:27', NULL, NULL, NULL),
+(8, 1, 'Equipment Rental & Maintenance', NULL, 'equipment-rental-maintenance', '1', '2025-11-20 21:01:31', '2025-02-18 14:57:59', '2025-11-20 16:01:31', NULL, NULL, NULL),
+(9, 1, 'Excavating & Civil Works', NULL, 'excavating-civil-works', '1', '2025-11-20 21:01:34', '2025-02-18 14:58:17', '2025-11-20 16:01:34', NULL, NULL, NULL),
+(10, 1, 'Food & Lodging Services', NULL, 'food-lodging-services', '1', '2025-11-20 21:01:38', '2025-02-18 14:58:29', '2025-11-20 16:01:38', NULL, NULL, NULL),
+(11, 1, 'Design & Creative', 'Graphic Designer, Animator, Illustrator', 'design-creative', '1', NULL, '2025-02-18 14:58:41', '2025-11-20 16:03:30', '\"[\\\"Graphic Designer\\\",\\\"Animator\\\",\\\"Illustrator\\\"]\"', '<p>Please share what a day in the life of your career choice is here. Be the first to help others while getting paid to share your own story. Start with a minute-long video which is free to viewers so your audience will get to know you and can relate to your choices. After your initial introduction video, start getting paid by doing additional videos sharing your day in the life of the career path you&rsquo;ve chosen. Once you feel comfortable uploading videos, you can then start to do instructional videos with the educational insights on the details of your own personal workday. Help others who are looking for guidance towards their own path so that their journey may begin. Imagine how good it will feel to leave your legacy behind while giving a spark to others who are desperate to just begin! Thank you for taking the first step!</p>', '20251120210330.png'),
+(12, 1, 'Business & Admin', 'Accountant, HR, Marketing Coordinator', 'business-admin', '1', NULL, '2025-02-18 14:58:52', '2025-11-20 16:08:42', '\"[\\\"Accountant\\\",\\\"HR\\\",\\\"Marketing Coordinator\\\"]\"', '<p>Please share what a day in the life of your career choice is here. Be the first to help others while getting paid to share your own story. Start with a minute-long video which is free to viewers so your audience will get to know you and can relate to your choices. After your initial introduction video, start getting paid by doing additional videos sharing your day in the life of the career path you&rsquo;ve chosen. Once you feel comfortable uploading videos, you can then start to do instructional videos with the educational insights on the details of your own personal workday. Help others who are looking for guidance towards their own path so that their journey may begin. Imagine how good it will feel to leave your legacy behind while giving a spark to others who are desperate to just begin! Thank you for taking the first step!</p>', '20251120210842.png'),
+(13, 1, 'Master Chef', 'Chef, Pastry Chef, Food Critic', 'master-chef', '1', NULL, '2025-02-18 14:59:02', '2025-11-20 16:11:58', '\"[\\\"Chef\\\",\\\"Pastry Chef\\\",\\\"Food Critic\\\"]\"', '<p>Please share what a day in the life of your career choice is here. Be the first to help others while getting paid to share your own story. Start with a minute-long video which is free to viewers so your audience will get to know you and can relate to your choices. After your initial introduction video, start getting paid by doing additional videos sharing your day in the life of the career path you&rsquo;ve chosen. Once you feel comfortable uploading videos, you can then start to do instructional videos with the educational insights on the details of your own personal workday. Help others who are looking for guidance towards their own path so that their journey may begin. Imagine how good it will feel to leave your legacy behind while giving a spark to others who are desperate to just begin! Thank you for taking the first step!</p>', '20251120211158.png'),
+(14, 1, 'Skilled Trades', 'Electrician, Plumber, Welder', 'skilled-trades', '1', NULL, '2025-02-18 14:59:11', '2025-11-20 16:13:17', '\"[\\\"Electrician\\\",\\\"Plumber\\\",\\\"Welder\\\"]\"', '<p>Please share what a day in the life of your career choice is here. Be the first to help others while getting paid to share your own story. Start with a minute-long video which is free to viewers so your audience will get to know you and can relate to your choices. After your initial introduction video, start getting paid by doing additional videos sharing your day in the life of the career path you&rsquo;ve chosen. Once you feel comfortable uploading videos, you can then start to do instructional videos with the educational insights on the details of your own personal workday. Help others who are looking for guidance towards their own path so that their journey may begin. Imagine how good it will feel to leave your legacy behind while giving a spark to others who are desperate to just begin! Thank you for taking the first step!</p>', '20251120211317.png'),
+(15, 1, 'Tech & IT', 'Web Developer, Data Analyst, UX Designer', 'tech-it', '1', NULL, '2025-02-18 14:59:21', '2025-11-20 16:15:33', '\"[\\\"Web Developer\\\",\\\"Data Analyst\\\",\\\"UX Designer\\\"]\"', '<p>Please share what a day in the life of your career choice is here. Be the first to help others while getting paid to share your own story. Start with a minute-long video which is free to viewers so your audience will get to know you and can relate to your choices. After your initial introduction video, start getting paid by doing additional videos sharing your day in the life of the career path you&rsquo;ve chosen. Once you feel comfortable uploading videos, you can then start to do instructional videos with the educational insights on the details of your own personal workday. Help others who are looking for guidance towards their own path so that their journey may begin. Imagine how good it will feel to leave your legacy behind while giving a spark to others who are desperate to just begin! Thank you for taking the first step!</p>', '20251120211533.png'),
+(16, 1, 'Healthcare', 'Nurse, Medical Assistant, Radiologist', 'healthcare', '1', NULL, '2025-02-18 14:59:31', '2025-11-20 16:17:59', '\"[\\\"Nurse\\\",\\\"Medical Assistant\\\",\\\"Radiologist\\\"]\"', '<p>Please share what a day in the life of your career choice is here. Be the first to help others while getting paid to share your own story. Start with a minute-long video which is free to viewers so your audience will get to know you and can relate to your choices. After your initial introduction video, start getting paid by doing additional videos sharing your day in the life of the career path you&rsquo;ve chosen. Once you feel comfortable uploading videos, you can then start to do instructional videos with the educational insights on the details of your own personal workday. Help others who are looking for guidance towards their own path so that their journey may begin. Imagine how good it will feel to leave your legacy behind while giving a spark to others who are desperate to just begin! Thank you for taking the first step!</p>', '20251120211759.png'),
+(17, 1, 'Real Estate Services', NULL, 'real-estate-services', '1', '2025-11-20 21:18:15', '2025-02-18 14:59:43', '2025-11-20 16:18:15', NULL, NULL, NULL),
+(18, 1, 'Site Security', NULL, 'site-security', '1', '2025-11-20 21:18:19', '2025-02-18 14:59:52', '2025-11-20 16:18:19', NULL, NULL, NULL),
+(19, 1, 'Trucking & Hauling', NULL, 'trucking-hauling', '1', '2025-11-20 21:20:29', '2025-02-18 15:00:04', '2025-11-20 16:20:29', NULL, NULL, NULL),
+(20, 1, 'Waste & Recycling Services', NULL, 'waste-recycling-services', '1', '2025-11-20 21:20:33', '2025-02-18 15:00:14', '2025-11-20 16:20:33', NULL, NULL, NULL),
+(23, 2, 'ARTISTIC', 'Actor, Painter, Musician, Interior Designer, Interior Decorator', 'artistic', '1', NULL, '2025-11-20 15:39:35', '2025-11-21 11:33:26', '\"[\\\"Actor\\\",\\\"Painter\\\",\\\"Musician\\\",\\\"Interior Designer\\\",\\\"Interior Decorator\\\"]\"', '<p>Please share what a day in the life of your career choice is here. Be the first to help others while getting paid to share your own story. Start with a minute-long video which is free to viewers so your audience will get to know you and can relate to your choices. After your initial introduction video, start getting paid by doing additional videos sharing your day in the life of the career path you&rsquo;ve chosen. Once you feel comfortable uploading videos, you can then start to do instructional videos with the educational insights on the details of your own personal workday. Help others who are looking for guidance towards their own path so that their journey may begin. Imagine how good it will feel to leave your legacy behind while giving a spark to others who are desperate to just begin! Thank you for taking the first step!</p>', '20251121163326.jpg'),
+(24, 2, 'INSTRUCTIONAL', 'Acting Teacher, Painting Instructor, Music Teacher', 'instructional', '1', NULL, '2025-11-20 15:58:33', '2025-11-21 11:34:37', '\"[\\\"Acting Teacher\\\",\\\"Painting Instructor\\\",\\\"Music Teacher\\\",\\\"Interior Design\\\",\\\"Decorator Instructor\\\",\\\"Trade Instructor\\\"]\"', '<p>Please share what a day in the life of your career choice is here. Be the first to help others while getting paid to share your own story. Start with a minute-long video which is free to viewers so your audience will get to know you and can relate to your choices. After your initial introduction video, start getting paid by doing additional videos sharing your day in the life of the career path you&rsquo;ve chosen. Once you feel comfortable uploading videos, you can then start to do instructional videos with the educational insights on the details of your own personal workday. Help others who are looking for guidance towards their own path so that their journey may begin. Imagine how good it will feel to leave your legacy behind while giving a spark to others who are desperate to just begin! Thank you for taking the first step!</p>', '20251121163341.jpg');
 
 -- --------------------------------------------------------
 
@@ -424,7 +430,10 @@ CREATE TABLE `contact_us` (
 INSERT INTO `contact_us` (`id`, `name`, `email`, `phone`, `address`, `message`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 'Test', 'rine@mailinator.com', '1231231231', NULL, 'testing', '1', '2025-09-29 17:23:55', '2025-09-29 12:08:48', '2025-09-29 12:23:55'),
 (2, 'Test', 'rine@mailinator.com', '1231231231', NULL, 'testing', '1', '2025-09-29 17:23:58', '2025-09-29 12:22:56', '2025-09-29 12:23:58'),
-(3, 'Test', 'rine@mailinator.com', '1231231231', NULL, 'asdasdas', '1', '2025-09-29 17:24:00', '2025-09-29 12:23:26', '2025-09-29 12:24:00');
+(3, 'Test', 'rine@mailinator.com', '1231231231', NULL, 'asdasdas', '1', '2025-09-29 17:24:00', '2025-09-29 12:23:26', '2025-09-29 12:24:00'),
+(4, 'Zelenia Long', 'wixe@mailinator.com', '+1 (545) 653-9265', NULL, 'Qui et ut accusamus', '1', NULL, '2025-11-21 11:19:52', '2025-11-21 11:19:52'),
+(5, 'Wynter Jordan', 'qerij@mailinator.com', '+1 (247) 728-3184', NULL, 'Esse autem explicab', '1', NULL, '2025-11-21 11:23:23', '2025-11-21 11:23:23'),
+(6, 'Iona Reeves', 'fyxyci@mailinator.com', '+1 (509) 509-8571', NULL, 'Optio maxime omnis', '1', NULL, '2025-11-21 11:31:54', '2025-11-21 11:31:54');
 
 -- --------------------------------------------------------
 
@@ -984,7 +993,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (187, '2024_01_01_000000_add_sample_banners', 120),
 (188, '2025_09_29_180503_create_video_questions_table', 121),
 (189, '2025_09_29_180531_create_video_question_options_table', 121),
-(190, '2025_09_29_180537_create_video_question_responses_table', 121);
+(190, '2025_09_29_180537_create_video_question_responses_table', 121),
+(191, '2025_01_15_000001_create_quiz_categories_table', 122),
+(192, '2025_01_15_000002_create_quiz_questions_table', 122),
+(194, '2025_01_15_000003_create_quiz_results_table', 123),
+(195, '2025_11_20_203125_add_subtitle_and_discover_points_to_categories_table', 123);
 
 -- --------------------------------------------------------
 
@@ -1024,12 +1037,20 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (2, 'App\\Models\\User', 11),
 (2, 'App\\Models\\User', 13),
 (2, 'App\\Models\\User', 15),
+(2, 'App\\Models\\User', 23),
 (3, 'App\\Models\\User', 4),
 (3, 'App\\Models\\User', 5),
 (3, 'App\\Models\\User', 6),
 (3, 'App\\Models\\User', 7),
 (3, 'App\\Models\\User', 12),
-(3, 'App\\Models\\User', 14);
+(3, 'App\\Models\\User', 14),
+(3, 'App\\Models\\User', 16),
+(3, 'App\\Models\\User', 17),
+(3, 'App\\Models\\User', 18),
+(3, 'App\\Models\\User', 19),
+(3, 'App\\Models\\User', 20),
+(3, 'App\\Models\\User', 21),
+(3, 'App\\Models\\User', 22);
 
 -- --------------------------------------------------------
 
@@ -1518,7 +1539,13 @@ INSERT INTO `payments` (`id`, `customer_id`, `package_id`, `order_number`, `tota
 (129, 106, 5, 51850, 0.00, 0.00, 0.00, 'completed', 1, '2025-08-07 13:40:26', '2025-08-07 13:40:26'),
 (130, 107, 2, 93179, 150.00, 150.00, 0.00, 'succeeded', 1, '2025-08-07 14:59:07', '2025-08-07 14:59:07'),
 (131, 13, 1, 34686, 0.00, 0.00, 0.00, 'completed', 1, '2025-08-22 11:27:35', '2025-08-22 11:27:35'),
-(132, 14, 1, 89362, 0.00, 0.00, 0.00, 'completed', 1, '2025-08-22 11:28:47', '2025-08-22 11:28:47');
+(132, 14, 1, 89362, 0.00, 0.00, 0.00, 'completed', 1, '2025-08-22 11:28:47', '2025-08-22 11:28:47'),
+(133, 18, 1, 30209, 0.00, 0.00, 0.00, 'completed', 1, '2025-11-20 12:37:08', '2025-11-20 12:37:08'),
+(134, 19, 1, 15964, 0.00, 0.00, 0.00, 'completed', 1, '2025-11-20 12:42:18', '2025-11-20 12:42:18'),
+(135, 20, 1, 41935, 0.00, 0.00, 0.00, 'completed', 1, '2025-11-20 12:44:50', '2025-11-20 12:44:50'),
+(136, 21, 1, 88917, 0.00, 0.00, 0.00, 'completed', 1, '2025-11-20 12:50:17', '2025-11-20 12:50:17'),
+(137, 22, 1, 34388, 0.00, 0.00, 0.00, 'completed', 1, '2025-11-20 12:53:29', '2025-11-20 12:53:29'),
+(138, 23, 1, 28258, 0.00, 0.00, 0.00, 'completed', 1, '2025-11-20 12:56:53', '2025-11-20 12:56:53');
 
 -- --------------------------------------------------------
 
@@ -2023,6 +2050,104 @@ INSERT INTO `project_categories` (`id`, `created_by`, `parent_id`, `title`, `slu
 (18, 1, '0', 'Site Security', 'site-security', NULL, NULL, '1', NULL, '2025-05-23 15:55:16', '2025-05-23 15:55:16'),
 (19, 1, '0', 'Trucking & Hauling', 'trucking-hauling', NULL, NULL, '1', NULL, '2025-05-23 15:55:28', '2025-05-23 15:55:28'),
 (20, 1, '0', 'Waste & Recycling Services', 'waste-recycling-services', NULL, NULL, '1', NULL, '2025-05-23 15:55:38', '2025-05-23 15:55:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_categories`
+--
+
+CREATE TABLE `quiz_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `quiz_categories`
+--
+
+INSERT INTO `quiz_categories` (`id`, `name`, `description`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 'General Knowledge', 'Test your general knowledge with questions about various topics including history, science, geography, and more.', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
+(2, 'Science & Technology', 'Explore questions about physics, chemistry, biology, computer science, and technological advancements.', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
+(3, 'History & Geography', 'Challenge yourself with questions about world history, historical events, countries, capitals, and geographical features.', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(4, 'Sports & Entertainment', 'Test your knowledge about sports, movies, music, celebrities, and entertainment industry.', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(5, 'General Knowledge', 'Test your general knowledge with questions about various topics including history, science, geography, and more.', 1, '2025-10-14 12:21:30', '2025-10-14 12:21:30'),
+(6, 'Science & Technology', 'Explore questions about physics, chemistry, biology, computer science, and technological advancements.', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(7, 'History & Geography', 'Challenge yourself with questions about world history, historical events, countries, capitals, and geographical features.', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(8, 'Sports & Entertainment', 'Test your knowledge about sports, movies, music, celebrities, and entertainment industry.', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_questions`
+--
+
+CREATE TABLE `quiz_questions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `question` text NOT NULL,
+  `option_a` text NOT NULL,
+  `option_b` text NOT NULL,
+  `option_c` text NOT NULL,
+  `option_d` text NOT NULL,
+  `correct_option` enum('A','B','C','D') NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `quiz_questions`
+--
+
+INSERT INTO `quiz_questions` (`id`, `category_id`, `question`, `option_a`, `option_b`, `option_c`, `option_d`, `correct_option`, `is_active`, `created_at`, `updated_at`) VALUES
+(1, 1, 'What is the capital of France?', 'London', 'Paris', 'Berlin', 'Madrid', 'B', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
+(2, 1, 'Which planet is known as the Red Planet?', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'B', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
+(3, 1, 'What is the largest mammal in the world?', 'African Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus', 'B', 1, '2025-10-14 12:21:13', '2025-10-14 12:21:13'),
+(4, 2, 'What is the chemical symbol for gold?', 'Go', 'Gd', 'Au', 'Ag', 'C', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(5, 2, 'Which programming language was created by Guido van Rossum?', 'Java', 'Python', 'C++', 'JavaScript', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(6, 2, 'What does CPU stand for?', 'Central Processing Unit', 'Computer Processing Unit', 'Central Program Unit', 'Computer Program Unit', 'A', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(7, 3, 'In which year did World War II end?', '1944', '1945', '1946', '1947', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(8, 3, 'Which country has the most natural lakes?', 'Russia', 'Canada', 'United States', 'Finland', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(9, 3, 'Who was the first person to walk on the moon?', 'Buzz Aldrin', 'Neil Armstrong', 'John Glenn', 'Alan Shepard', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(10, 4, 'Which country won the FIFA World Cup in 2018?', 'Germany', 'Brazil', 'France', 'Argentina', 'C', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(11, 4, 'Who directed the movie \"Inception\"?', 'Steven Spielberg', 'Christopher Nolan', 'Martin Scorsese', 'Quentin Tarantino', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(12, 4, 'Which band released the album \"Abbey Road\"?', 'The Rolling Stones', 'The Beatles', 'Led Zeppelin', 'Pink Floyd', 'B', 1, '2025-10-14 12:21:14', '2025-10-14 12:21:14'),
+(13, 5, 'What is the capital of France?', 'London', 'Paris', 'Berlin', 'Madrid', 'B', 1, '2025-10-14 12:21:30', '2025-10-14 12:21:30'),
+(14, 5, 'Which planet is known as the Red Planet?', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(15, 5, 'What is the largest mammal in the world?', 'African Elephant', 'Blue Whale', 'Giraffe', 'Hippopotamus', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(16, 6, 'What is the chemical symbol for gold?', 'Go', 'Gd', 'Au', 'Ag', 'C', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(17, 6, 'Which programming language was created by Guido van Rossum?', 'Java', 'Python', 'C++', 'JavaScript', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(18, 6, 'What does CPU stand for?', 'Central Processing Unit', 'Computer Processing Unit', 'Central Program Unit', 'Computer Program Unit', 'A', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(19, 7, 'In which year did World War II end?', '1944', '1945', '1946', '1947', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(20, 7, 'Which country has the most natural lakes?', 'Russia', 'Canada', 'United States', 'Finland', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(21, 7, 'Who was the first person to walk on the moon?', 'Buzz Aldrin', 'Neil Armstrong', 'John Glenn', 'Alan Shepard', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(22, 8, 'Which country won the FIFA World Cup in 2018?', 'Germany', 'Brazil', 'France', 'Argentina', 'C', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(23, 8, 'Who directed the movie \"Inception\"?', 'Steven Spielberg', 'Christopher Nolan', 'Martin Scorsese', 'Quentin Tarantino', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31'),
+(24, 8, 'Which band released the album \"Abbey Road\"?', 'The Rolling Stones', 'The Beatles', 'Led Zeppelin', 'Pink Floyd', 'B', 1, '2025-10-14 12:21:31', '2025-10-14 12:21:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz_results`
+--
+
+CREATE TABLE `quiz_results` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `user_email` varchar(255) DEFAULT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `total_questions` int(11) NOT NULL,
+  `correct_answers` int(11) NOT NULL,
+  `score_percentage` decimal(5,2) NOT NULL,
+  `completed_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -3563,7 +3688,9 @@ INSERT INTO `users` (`id`, `name`, `last_name`, `role`, `package_id`, `category_
 (12, 'Test', 'Test', 'Creator', 1, NULL, NULL, NULL, '1231231231', 'test1@test.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$BWrh7ZxWY5VaeU8BN.HVq.ZaS9LxO6SCkMJAo5Q/rxBWBoShQcrMW', NULL, NULL, NULL, '0', '2025-08-22 11:24:10', '2025-08-22 11:24:10'),
 (13, 'Test', 'Test', 'Viewer', 1, NULL, NULL, NULL, '1231231231', 'test2@test.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$FbzsWSi4k9L4nHGR1uSnoeTxgDyphXxdDhU70N2m.8/2ToU2YT7m2', '68a89a77ad7e0', NULL, NULL, '0', '2025-08-22 11:27:35', '2025-08-22 11:27:35'),
 (14, 'Test', 'Test', 'Creator', 1, NULL, NULL, NULL, '123456784', 'test3@test.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$pCkcUY2vNLGYm7Kn.IDroO3.koktQf9Y6aZfiSiAr4xbwOi/cs.Gy', '68a89abf3ec7f', NULL, NULL, '0', '2025-08-22 11:28:46', '2025-08-22 11:28:47'),
-(15, 'Raja', 'Ahsan', 'Viewer', 1, NULL, NULL, NULL, '123123123', 'production8430@gmail.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$7xGvr9pDWqNwTPD8kmDIW.F.SvlDjEcvgpx5ishqY6LhwVSvRNpxK', NULL, NULL, NULL, '0', '2025-08-22 11:33:12', '2025-08-22 11:33:12');
+(15, 'Raja', 'Ahsan', 'Viewer', 1, NULL, NULL, NULL, '123123123', 'production8430@gmail.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$7xGvr9pDWqNwTPD8kmDIW.F.SvlDjEcvgpx5ishqY6LhwVSvRNpxK', NULL, NULL, NULL, '0', '2025-08-22 11:33:12', '2025-08-22 11:33:12'),
+(22, 'Wynter Mejia', 'Marquez', 'Creator', 1, NULL, NULL, NULL, '+1 (323) 902-4671', 'herry@yopmail.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-11-20 12:53:49', '$2y$10$jAJZxPG.cIC7Y6BwnIn7U.CBseRfBYtbUHYzQdG4qRL7fr8ioZ6XC', NULL, NULL, NULL, '1', '2025-11-20 12:53:25', '2025-11-20 12:53:49'),
+(23, 'Fuller Howell', 'Collins', 'Viewer', 1, NULL, NULL, NULL, '+1 (757) 512-2931', 'herryview@yopmail.com', NULL, '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-11-20 12:57:28', '$2y$10$mAPKYXXDUIa5LqUIDjbow.RVXyIb0L6UllkH0FeU9nwIwmEK/0KfW', NULL, NULL, NULL, '1', '2025-11-20 12:56:49', '2025-11-20 12:57:28');
 
 -- --------------------------------------------------------
 
@@ -4099,6 +4226,28 @@ ALTER TABLE `project_categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `quiz_categories`
+--
+ALTER TABLE `quiz_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `quiz_categories_is_active_index` (`is_active`);
+
+--
+-- Indexes for table `quiz_questions`
+--
+ALTER TABLE `quiz_questions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `quiz_questions_category_id_is_active_index` (`category_id`,`is_active`);
+
+--
+-- Indexes for table `quiz_results`
+--
+ALTER TABLE `quiz_results`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `quiz_results_category_id_completed_at_index` (`category_id`,`completed_at`),
+  ADD KEY `quiz_results_user_email_index` (`user_email`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -4298,7 +4447,7 @@ ALTER TABLE `bids`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -4322,7 +4471,7 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT for table `contact_us`
 --
 ALTER TABLE `contact_us`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `coupons`
@@ -4406,7 +4555,7 @@ ALTER TABLE `member_directories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
 
 --
 -- AUTO_INCREMENT for table `news_letters`
@@ -4442,7 +4591,7 @@ ALTER TABLE `page_settings`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 
 --
 -- AUTO_INCREMENT for table `payment_details`
@@ -4479,6 +4628,24 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `project_categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `quiz_categories`
+--
+ALTER TABLE `quiz_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `quiz_questions`
+--
+ALTER TABLE `quiz_questions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `quiz_results`
+--
+ALTER TABLE `quiz_results`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -4538,7 +4705,7 @@ ALTER TABLE `testimonials`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `videos`
@@ -4638,6 +4805,18 @@ ALTER TABLE `orders`
 ALTER TABLE `payouts`
   ADD CONSTRAINT `payouts_creator_id_foreign` FOREIGN KEY (`creator_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `payouts_wallet_id_foreign` FOREIGN KEY (`wallet_id`) REFERENCES `wallets` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `quiz_questions`
+--
+ALTER TABLE `quiz_questions`
+  ADD CONSTRAINT `quiz_questions_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `quiz_categories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `quiz_results`
+--
+ALTER TABLE `quiz_results`
+  ADD CONSTRAINT `quiz_results_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `quiz_categories` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `role_has_permissions`

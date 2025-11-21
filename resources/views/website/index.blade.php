@@ -286,13 +286,20 @@
                 <img src="{{ asset('assets/website') }}/img/education-resources-3.png" alt="education-resources-1" class="img-fluid">
                 <h4>Paying for School</h4>
                 <ul>
-                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"><a href="{{ route('scholarships.index') }}"> Scholarships & Grants</a></li>  
+                  <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"><a href="https://usafundingapplications.org/v9/front-page-060325/" target="_blank"> Scholarships & Grants</a></li>  
                   <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> FAFSA Guide</li>
                   <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Help for Adult Learners</li>
                   <li><img src="{{ asset('assets/website') }}/img/check.svg" alt="check" class="img-fluid"> Financial Aid</li>
                  </ul>
                 <div class="education-resources-item-button">
                   <a href="#">Explore Financial Options.</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 mt-4">
+              <div class="education-resources-item">
+                <div class="education-resources-item-button text-center">
+                  <a href="https://www.fastweb.com/" target="_blank" class="mt-0">Explore a wide range of scholarships and grants designed to support students in achieving their academic goals.</a>
                 </div>
               </div>
             </div>
@@ -334,22 +341,44 @@
             <h2>Contact <span>Us</span></h2>
           </div>
           <div class="contact-us-form">
-            <form action="#" method="POST" enctype="multipart/form-data">
+            @if(session('success'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: 20px; padding: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px;">
+                <strong>Success!</strong> {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
+            @if($errors->any())
+              <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-bottom: 20px; padding: 15px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px;">
+                <strong>Error!</strong> Please correct the following errors:
+                <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                  @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            @endif
+            <form action="{{ route('contact.form.submit') }}" method="POST">
+              @csrf
               <div class="row">
                 <div class="col-lg-12">
-                  <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Name" value="{{ old('name') }}" required>
                 </div>
                 <div class="col-lg-12">
-                  <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                  <input type="email" name="email" id="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required>
                 </div>
                 <div class="col-lg-12">
-                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone" required>
+                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone" value="{{ old('phone') }}" required>
                 </div>
                 <div class="col-lg-12">
-                  <textarea name="message" id="message" class="form-control"  rows="6" placeholder="Message" required></textarea>
+                  <textarea name="message" id="message" class="form-control" rows="6" placeholder="Message" required>{{ old('message') }}</textarea>
                 </div>
                 <div class="col-lg-12">
-                  <button type="submit" class="btn">submit</button>
+                  <button type="submit" class="btn">Submit</button>
                 </div>
               </div>
             </form>

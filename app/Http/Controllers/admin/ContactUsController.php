@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ContactUs;
+use Illuminate\Support\Facades\Mail;
 
 class ContactUsController extends Controller
 {
@@ -67,6 +68,32 @@ class ContactUsController extends Controller
        /*  $model->address = $request->address; */
         $model->message = $request->message;
         $model->save();
+        
+        // Send email notification to admin
+        try {
+            $adminEmail = env('MAIL_FROM_ADDRESS', 'production8419@gmail.com');
+            
+            if (empty($adminEmail)) {
+                $adminEmail = config('mail.from.address', 'production8419@gmail.com');
+            }
+            
+            $details = [
+                'from' => 'contact-form',
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone ?? 'N/A',
+                'message' => $request->message,
+            ];
+
+            \Log::info('Sending contact form email to: ' . $adminEmail);
+            Mail::to($adminEmail)->send(new \App\Mail\Email($details));
+            \Log::info('Contact form email sent successfully');
+        } catch (\Exception $e) {
+            // Log error but don't fail the request
+            \Log::error('Contact form email error: ' . $e->getMessage());
+            \Log::error('Contact form email stack trace: ' . $e->getTraceAsString());
+        }
+        
         if ($request->ajax()) {
             return response()->json([
                 'success' => true,
@@ -74,7 +101,7 @@ class ContactUsController extends Controller
             ]);
         }
          
-        return redirect()->back()->with('message', 'Your message has been sent. Thank you!');
+        return redirect()->route('contact-us')->with('success', 'Thank you for contacting us! Your message has been sent successfully. We will get back to you soon.');
     }
 
     /**

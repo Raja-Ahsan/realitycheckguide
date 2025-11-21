@@ -28,6 +28,7 @@ use App\Models\Project;
 use App\Models\PaymentDetail; 
 use Illuminate\Support\Facades\Mail;
 use App\Models\Team;
+use App\Models\ContactUs;
 use App\Models\Event;
 use Spatie\Permission\Models\Role;
 
@@ -191,6 +192,44 @@ class WebController extends Controller
         $categories = Category::where('status', 1)->orderBy('title', 'ASC')->get();
         $banner = Banner::where('slug', 'categories')->where('status', 1)->first();
         return view('website.categories', compact('page_title', 'categories', 'banner'));
+    }
+    
+    public function submitContactForm(Request $request)
+    {
+        $validator = $request->validate([
+            'name' => 'required|max:100',
+            'email' => 'required|email|max:100',
+            'phone' => 'required|max:20',
+            'message' => 'required|max:1000',
+        ]);
+
+        // Save to database
+        $contact = new ContactUs();
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->message = $request->message;
+        $contact->save();
+
+        // Send email notification to admin
+        try {
+            $adminEmail = config('mail.from.address', 'admin@realitycheckguide.com');
+            
+            $details = [
+                'from' => 'contact-form',
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'message' => $request->message,
+            ];
+
+            Mail::to($adminEmail)->send(new \App\Mail\Email($details));
+        } catch (\Exception $e) {
+            // Log error but don't fail the request
+            \Log::error('Contact form email error: ' . $e->getMessage());
+        }
+
+        return redirect()->route('contact-us')->with('success', 'Thank you for contacting us! Your message has been sent successfully. We will get back to you soon.');
     }
     
     public function categoryDetail($slug)

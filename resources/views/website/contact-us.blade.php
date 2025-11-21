@@ -235,30 +235,54 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
+                @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: 20px; padding: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px;">
+                        <strong>Success!</strong> {{ session('success') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
                 @if(session('message'))
-                    <div class="alert alert-success">
-                        {{ session('message') }}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-bottom: 20px; padding: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px;">
+                        <strong>Success!</strong> {{ session('message') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                @endif
+                @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-bottom: 20px; padding: 15px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; border-radius: 5px;">
+                        <strong>Error!</strong> Please correct the following errors:
+                        <ul style="margin: 10px 0 0 0; padding-left: 20px;">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; right: 10px; top: 10px; background: none; border: none; font-size: 20px; cursor: pointer;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 @endif
                     <div class="contact-form">
-                        <form action="{{ route('contactus.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('contact-us.submit') }}" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-6">
                                     <input type="text" name="name" id="name" class="form-control"
-                                        placeholder="Your Name" required>
+                                        placeholder="Your Name" value="{{ old('name') }}" required>
                                 </div>
                                 <div class="col-lg-6">
                                     <input type="email" name="email" id="email" class="form-control"
-                                        placeholder="Your Email" required>
+                                        placeholder="Your Email" value="{{ old('email') }}" required>
                                 </div>
                                 <div class="col-lg-12">
                                     <input type="text" name="phone" id="phone" class="form-control"
-                                        placeholder="Phone number" required>
+                                        placeholder="Phone number" value="{{ old('phone') }}" required>
                                 </div>
                                 <div class="col-lg-12">
                                     <textarea name="message" id="message" class="form-control" rows="6"
-                                        placeholder="Your Message" required></textarea>
+                                        placeholder="Your Message" required>{{ old('message') }}</textarea>
                                 </div>
                                 <div class="col-lg-12 text-center">
                                     <button type="submit" class="btn btn-submit">Send Message</button>

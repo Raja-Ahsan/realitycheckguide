@@ -149,7 +149,8 @@
           <p>Not sure which career is right for you? Use our free tools and assessments to discover what matches your skills, passions, and goals. Whether you're just starting or ready to switch paths, these tools will guide your way.</p>
             <div class="discover-your-strengths-button">
               <!--<a href="#">Discover Careers</a>-->
-              <a href="{{ route('quiz.index') }}">Start a Quiz</a>
+              <!--<a href="{{ route('quiz.index') }}">Start a Quiz</a>-->
+              <a href="https://www.careerfitter.com/free_test/careerbuilder/test" target="_blank">Start a Quiz</a>
             </div>
             
         </div>

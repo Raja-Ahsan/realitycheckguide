@@ -25,7 +25,7 @@
               <li class="scroll-to-section"><a href="{{ route('contact-us') }}">Contact</a></li>
               <li class="scroll-to-section"><a href="{{ route('creators.index') }}">Creators</a></li>
               <!--<li class="scroll-to-section"><a href="{{ route('quiz.index') }}">Quiz</a></li>-->
-              <li class="scroll-to-section"><a href="https://www.careerfitter.com/free_test/careerbuilder/test" target="_blank">Quiz</a></li>
+              <li class="scroll-to-section"><a href="https://www.careerfitter.com/free_test/careerbuilder/test?afid=2802" target="_blank">Quiz</a></li>
               
               @if(Auth::check())
                 @if(Auth::user()->hasRole('Creator'))

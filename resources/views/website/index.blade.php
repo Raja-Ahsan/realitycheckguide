@@ -150,7 +150,7 @@
             <div class="discover-your-strengths-button">
               <!--<a href="#">Discover Careers</a>-->
               <!--<a href="{{ route('quiz.index') }}">Start a Quiz</a>-->
-              <a href="https://www.careerfitter.com/free_test/careerbuilder/test" target="_blank">Start a Quiz</a>
+              <a href="https://www.careerfitter.com/free_test/careerbuilder/test?afid=2802" target="_blank">Start a Quiz</a>
             </div>
             
         </div>

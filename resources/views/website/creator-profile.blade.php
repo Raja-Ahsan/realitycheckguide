@@ -114,9 +114,11 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="video-player-container">
-                                @if($creator->introVideo->video_path)
-                                    <video controls class="w-100" style="max-height: 400px;">
-                                        <source src="{{ asset('storage/app/public/' . $creator->introVideo->video_path) }}" type="video/mp4">
+                                @if($creator->introVideo->video_path && $creator->introVideo->video_url)
+                                    <video controls class="w-100" style="max-height: 400px;" preload="metadata" poster="{{ $creator->introVideo->thumbnail_url }}">
+                                        <source src="{{ $creator->introVideo->video_url }}" type="video/mp4">
+                                        <source src="{{ $creator->introVideo->video_url }}" type="video/webm">
+                                        <source src="{{ $creator->introVideo->video_url }}" type="video/ogg">
                                         Your browser does not support the video tag.
                                     </video>
                                 @else
@@ -181,10 +183,10 @@
                                 <!-- Video Thumbnail -->
                                 <div class="position-relative">
                                     @if($video->thumbnail_path)
-                                        <img src="{{ asset('storage/app/public/' . $video->thumbnail_path) }}" 
+                                        <img src="{{ $video->thumbnail_url }}" 
                                              alt="{{ $video->title }}" 
                                              class="card-img-top" 
-                                             style="height: 200px; object-fit: cover; width: 100%;">
+                                             style="height: 200px; object-fit: cover; width: 100%; display: block;">
                                     @else
                                         <div class="card-img-top bg-gradient-secondary d-flex align-items-center justify-content-center" 
                                              style="height: 200px; background: linear-gradient(135deg, #6c757d 0%, #495057 100%);">

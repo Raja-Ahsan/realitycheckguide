@@ -30,8 +30,26 @@
                             </h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('creator.videos.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('creator.videos.store') }}" method="POST" enctype="multipart/form-data" id="video-upload-form">
                                 @csrf
+                                
+                                <!-- Upload Progress Bar -->
+                                <div id="upload-progress-container" style="display: none;" class="mb-3">
+                                    <div class="card bg-light">
+                                        <div class="card-body">
+                                            <h6 class="card-title">
+                                                <i class="fas fa-upload"></i> Uploading Video...
+                                            </h6>
+                                            <div class="progress" style="height: 25px;">
+                                                <div id="upload-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" 
+                                                     role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                    <span id="upload-progress-text">0%</span>
+                                                </div>
+                                            </div>
+                                            <small id="upload-status-text" class="text-muted mt-2 d-block">Preparing upload...</small>
+                                        </div>
+                                    </div>
+                                </div>
                                 
                                 <div class="form-group">
                                     <label for="title">Video Title *</label>
@@ -94,7 +112,7 @@
                                                 <label class="custom-file-label" for="video_file">Choose video file</label>
                                             </div>
                                             <small class="form-text text-muted">
-                                                Supported formats: MP4, AVI, MOV, WMV, FLV, WebM (Max: 100MB)
+                                                Supported formats: MP4, AVI, MOV, WMV, FLV, WebM (Max: 200MB)
                                             </small>
                                             @error('video_file')
                                                 <span class="invalid-feedback">{{ $message }}</span>
@@ -261,7 +279,7 @@
                         </div>
                         <div class="card-body">
                             <ul class="list-unstyled">
-                                <li><i class="fas fa-check text-success"></i> Video max size: 100MB</li>
+                                <li><i class="fas fa-check text-success"></i> Video max size: 200MB</li>
                                 <li><i class="fas fa-check text-success"></i> Supported formats: MP4, AVI, MOV, WMV, FLV, WebM</li>
                                 <li><i class="fas fa-check text-success"></i> Thumbnail max size: 2MB</li>
                                 <li><i class="fas fa-check text-success"></i> Intro videos must be free</li>
@@ -436,57 +454,169 @@ $(document).ready(function() {
         $('#add-question-btn').prop('disabled', false).html('<i class="fas fa-plus"></i> Add Question');
     });
 
-    // Form submission validation
-    $('form').on('submit', function(e) {
-        console.log('Form submission started');
-        console.log('Question count:', questionCount);
-        console.log('Form data:', $(this).serialize());
+    // AJAX Form submission with progress bar
+    $('#video-upload-form').on('submit', function(e) {
+        e.preventDefault();
         
-        // Validate Q&A if questions exist - Temporarily disabled for debugging
-        // if (questionCount > 0) {
-        //     console.log('Validating Q&A questions...');
-        //     let isValid = true;
-        //     $('.question-item').each(function() {
-        //         const questionText = $(this).find('.question-text').val().trim();
-        //         const correctOption = $(this).find('input[name*="[correct_option]"]:checked').length;
-        //         const options = $(this).find('input[name*="[options]"]');
-        //         
-        //         console.log('Question validation:', {
-        //             questionText: questionText,
-        //             correctOption: correctOption,
-        //             optionsCount: options.length
-        //         });
-        //         
-        //         if (!questionText) {
-        //             isValid = false;
-        //             $(this).find('.question-text').addClass('is-invalid');
-        //         } else {
-        //             $(this).find('.question-text').removeClass('is-invalid');
-        //         }
-        //         
-        //         if (!correctOption) {
-        //             isValid = false;
-        //             alert('Please select a correct answer for Question ' + $(this).attr('data-question-index'));
-        //         }
-        //         
-        //         options.each(function() {
-        //             if (!$(this).val().trim()) {
-        //                 isValid = false;
-        //                 $(this).addClass('is-invalid');
-        //             } else {
-        //                 $(this).removeClass('is-invalid');
-        //             }
-        //         });
-        //     });
-        //     
-        //     if (!isValid) {
-        //         e.preventDefault();
-        //         alert('Please complete all question fields and select correct answers.');
-        //         return false;
-        //     }
-        // }
+        const form = $(this)[0];
+        const formData = new FormData(form);
+        const submitBtn = $('#submit-btn');
+        const progressContainer = $('#upload-progress-container');
+        const progressBar = $('#upload-progress-bar');
+        const progressText = $('#upload-progress-text');
+        const statusText = $('#upload-status-text');
         
-        console.log('Form validation passed, submitting...');
+        // Show progress bar
+        progressContainer.show();
+        submitBtn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Uploading...');
+        
+        // Create XMLHttpRequest for progress tracking
+        const xhr = new XMLHttpRequest();
+        
+        // Track upload progress
+        xhr.upload.addEventListener('progress', function(e) {
+            if (e.lengthComputable) {
+                const percentComplete = (e.loaded / e.total) * 100;
+                const percentRounded = Math.round(percentComplete);
+                
+                progressBar.css('width', percentComplete + '%')
+                          .attr('aria-valuenow', percentRounded);
+                progressText.text(percentRounded + '%');
+                
+                if (percentRounded < 50) {
+                    statusText.text('Uploading video file...');
+                } else if (percentRounded < 90) {
+                    statusText.text('Processing video...');
+                } else {
+                    statusText.text('Finalizing upload...');
+                }
+            }
+        }, false);
+        
+        // Handle completion
+        xhr.addEventListener('load', function() {
+            if (xhr.status === 200) {
+                progressBar.removeClass('progress-bar-striped progress-bar-animated')
+                          .addClass('bg-success');
+                progressText.text('100%');
+                statusText.html('<i class="fas fa-check-circle text-success"></i> Upload successful! Redirecting...');
+                
+                // Parse response
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.redirect) {
+                        setTimeout(function() {
+                            window.location.href = response.redirect;
+                        }, 1500);
+                    } else {
+                        window.location.reload();
+                    }
+                } catch (e) {
+                    // If response is HTML (error page), show it
+                    if (xhr.responseText.includes('<!DOCTYPE') || xhr.responseText.includes('<html')) {
+                        // Redirect to show error
+                        window.location.href = '{{ route("creator.videos.create") }}';
+                    } else {
+                        window.location.reload();
+                    }
+                }
+            } else {
+                // Handle error
+                progressBar.removeClass('bg-primary')
+                          .addClass('bg-danger');
+                progressText.text('Error');
+                statusText.html('<i class="fas fa-exclamation-triangle text-danger"></i> Upload failed. Please try again.');
+                submitBtn.prop('disabled', false).html('<i class="fas fa-upload"></i> Upload Video');
+                
+                // Show detailed error message
+                let errorMessage = '';
+                let errorDetails = [];
+                
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    console.log('Error response:', response);
+                    
+                    // Check for validation errors first
+                    if (response.errors) {
+                        // Handle Laravel validation errors
+                        Object.keys(response.errors).forEach(function(field) {
+                            if (Array.isArray(response.errors[field])) {
+                                response.errors[field].forEach(function(error) {
+                                    errorDetails.push(error);
+                                });
+                            } else {
+                                errorDetails.push(response.errors[field]);
+                            }
+                        });
+                        errorMessage = 'Validation Error:\n' + errorDetails.join('\n');
+                    } else if (response.message) {
+                        // Use the message from response
+                        errorMessage = response.message;
+                        
+                        // Add PHP limits info if available
+                        if (response.php_limits) {
+                            errorMessage += '\n\nCurrent PHP Limits:';
+                            errorMessage += '\n- upload_max_filesize: ' + response.php_limits.upload_max_filesize;
+                            errorMessage += '\n- post_max_size: ' + response.php_limits.post_max_size;
+                            errorMessage += '\n- Your file size: ' + response.php_limits.file_size_mb + 'MB';
+                        }
+                    } else {
+                        errorMessage = 'Upload failed. Please check your file and try again.';
+                    }
+                } catch (e) {
+                    console.error('Error parsing response:', e);
+                    console.log('Raw response:', xhr.responseText);
+                    
+                    // Check if response contains specific error messages
+                    const responseText = xhr.responseText.toLowerCase();
+                    if (responseText.includes('post content-length') || responseText.includes('post_max_size') || responseText.includes('too large')) {
+                        errorMessage = 'File size exceeds server limit. Maximum allowed size is 200MB. Please reduce file size or contact administrator to update php.ini file.';
+                    } else if (responseText.includes('upload_max_filesize')) {
+                        errorMessage = 'File size exceeds upload limit. Maximum allowed size is 200MB.';
+                    } else if (responseText.includes('413') || responseText.includes('request entity too large')) {
+                        errorMessage = 'File is too large. Maximum allowed size is 200MB.';
+                    } else if (responseText.includes('validation') || responseText.includes('required')) {
+                        errorMessage = 'Validation failed. Please check all required fields are filled correctly.';
+                    } else {
+                        errorMessage = 'Upload failed. Status: ' + xhr.status + '. Please check your file and try again.';
+                    }
+                }
+                
+                // Show error in alert
+                alert(errorMessage);
+                
+                // Also log to console for debugging
+                console.error('Upload failed:', {
+                    status: xhr.status,
+                    statusText: xhr.statusText,
+                    response: xhr.responseText
+                });
+            }
+        }, false);
+        
+        // Handle errors
+        xhr.addEventListener('error', function() {
+            progressBar.removeClass('bg-primary')
+                      .addClass('bg-danger');
+            progressText.text('Error');
+            statusText.html('<i class="fas fa-exclamation-triangle text-danger"></i> Network error. Please try again.');
+            submitBtn.prop('disabled', false).html('<i class="fas fa-upload"></i> Upload Video');
+            alert('Network error occurred. Please check your connection and try again.');
+        }, false);
+        
+        // Handle abort
+        xhr.addEventListener('abort', function() {
+            progressBar.removeClass('bg-primary')
+                      .addClass('bg-warning');
+            progressText.text('Cancelled');
+            statusText.html('<i class="fas fa-times text-warning"></i> Upload cancelled.');
+            submitBtn.prop('disabled', false).html('<i class="fas fa-upload"></i> Upload Video');
+        }, false);
+        
+        // Send request
+        xhr.open('POST', form.action);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        xhr.send(formData);
     });
 });
 </script>

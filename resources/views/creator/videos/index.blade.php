@@ -102,7 +102,7 @@
                             <!-- Video Thumbnail -->
                             <div class="position-relative">
                                 @if($video->thumbnail_path && !empty($video->thumbnail_path))
-                                    <img src="{{ asset('storage/app/public/' . $video->thumbnail_path) }}" 
+                                    <img src="{{ $video->thumbnail_url }}" 
                                          class="card-img-top" alt="{{ $video->title }}" 
                                          style="height: 200px; object-fit: cover; width: 100%;"
                                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">

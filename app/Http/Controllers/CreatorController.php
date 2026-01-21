@@ -14,9 +14,16 @@ class CreatorController extends Controller
      */
     public function index(Request $request)
     {   
-        // get Creator whare also statu is active
-        $query = User::role('Creator')->with(['videos', 'introVideo']);
+        // get Creator where also status is active
+        $query = User::role('Creator')->with(['videos' => function($q) {
+            $q->where('status', 'active');
+        }]);
         $query->where('status', 1);
+        
+        // Eager load intro video separately to ensure it loads correctly
+        $query->with(['introVideo' => function($q) {
+            $q->where('is_intro', true)->where('status', 'active');
+        }]);
 
         // Search by name, designation, or about_me
         if ($request->has('search') && $request->search) {

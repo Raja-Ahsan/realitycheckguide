@@ -143,13 +143,14 @@
                                             <i class="fa fa-play-circle"></i> Free Intro Video
                                         </h6>
                                         <div class="intro-video-thumbnail position-relative">
-                                            @if($creator->introVideo->thumbnail_path)
-                                                <img src="{{ asset('storage/app/public/' . $creator->introVideo->thumbnail_path) }}" 
+                                            @if($creator->introVideo && $creator->introVideo->thumbnail_path)
+                                                <img src="{{ $creator->introVideo->thumbnail_url }}" 
                                                      alt="{{ $creator->introVideo->title }}" 
-                                                     class="img-fluid rounded" style="height: 120px; object-fit: cover; width: 100%;">
+                                                     class="img-fluid rounded" 
+                                                     style="height: 120px; object-fit: cover; width: 100%; display: block;">
                                             @else
                                                 <div class="bg-secondary rounded d-flex align-items-center justify-content-center" 
-                                                     style="height: 120px;">
+                                                     style="height: 120px; width: 100%;">
                                                     <i class="fa fa-video fa-2x text-white"></i>
                                                 </div>
                                             @endif

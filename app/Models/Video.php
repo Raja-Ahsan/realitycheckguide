@@ -124,10 +124,15 @@ class Video extends Model
      */
     public function getVideoUrlAttribute()
     {
-        if (Storage::disk('public')->exists($this->video_path)) {
-            return Storage::disk('public')->url($this->video_path);
+        if (!$this->video_path) {
+            return null;
         }
-        return null;
+        
+        // Use asset() for better compatibility with different APP_URL configurations
+        // The storage link should make files in storage/app/public accessible via public/storage
+        $url = asset('storage/' . $this->video_path);
+        
+        return $url;
     }
 
     /**
@@ -135,10 +140,15 @@ class Video extends Model
      */
     public function getThumbnailUrlAttribute()
     {
-        if ($this->thumbnail_path && Storage::disk('public')->exists($this->thumbnail_path)) {
-            return Storage::disk('public')->url($this->thumbnail_path);
+        if (!$this->thumbnail_path) {
+            return asset('public/assets/website/img/default-video-thumbnail.jpg');
         }
-        return asset('public/assets/website/img/default-video-thumbnail.jpg');
+        
+        // Use asset() for better compatibility with different APP_URL configurations
+        // The storage link should make files in storage/app/public accessible via public/storage
+        $url = asset('storage/' . $this->thumbnail_path);
+        
+        return $url;
     }
 
     /**

@@ -28,15 +28,41 @@
                 <div class="col-lg-8">
                     <div class="video-player-container mb-4">
                         @if($video->video_path)
-                            <video controls class="w-100" style="max-height: 500px;">
-                                <source src="{{ asset('storage/app/public/' . $video->video_path) }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
+                            @php
+                                $videoUrl = $video->video_url;
+                                $videoExtension = pathinfo($video->video_path, PATHINFO_EXTENSION);
+                                $mimeType = 'video/mp4'; // Default
+                                if ($videoExtension == 'webm') {
+                                    $mimeType = 'video/webm';
+                                } elseif ($videoExtension == 'ogg' || $videoExtension == 'ogv') {
+                                    $mimeType = 'video/ogg';
+                                }
+                            @endphp
+                            @if($videoUrl)
+                                <video controls class="w-100" style="max-height: 500px;" preload="metadata" poster="{{ $video->thumbnail_url }}">
+                                    <source src="{{ $videoUrl }}" type="{{ $mimeType }}">
+                                    <source src="{{ $videoUrl }}" type="video/mp4">
+                                    <source src="{{ $videoUrl }}" type="video/webm">
+                                    <source src="{{ $videoUrl }}" type="video/ogg">
+                                    Your browser does not support the video tag.
+                                    <p>If you see this message, please try downloading the video or contact support.</p>
+                                </video>
+                            @else
+                                <div class="bg-warning d-flex align-items-center justify-content-center" style="height: 400px;">
+                                    <div class="text-center">
+                                        <i class="fa fa-exclamation-triangle fa-4x mb-3 text-warning"></i>
+                                        <h4>Video File Not Found</h4>
+                                        <p class="text-muted">The video file may have been moved or deleted. Please contact the creator.</p>
+                                        <p class="text-muted small">Path: {{ $video->video_path }}</p>
+                                    </div>
+                                </div>
+                            @endif
                         @else
                             <div class="bg-secondary d-flex align-items-center justify-content-center" style="height: 400px;">
                                 <div class="text-center text-white">
                                     <i class="fa fa-video fa-4x mb-3"></i>
                                     <h4>Video Not Available</h4>
+                                    <p>No video file has been uploaded for this video.</p>
                                 </div>
                             </div>
                         @endif
@@ -225,7 +251,7 @@
                                 <div class="row">
                                     <div class="col-4">
                                         @if($relatedVideo->thumbnail_path)
-                                            <img src="{{ asset('storage/app/public/' . $relatedVideo->thumbnail_path) }}" 
+                                            <img src="{{ $relatedVideo->thumbnail_url }}" 
                                                  alt="{{ $relatedVideo->title }}" 
                                                  class="img-fluid rounded" style="height: 80px; object-fit: cover;">
                                         @else

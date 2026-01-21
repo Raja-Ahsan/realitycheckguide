@@ -13,7 +13,7 @@
                 </div>
                 <div class="card-body">
                     @if($video->thumbnail_path)
-                        <img src="{{ asset('storage/app/public/' . $video->thumbnail_path) }}" alt="{{ $video->title }}" class="img-fluid mb-3">
+                        <img src="{{ $video->thumbnail_url }}" alt="{{ $video->title }}" class="img-fluid mb-3">
                     @endif
                     
                     <div class="video-info">

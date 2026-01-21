@@ -130,17 +130,64 @@ class VideoController extends Controller
     {
         // User must have Creator role (enforced by middleware)
 
+        // Check for file upload errors before validation
+        if (!$request->hasFile('video_file')) {
+            $error = 'No video file was uploaded.';
+            
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $error
+                ], 422);
+            }
+            
+            return redirect()->back()
+                ->withErrors(['video_file' => $error])
+                ->withInput();
+        }
+
+        // Check if file upload failed due to size
+        if ($request->file('video_file')->getError() === UPLOAD_ERR_INI_SIZE || 
+            $request->file('video_file')->getError() === UPLOAD_ERR_FORM_SIZE) {
+            $uploadMax = ini_get('upload_max_filesize');
+            $postMax = ini_get('post_max_size');
+            $fileSize = $request->file('video_file')->getSize();
+            $fileSizeMB = round($fileSize / 1024 / 1024, 2);
+            
+            $error = "File size ({$fileSizeMB}MB) exceeds server limit. ";
+            $error .= "Current PHP limits: upload_max_filesize = {$uploadMax}, post_max_size = {$postMax}. ";
+            $error .= "Please update php.ini file to increase these limits to at least 200M.";
+            
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $error,
+                    'php_limits' => [
+                        'upload_max_filesize' => $uploadMax,
+                        'post_max_size' => $postMax,
+                        'file_size_mb' => $fileSizeMB
+                    ]
+                ], 422);
+            }
+            
+            return redirect()->back()
+                ->withErrors(['video_file' => $error])
+                ->withInput();
+        }
+
         // Debug: Log all request data
         Log::info('Video store request data', [
             'all_data' => $request->all(),
             'questions_data' => $request->questions,
-            'questions_type' => gettype($request->questions ?? null)
+            'questions_type' => gettype($request->questions ?? null),
+            'file_size' => $request->file('video_file')->getSize(),
+            'file_error' => $request->file('video_file')->getError()
         ]);
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'video_file' => 'required|file|mimes:mp4,avi,mov,wmv,flv,webm|max:102400', // 100MB max
+            'video_file' => 'required|file|mimes:mp4,avi,mov,wmv,flv,webm|max:204800', // 200MB max
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|string',
@@ -160,6 +207,22 @@ class VideoController extends Controller
                 'errors' => $validator->errors()->toArray(),
                 'request_data' => $request->all()
             ]);
+            
+            // Check if request is AJAX
+            if ($request->ajax() || $request->wantsJson()) {
+                // Format errors for better display
+                $errorMessages = [];
+                foreach ($validator->errors()->all() as $error) {
+                    $errorMessages[] = $error;
+                }
+                
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed: ' . implode(', ', $errorMessages),
+                    'errors' => $validator->errors()->toArray()
+                ], 422);
+            }
+            
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
@@ -168,26 +231,42 @@ class VideoController extends Controller
         $user = Auth::user();
 
         // Check if this is an intro video
-        if ($request->boolean('is_intro')) {
+        $isIntro = $request->boolean('is_intro');
+        
+        if ($isIntro) {
             // Only allow one intro video per creator
             if ($user->videos()->where('is_intro', true)->exists()) {
+                $error = 'You already have an intro video. Only one intro video is allowed per creator.';
+                
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $error
+                    ], 422);
+                }
+                
                 return redirect()->back()
-                    ->withErrors(['is_intro' => 'You already have an intro video. Only one intro video is allowed per creator.'])
+                    ->withErrors(['is_intro' => $error])
                     ->withInput();
             }
 
-            // Intro videos must be free
-            if ($request->price > 0) {
-                return redirect()->back()
-                    ->withErrors(['price' => 'Intro videos must be free.'])
-                    ->withInput();
-            }
+            // Intro videos must be free - force price to 0
+            $request->merge(['price' => 0]);
         }
 
-        // Validate pricing based on creator's rules
-        if (!$this->validatePricing($user, $request->price)) {
+        // Validate pricing based on creator's rules (skip for intro videos since they're always free)
+        if (!$isIntro && !$this->validatePricing($user, $request->price)) {
+            $error = 'Price is outside the allowed range for your account.';
+            
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $error
+                ], 422);
+            }
+            
             return redirect()->back()
-                ->withErrors(['price' => 'Price is outside the allowed range for your account.'])
+                ->withErrors(['price' => $error])
                 ->withInput();
         }
 
@@ -207,8 +286,8 @@ class VideoController extends Controller
             'video_path' => $videoPath,
             'thumbnail_path' => $thumbnailPath,
             'duration' => $this->getVideoDuration($videoPath),
-            'is_intro' => $request->boolean('is_intro'),
-            'price' => $request->price,
+            'is_intro' => $isIntro,
+            'price' => $isIntro ? 0 : $request->price,
             'downloads_enabled' => $request->boolean('downloads_enabled', true),
             'creator_id' => $user->id,
             'category_id' => $request->category_id,
@@ -244,6 +323,15 @@ class VideoController extends Controller
             Log::info('No questions field found in request');
         }
 
+        // Check if request is AJAX
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Video uploaded successfully!',
+                'redirect' => route('videos.show', $video)
+            ]);
+        }
+        
         return redirect()->route('videos.show', $video)
             ->with('success', 'Video uploaded successfully!');
     }
@@ -312,14 +400,16 @@ class VideoController extends Controller
         // Debug: Log the request data
         Log::info('Video update request', [
             'video_id' => $video->id,
-            'request_data' => $request->all(),
+            'has_thumbnail_file' => $request->hasFile('thumbnail'),
+            'thumbnail_file_name' => $request->hasFile('thumbnail') ? $request->file('thumbnail')->getClientOriginalName() : 'N/A',
+            'request_all_keys' => array_keys($request->all()),
             'user_id' => Auth::user()->id
         ]);
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'video_file' => 'nullable|file|mimes:mp4,avi,mov,wmv,flv,webm|max:102400', // 100MB max
+            'video_file' => 'nullable|file|mimes:mp4,avi,mov,wmv,flv,webm|max:204800', // 200MB max
             'thumbnail' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|string',
@@ -394,14 +484,24 @@ class VideoController extends Controller
             }
             
             // Handle thumbnail upload
+            $thumbnailPath = $video->thumbnail_path; // Keep current path by default
             if ($request->hasFile('thumbnail')) {
+                Log::info('Thumbnail file detected in update request', [
+                    'file_name' => $request->file('thumbnail')->getClientOriginalName(),
+                    'file_size' => $request->file('thumbnail')->getSize(),
+                    'mime_type' => $request->file('thumbnail')->getMimeType(),
+                ]);
+                
                 // Delete old thumbnail
-                if ($video->thumbnail_path) {
+                if ($video->thumbnail_path && Storage::disk('public')->exists($video->thumbnail_path)) {
                     Storage::disk('public')->delete($video->thumbnail_path);
+                    Log::info('Old thumbnail deleted', ['path' => $video->thumbnail_path]);
                 }
+                
                 $thumbnailPath = $request->file('thumbnail')->store('video-thumbnails', 'public');
+                Log::info('New thumbnail stored', ['path' => $thumbnailPath]);
             } else {
-                $thumbnailPath = $video->thumbnail_path;
+                Log::info('No thumbnail file in update request, keeping existing thumbnail');
             }
 
             // Update video
@@ -421,6 +521,15 @@ class VideoController extends Controller
             Log::info('Updating video with data', $updateData);
             
             $video->update($updateData);
+            
+            // Refresh the model to ensure we have the latest data
+            $video->refresh();
+            
+            Log::info('Video updated successfully', [
+                'video_id' => $video->id,
+                'thumbnail_path' => $video->thumbnail_path,
+                'thumbnail_url' => $video->thumbnail_url,
+            ]);
 
             // Update Q&A questions if provided - TESTING MODE
             Log::info('Q&A Update Debug Info', [
@@ -492,7 +601,7 @@ class VideoController extends Controller
 
         $video->delete();
 
-        return redirect()->route('videos.index')
+        return redirect()->route('creator.videos.index')
             ->with('success', 'Video deleted successfully!');
     }
 

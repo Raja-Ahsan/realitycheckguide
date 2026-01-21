@@ -195,7 +195,7 @@
                                     @if($video->thumbnail_path)
                                         <div class="mt-2">
                                             <p><strong>Current Thumbnail:</strong></p>
-                                            <img src="{{ asset('storage/app/public/' . $video->thumbnail_path) }}" 
+                                            <img src="{{ $video->thumbnail_url }}" 
                                                  alt="Current thumbnail" class="img-thumbnail" style="max-width: 200px;">
                                         </div>
                                     @endif

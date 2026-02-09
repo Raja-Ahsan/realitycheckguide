@@ -88,6 +88,45 @@ class WebController extends Controller
         }
     }
 
+    public function resendVerificationForm()
+    {
+        $page_title = 'Resend Verification Email';
+        return view('auth.resend-verification', compact('page_title'));
+    }
+
+    public function resendVerification(Request $request)
+    {
+        $this->validate($request, ['email' => 'required|email']);
+
+        $user = User::where('email', $request->email)->where('status', 0)->first();
+        if (!$user) {
+            return redirect()->back()
+                ->with('error', 'No inactive account found with this email. If you already verified, try logging in.')
+                ->withInput($request->only('email'));
+        }
+
+        do {
+            $verify_token = uniqid();
+        } while (User::where('verify_token', $verify_token)->first());
+        $user->verify_token = $verify_token;
+        $user->save();
+
+        try {
+            $details = [
+                'from' => 'verify',
+                'title' => 'Verify your account - Reality Check Guide',
+                'body' => 'Click the link below to verify your email address.',
+                'verify_token' => $user->verify_token,
+            ];
+            Mail::to($user->email)->send(new \App\Mail\Email($details));
+        } catch (\Exception $e) {
+            Log::error('Resend verification email failed: ' . $e->getMessage());
+            return redirect()->route('login')->with('error', 'We could not send the verification email. Please try again later or contact support.');
+        }
+
+        return redirect()->route('login')->with('message', 'Verification email sent! Please check your inbox (and spam folder) and click the link to activate your account.');
+    }
+
     //Reset password
     public function forgotPassword()
     {
@@ -392,179 +431,107 @@ class WebController extends Controller
             'password' => 'required|string|min:8|same:password_confirmation',
             'phone' => 'required|string|max:20',
             'role' => 'required|in:Viewer,Creator',
-            'package_id' => 'required|exists:packages,id',     
+            'package_id' => 'required|exists:packages,id',
             'package_description' => 'required|string',
         ]);
 
-
-
-        // Add Stripe token validation when payment is required
         if ($request->amount > 0) {
-            Log::info('Payment required - amount > 0');
-            $this->validate($request, [
-                'stripeToken' => 'required',
-            ]);
-        } else {
-            Log::info('Free registration - amount = 0');
+            $this->validate($request, ['stripeToken' => 'required']);
         }
 
-        try {
-           
-            //Log::info('Starting user creation process');
-           
-
-            if ($request->amount > 0) {
-                Log::info('Processing payment for amount: ' . $request->amount);
-              
-                // Set your Stripe secret key
-                Stripe::setApiKey(config('services.stripe.secret'));
-                // Create a Stripe customer
+        $response = null;
+        if ($request->amount > 0) {
+            Stripe::setApiKey(config('services.stripe.secret'));
+            try {
                 $customer = Customer::create([
                     'email' => $request->email,
                     'source' => $request->stripeToken,
                 ]);
-                // Create a charge
                 $response = Charge::create([
                     'customer' => $customer->id,
                     'amount' => 100 * $request->amount,
                     'currency' => 'usd',
                     'description' => $request->package_description,
                 ]);
-              
-                if ($response->status === 'succeeded') {
-                    
-                    // Create the user
-                    $user = User::create([
-                        'name' => $request->name,
-                        'last_name' => $request->last_name,
-                        'email' => $request->email,
-                        'password' => Hash::make($request->password),
-                        'phone' => $request->phone,
-                        'role' => $request->role,
-                        'category_id' => isset($request->category_id) ? json_encode($request->category_id) : null,
-                        'expiry_date' => isset($request->expiry_date) ? date('Y-m-d', strtotime($request->expiry_date)) : null,
-                        'status' => 0, // Set as inactive until email is verified
-                        'package_id' => $request->package_id,
-                    ]);
-                    
-                    $user->assignRole($request->input('role'));
-                    $userId = $user->id;
-                   
-                    // Generate and save verification token
-                    do {
-                        $verify_token = uniqid();
-                    } while (User::where('verify_token', $verify_token)->first());
-                    $user->verify_token = $verify_token;
-                    $user->save();
-                    // Send verification email
-                    $details = [
-                        'from' => 'verify',
-                        'title' => "We have received your registration. Please verify your account.",
-                        'body' => "Click the link below to verify your email address.",
-                        'verify_token' => $user->verify_token,
-                    ];
-                    Mail::to($user->email)->send(new \App\Mail\Email($details));
-
-                    $order_number = rand(10000, 99999);
-                    $payment = Payment::create([
-                        'customer_id' => $userId,
-                        'order_number' => $order_number,
-                        'total_payment' => $request->amount,
-                        'paid' => $request->amount,
-                        'dues' => '0',
-                        'payment_status' => $response->status,
-                        'package_id' => $request->package_id,
-                    ]);
-
-                    if ($payment) {
-                        PaymentDetail::create([
-                            'order_number' => $order_number,
-                            'transaction_id' => $response->id,
-                            'transaction_status' => $response->status,
-                            'name_on_card' => $request->name_on_card,
-                            'expiration_month' => $response->source->exp_month,
-                            'expiration_year' => $response->source->exp_year,
-                            'transaction_date' => date('Y-m-d'),
-                        ]);
-                    }
-                    return redirect()->route('login')->with('message', 'Registration successful! Please check your email to verify your account.');
-                } else {
-                    return back()->withErrors(['error' => 'Payment was not successful. Please try again.'])->withInput();
-                }
-            } else {
-                
-                Log::info('Processing free registration - no payment required');
-                Log::info('About to create user with data:', $request->only(['name', 'email', 'role', 'package_id']));
-                // For the case where no payment is made (amount = 0 or free registration)
-                Log::info('Creating user with data:', [
-                    'name' => $request->name,
-                    'last_name' => $request->last_name,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'role' => $request->role,
-                    'package_id' => $request->package_id,
-                ]);
-                
-                
-                $user = User::create([
-                    'name' => $request->name,
-                    'last_name' => $request->last_name,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                    'phone' => $request->phone,
-                    'role' => $request->role,
-                    'category_id' => isset($request->category_id) ? json_encode($request->category_id) : null,
-                    'status' => 0, // Set as inactive until email is verified
-                    'package_id' => $request->package_id,
-                ]);
-                // Assign the selected role
-                $user->assignRole($request->input('role'));
-                $userId = $user->id;
-                
-                // Role-specific post-registration logic
-                $this->handleRoleSpecificRegistration($user, $request->input('role'));
-                
-                // Generate and save verification token
-                do {
-                     $verify_token = uniqid();
-                } while (User::where('verify_token', $verify_token)->first());
-                
-                $user->verify_token = $verify_token;
-                $user->save();
-                // Send verification email
-                $details = [
-                     'from' => 'verify',
-                     'title' => "We have received your registration. Please verify your account.",
-                     'body' => "Click the link below to verify your email address.",
-                     'verify_token' => $user->verify_token,
-                ];
-
-                Mail::to($user->email)->send(new \App\Mail\Email($details));
-
-                // Create payment record for free package
-                $order_number = rand(10000, 99999);
-                Payment::create([
-                     'customer_id' => $userId,
-                     'order_number' => $order_number,
-                     'total_payment' => 0,
-                     'paid' => 0,
-                     'dues' => '0',
-                     'payment_status' => 'completed',
-                     'package_id' => $request->package_id,
-                ]);
-
-                return redirect()->route('login')->with('message', 'Registration successful! Please check your email to verify your account.');
+            } catch (\Exception $e) {
+                Log::error('Stripe error: ' . $e->getMessage());
+                return back()->withErrors(['error' => 'Payment failed: ' . $e->getMessage()])->withInput();
             }
-        } catch (\Exception $e) {
-            Log::error('Registration ddderror: ' . $e->getMessage());
-            Log::error('Stack trace: ' . $e->getTraceAsString());
-            
-            if ($request->amount > 0) {
-                return back()->withErrors(['error' => 'An error occurred while processing your payment. Please try again.'])->withInput();
-            } else {
-                return back()->withErrors(['error' => 'An error occurred during registration. Please try again.'])->withInput();
+            if ($response->status !== 'succeeded') {
+                return back()->withErrors(['error' => 'Payment was not successful. Please try again.'])->withInput();
             }
         }
+
+        try {
+            do {
+                $verify_token = uniqid();
+            } while (User::where('verify_token', $verify_token)->first());
+
+            DB::beginTransaction();
+
+            $user = User::create([
+                'name' => $request->name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'phone' => $request->phone,
+                'category_id' => isset($request->category_id) ? json_encode($request->category_id) : null,
+                'expiry_date' => isset($request->expiry_date) ? date('Y-m-d', strtotime($request->expiry_date)) : null,
+                'status' => 0,
+                'package_id' => $request->package_id,
+                'verify_token' => $verify_token,
+            ]);
+            $user->assignRole($request->input('role'));
+            $this->handleRoleSpecificRegistration($user, $request->input('role'));
+
+            $order_number = rand(10000, 99999);
+            Payment::create([
+                'customer_id' => $user->id,
+                'order_number' => $order_number,
+                'total_payment' => $request->amount ?? 0,
+                'paid' => $request->amount ?? 0,
+                'dues' => '0',
+                'payment_status' => $response ? $response->status : 'completed',
+                'package_id' => $request->package_id,
+            ]);
+            if ($response && $response->status === 'succeeded') {
+                $source = is_object($response->source) ? $response->source : null;
+                PaymentDetail::create([
+                    'order_number' => $order_number,
+                    'transaction_id' => $response->id,
+                    'transaction_status' => $response->status,
+                    'name_on_card' => $request->name_on_card ?? null,
+                    'expiration_month' => $source->exp_month ?? null,
+                    'expiration_year' => $source->exp_year ?? null,
+                    'transaction_date' => date('Y-m-d'),
+                ]);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Registration error: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            if ($request->amount > 0) {
+                return back()->withErrors(['error' => 'An error occurred while processing your payment. Please try again.'])->withInput();
+            }
+            return back()->withErrors(['error' => 'An error occurred during registration. Please try again.'])->withInput();
+        }
+
+        try {
+            $details = [
+                'from' => 'verify',
+                'title' => 'We have received your registration. Please verify your account.',
+                'body' => 'Click the link below to verify your email address.',
+                'verify_token' => $user->verify_token,
+            ];
+            Mail::to($user->email)->send(new \App\Mail\Email($details));
+        } catch (\Exception $e) {
+            Log::error('Verification email failed: ' . $e->getMessage());
+            return redirect()->route('login')->with('warning', 'Account created successfully, but we could not send the verification email. Please use "Forgot Password" to set your password, or contact support for a verification link.');
+        }
+
+        return redirect()->route('login')->with('message', 'Registration successful! Please check your email to verify your account.');
     }
 
 

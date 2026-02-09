@@ -21,4 +21,12 @@ class Category extends Model
         return $this->hasOne(User::class, 'id', 'created_by');
     }
 
+    /**
+     * Videos in this category
+     */
+    public function videos()
+    {
+        return $this->hasMany(Video::class);
+    }
+
 }

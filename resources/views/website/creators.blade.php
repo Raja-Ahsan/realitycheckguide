@@ -28,6 +28,7 @@
             <div class="row mb-5 mt-5">
                 <div class="col-md-8">
                     <form action="{{ route('creators.index') }}" method="GET" class="search-form">
+                        <input type="hidden" name="category_id" value="{{ request('category_id') }}">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control form-control-lg" 
                                    placeholder="Search creators by name, skills, or content..." 
@@ -48,6 +49,19 @@
                     </div>
                 </div>
             </div>
+            @if(isset($videoCategories) && $videoCategories->isNotEmpty())
+            <div class="row mb-4">
+                <div class="col-12">
+                    <p class="mb-2 text-muted"><strong>Browse by video category:</strong> (creators who have videos in this category)</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="{{ route('creators.index', request()->only('search')) }}" class="btn btn-sm {{ !request('category_id') ? 'btn-primary' : 'btn-outline-primary' }}">All</a>
+                        @foreach($videoCategories as $cat)
+                        <a href="{{ route('creators.index', array_merge(request()->only('search'), ['category_id' => $cat->id])) }}" class="btn btn-sm {{ request('category_id') == $cat->id ? 'btn-primary' : 'btn-outline-primary' }}">{{ $cat->title }}</a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            @endif
 
             <!-- Creators Grid -->
             <div class="row" id="creators-container">

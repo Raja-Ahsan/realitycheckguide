@@ -45,12 +45,27 @@ class CreatorController extends Controller
             $query->where('is_featured', true);
         }
 
+        // Filter by category: only creators who have at least one video in this category
+        if ($request->has('category_id') && $request->category_id) {
+            $query->whereHas('videos', function ($q) use ($request) {
+                $q->where('status', 'active')->where('category_id', $request->category_id);
+            });
+        }
+
         $creators = $query->latest()->paginate(12);
+
+        // Only categories that have at least one active video (for clickable filter buttons)
+        $videoCategories = Category::where('status', '1')
+            ->whereHas('videos', function ($q) {
+                $q->where('status', 'active');
+            })
+            ->orderBy('title')
+            ->get();
 
         // Get banner for the page (using slug instead of page)
         $banner = \App\Models\Banner::where('slug', 'creators')->first();
 
-        return view('website.creators', compact('creators', 'banner'));
+        return view('website.creators', compact('creators', 'banner', 'videoCategories'));
     }
 
     /**

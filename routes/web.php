@@ -80,6 +80,8 @@ Route::get('sign-up', [WebController::class, 'SignUp'])->name('sign-up');
 Route::post('user/store', [WebController::class, 'storeUser'])->name('user.register.store');
 
 Route::get('email-verification/{token}', [WebController::class, 'verifyEmail'])->name('email-verification');
+Route::get('resend-verification', [WebController::class, 'resendVerificationForm'])->name('resend-verification');
+Route::post('resend-verification', [WebController::class, 'resendVerification'])->name('resend-verification.send');
 
 //admin reset password
 Route::get('admin/forgot_password', [AdminController::class, 'forgotPassword'])->name('admin.forgot_password');

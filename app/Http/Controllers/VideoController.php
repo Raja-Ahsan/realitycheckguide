@@ -62,7 +62,13 @@ class VideoController extends Controller
         }
 
         $videos = $query->latest()->paginate(12);
-        $categories = Category::where('status', '1')->get();
+        // Only show categories that have at least one active video
+        $categories = Category::where('status', '1')
+            ->whereHas('videos', function ($q) {
+                $q->where('status', 'active');
+            })
+            ->orderBy('title')
+            ->get();
 
         return view('videos.index', compact('videos', 'categories'));
     }

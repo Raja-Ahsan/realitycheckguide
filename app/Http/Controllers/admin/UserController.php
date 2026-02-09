@@ -324,7 +324,10 @@ class UserController extends Controller
                 return redirect()->back()->with('error', 'Failed to login, try again!');
             }
         } elseif (!empty($user) && $user->status == 0) {
-            return redirect()->back()->with('error', 'Your account is not active. Please verify your email.');
+            return redirect()->back()
+                ->with('error', 'Your account is not active. Please verify your email (check your inbox and spam folder).')
+                ->with('show_resend_verification', true)
+                ->withInput($request->only('email'));
         } else {
             return redirect()->back()->with('error', 'User not found!');
         }

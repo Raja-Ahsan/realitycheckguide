@@ -61,9 +61,15 @@
                         <h2 class="login-head text-uppercase hd-42 heading mb-20">LOGIN NOW</h2>
                         @if (Session::has('error'))
                             <p class="alert alert-danger" id="error-alert">{{ Session::get('error') }}</p>
+                            @if (Session::has('show_resend_verification'))
+                            <p class="small mb-2"><a href="{{ route('resend-verification') }}">Didn&apos;t receive the verification email? Click here to resend.</a></p>
+                            @endif
                         @endif
                         @if (Session::has('message'))
                             <p class="alert alert-success" id="success-alert">{{ Session::get('message') }}</p>
+                        @endif
+                        @if (Session::has('warning'))
+                            <p class="alert alert-warning" id="warning-alert">{{ Session::get('warning') }}</p>
                         @endif
                         <form method="POST" action="{{ route('user.authenticate') }}">
                             @csrf

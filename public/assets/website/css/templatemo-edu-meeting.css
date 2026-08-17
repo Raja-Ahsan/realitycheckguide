@@ -655,6 +655,77 @@ img.logo-img {
   background-color: #ffc430;
   border: 1px solid #ffc430;
   color: #000000;
+}
+.featured-video-slider {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+}
+.featured-video-slider .slick-list {
+  overflow: hidden;
+  border-radius: 15px;
+}
+.featured-video-slider .slick-track:before,
+.featured-video-slider .slick-track:after {
+  display: table;
+  content: '';
+}
+.featured-video-slider .slick-track:after {
+  clear: both;
+}
+.featured-video-slider .slick-slide {
+  display: none;
+  float: left;
+  height: auto;
+}
+.featured-video-slider.slick-initialized .slick-slide {
+  display: block;
+}
+.featured-video-slider .featured-video-item iframe,
+.featured-video-slider .featured-video-item video {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border: 0;
+  border-radius: 15px;
+  display: block;
+  background: #000;
+}
+.featured-video-slider .slick-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+}
+.featured-video-slider .slick-dots li {
+  margin: 0 6px;
+}
+.featured-video-slider .slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: #d8d8d8;
+  cursor: pointer;
+  outline: none;
+  transition: all .3s ease;
+}
+.featured-video-slider .slick-dots li.slick-active button {
+  width: 28px;
+  height: 10px;
+  border-radius: 20px;
+  background-color: #ffc430;
+}
+@media (max-width: 767px) {
+  .featured-video-slider .featured-video-item iframe,
+  .featured-video-slider .featured-video-item video {
+    height: 240px;
+  }
 } 
 /* browse career categories */
 .browse-career-categories {

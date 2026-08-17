@@ -227,16 +227,19 @@
           </div>
         </div>
         <div class="col-lg-12">
-          <div class="featured-video-item position-relative">
-            <!-- <video src="{{ asset('assets/website') }}/img/intro.mp4" autoplay muted loop class="img-fluid"></video> -->
-            <iframe width="100%" height="500" src="https://www.youtube.com/embed/sTHk9e0XLgI?si=Fk44zQvtFpuXeho8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <!-- <div class="featured-video-item-text position-absolute">
-              <h4>Planning Your Path: The <span>Power of Focus</span></h4>
-              <p>Watch how clarity and dedication can lay the groundwork for any career—whether it’s digital, trade-based, or creative. Sometimes the first step is just showing up and doing the work.</p>
-              <div class="featured-video-item-button">
-                <a href="#">view full video</a>
-              </div>
-            </div> -->
+          <div class="featured-video-slider">
+            <div class="featured-video-item position-relative">
+              <iframe width="100%" height="500" src="https://www.youtube.com/embed/sTHk9e0XLgI?si=Fk44zQvtFpuXeho8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="featured-video-item position-relative">
+              <video src="{{ asset('assets/website/videos') }}/{{ rawurlencode('Acupuncture (1).mp4') }}" controls playsinline preload="metadata"></video>
+            </div>
+            <div class="featured-video-item position-relative">
+              <video src="{{ asset('assets/website/videos') }}/{{ rawurlencode('RCG-Retail-Sales.mp4') }}" controls playsinline preload="metadata"></video>
+            </div>
+            <div class="featured-video-item position-relative">
+              <video src="{{ asset('assets/website/videos') }}/{{ rawurlencode('Retail Management.mp4') }}" controls playsinline preload="metadata"></video>
+            </div>
           </div>
         </div>
       </div>
@@ -444,5 +447,48 @@
   
 
 
- 
 @endsection
+
+@push('scripts')
+<script>
+  $(document).ready(function () {
+    var $slider = $('.featured-video-slider');
+    if (!$slider.length || typeof $.fn.slick === 'undefined') {
+      return;
+    }
+
+    function pauseAllVideos() {
+      $slider.find('video').each(function () {
+        this.pause();
+      });
+      $slider.find('iframe').each(function () {
+        this.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      });
+    }
+
+    $slider.slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      infinite: true,
+      autoplay: true,
+      autoplaySpeed: 2500,
+      speed: 600,
+      dots: true,
+      arrows: false,
+      pauseOnHover: true,
+      pauseOnFocus: true,
+      adaptiveHeight: false
+    });
+
+    $slider.on('beforeChange', function () {
+      pauseAllVideos();
+    });
+
+    $slider.find('video').on('play', function () {
+      $slider.slick('slickPause');
+    }).on('pause ended', function () {
+      $slider.slick('slickPlay');
+    });
+  });
+</script>
+@endpush

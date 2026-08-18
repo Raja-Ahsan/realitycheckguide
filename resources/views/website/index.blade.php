@@ -218,7 +218,7 @@
   </section>
   <!-- ***** Upload Your Story ***** -->  
    <!-- ***** Featured Video ***** -->
-  <!-- <section class="featured-video" id="featured-video">
+  <section class="featured-video" id="featured-video">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -240,30 +240,6 @@
             <div class="featured-video-item position-relative">
               <video src="{{ asset('assets/website/videos') }}/{{ rawurlencode('Retail Management.mp4') }}" controls playsinline preload="metadata"></video>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section> -->
-  <section class="featured-video" id="featured-video">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="section-heading">
-            <h2>Featured Video of the <span>Week</span></h2>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="featured-video-item position-relative">
-            <!-- <video src="{{ asset('assets/website') }}/img/intro.mp4" autoplay muted loop class="img-fluid"></video> -->
-            <iframe width="100%" height="500" src="https://www.youtube.com/embed/sTHk9e0XLgI?si=Fk44zQvtFpuXeho8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            <!-- <div class="featured-video-item-text position-absolute">
-              <h4>Planning Your Path: The <span>Power of Focus</span></h4>
-              <p>Watch how clarity and dedication can lay the groundwork for any career—whether it's digital, trade-based, or creative. Sometimes the first step is just showing up and doing the work.</p>
-              <div class="featured-video-item-button">
-                <a href="#">view full video</a>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>

@@ -467,7 +467,7 @@
     }
 
     $slider.slick({
-      slidesToShow: 1,
+      slidesToShow: 3,
       slidesToScroll: 1,
       infinite: true,
       autoplay: true,
@@ -477,7 +477,11 @@
       arrows: false,
       pauseOnHover: true,
       pauseOnFocus: true,
-      adaptiveHeight: false
+      adaptiveHeight: false,
+      responsive: [
+        { breakpoint: 992, settings: { slidesToShow: 2 } },
+        { breakpoint: 576, settings: { slidesToShow: 1 } }
+      ]
     });
 
     $slider.on('beforeChange', function () {

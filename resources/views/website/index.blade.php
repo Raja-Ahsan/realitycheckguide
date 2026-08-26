@@ -240,6 +240,9 @@
             <div class="featured-video-item position-relative">
               <video src="{{ asset('assets/website/videos') }}/{{ rawurlencode('Retail Management.mp4') }}" controls playsinline preload="metadata"></video>
             </div>
+            <div class="featured-video-item position-relative">
+              <video src="{{ asset('assets/website/videos') }}/{{ rawurlencode('featured-04.mp4') }}" controls playsinline preload="metadata"></video>
+            </div>
           </div>
         </div>
       </div>
